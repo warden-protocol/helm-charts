@@ -5,8 +5,7 @@ kind: Service
 metadata:
   name: {{ .Release.Name }}-{{ .Values.node.name }}-http
   labels:
-    app.kubernetes.io/name: {{ .Release.Name }}-{{ .Values.node.name}}
-    app.kubernetes.io/instance: {{ .Release.Name }}
+    {{- include "node.selectorLabels" . | nindent 4 }}
 spec:
   type: ClusterIP
   ports:
@@ -35,8 +34,7 @@ spec:
       protocol: TCP
     {{- end}}
   selector:
-    app.kubernetes.io/name: {{ .Release.Name }}-{{ .Values.node.name}}
-    app.kubernetes.io/instance: {{ .Release.Name }}
+    {{- include "node.selectorLabels" . | nindent 4 }}
 {{- end }}
 ---
 {{- if .Values.node.grpc.enabled }}
@@ -45,8 +43,7 @@ kind: Service
 metadata:
   name: {{ .Release.Name }}-{{ .Values.node.name }}-grpc
   labels:
-    app.kubernetes.io/name: {{ .Release.Name }}-{{ .Values.node.name}}
-    app.kubernetes.io/instance: {{ .Release.Name }}
+    {{- include "node.selectorLabels" . | nindent 4 }}
 spec:
   type: ClusterIP
   ports:
@@ -55,6 +52,5 @@ spec:
       targetPort: 9090
       protocol: TCP
   selector:
-    app.kubernetes.io/name: {{ .Release.Name }}-{{ .Values.node.name }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
+    {{- include "node.selectorLabels" . | nindent 4 }}
 {{- end }}
