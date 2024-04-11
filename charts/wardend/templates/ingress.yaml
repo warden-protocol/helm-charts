@@ -25,7 +25,7 @@ spec:
                 port:
                   number: 26657
             path: /
-            pathType: Prefix
+            pathType: {{ .Values.node.ingress.pathType }}
     {{- end}}
     {{- if .Values.node.p2p.enabled }}
     - host: p2p.{{ .Values.node.ingress.host }}
@@ -37,7 +37,7 @@ spec:
                 port:
                   number: 26656
             path: /
-            pathType: Prefix
+            pathType: {{ .Values.node.ingress.pathType }}
     {{- end}}
     {{- if .Values.node.api.enabled }}
     - host: api.{{ .Values.node.ingress.host }}
@@ -49,7 +49,7 @@ spec:
                 port:
                   number: 1317
             path: /
-            pathType: Prefix
+            pathType: {{ .Values.node.ingress.pathType }}
     {{- end}}
   tls:
   {{- if .Values.node.rpc.enabled }}

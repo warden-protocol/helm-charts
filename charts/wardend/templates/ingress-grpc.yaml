@@ -28,7 +28,7 @@ spec:
                 port:
                   number: 9090
             path: /
-            pathType: Prefix
+            pathType: {{ .Values.node.ingress.pathType }}
   tls:
   - hosts:
     - grpc.{{ .Values.node.ingress.host }}

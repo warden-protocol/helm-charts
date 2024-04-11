@@ -13,25 +13,25 @@ spec:
     {{- if .Values.node.rpc.enabled }}
     - name: rpc
       port: 26657
-      targetPort: rpc
+      targetPort: 26657
       protocol: TCP
     {{- end}}
     {{- if .Values.node.p2p.enabled }}
     - name: p2p
       port: 26656
-      targetPort: p2p
+      targetPort: 26656
       protocol: TCP
     {{- end}}
     {{- if .Values.node.api.enabled }}
     - name: api
       port: 1317
-      targetPort: api
+      targetPort: 1317
       protocol: TCP
     {{- end}}
     {{- if .Values.node.metrics.enabled }}
     - name: telemetry
       port: 26660
-      targetPort: telemetry
+      targetPort: 26660
       protocol: TCP
     {{- end}}
   selector:

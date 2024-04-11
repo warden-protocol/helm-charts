@@ -89,6 +89,7 @@ node:
     externalDNS: false
     class: ""
     host: ""
+    pathType: ImplementationSpecific
 
 nodeSelector: {}
 
