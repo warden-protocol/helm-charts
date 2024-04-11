@@ -44,6 +44,8 @@ metadata:
   name: {{ .Release.Name }}-{{ .Values.node.name }}-grpc
   labels:
     {{- include "node.selectorLabels" . | nindent 4 }}
+  annotations:
+    konghq.com/protocol: grpc
 spec:
   type: ClusterIP
   ports:
