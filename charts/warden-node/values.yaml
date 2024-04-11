@@ -1,0 +1,95 @@
+---
+# Default values for warden.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+image: wardentest
+imagePullPolicy: IfNotPresent
+imageTag: ""
+
+imagePullSecrets:
+  - name: awsregistry
+
+keyringBackend: "test"
+home: "/warden-data"
+debug: "false"
+
+podAnnotations: {}
+serviceAnnotations: {}
+
+podSecurityContext:
+  fsGroup: 65534
+  runAsUser: 65534
+  runAsGroup: 65534
+  runAsNonRoot: true
+
+syncMethod: "snapshot"
+
+snapshot:
+  url: https://github.com/warden-protocol/snapshots/raw/main/devnet.tar.gz
+
+scratch:
+  genesisSecret: ""
+  genesisUrl: ""
+
+moniker: mynode
+minGasPrice: 0uward
+
+node:
+  enabled: true
+  name: node
+  replicaCount: 1
+  nodeKey:
+    secretName: ""
+    mnemonicSecret: ""
+  rpc:
+    enabled: true
+  grpc:
+    enabled: false
+  p2p:
+    enabled: true
+    externalAddress: ""
+    addrBookStrict: false
+    pex: false
+    seedMode: false
+    persistentPeers: ""
+    privatePeerIds: ""
+  api:
+    enabled: true
+    swagger: false
+  statesync:
+    enabled: false
+    rpcServers: ""
+    trustHeight: 0
+    trustHash: ""
+    trustPeriod: "168h0m0s"
+  pruning:
+    mode: "default"
+    pruningKeepRecent: "0"
+    pruningInterval: "0"
+  metrics:
+    enabled: true
+  resources:
+    {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+  persistent:
+    size: 10Gi
+    class: ""
+  ingress:
+    enabled: false
+    class: kong
+    host: ""
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

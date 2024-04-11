@@ -1,0 +1,21 @@
+---
+{{- if .Values.node.metrics.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.node.name }}
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}-{{ .Values.node.name}}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    release: prom
+spec:
+  jobLabel: {{ .Release.Name }}-{{ .Values.node.name }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ .Release.Name }}-{{ .Values.node.name}}
+  endpoints:
+    - port: telemetry
+      path: /metrics
+      interval: 1m
+      scrapeTimeout: 30s
+{{- end}}
