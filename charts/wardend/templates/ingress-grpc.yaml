@@ -12,18 +12,18 @@ spec:
   ingressClassName: {{ .Values.node.ingress.class }}
   rules:
     - host: grpc.{{ .Values.node.ingress.host }}
-    http:
-      paths:
-      - backend:
-          service:
-            name: {{ .Release.Name }}-{{ .Values.node.name }}-grpc
-            port:
-              number: 9090
-        path: /
-        pathType: Prefix
+      http:
+        paths:
+          - backend:
+              service:
+                name: {{ .Release.Name }}-{{ .Values.node.name }}-grpc
+                port:
+                  number: 9090
+            path: /
+            pathType: Prefix
   tls:
-    - hosts:
-      - grpc.{{ .Values.node.ingress.host }}
-      secretName: {{ .Release.Name }}-{{ .Values.node.name }}-grpc-tls
+  - hosts:
+    - grpc.{{ .Values.node.ingress.host }}
+    secretName: {{ .Release.Name }}-{{ .Values.node.name }}-grpc-tls
 {{- end }}
 {{- end }}

@@ -84,9 +84,9 @@ node:
     size: 10Gi
     class: ""
   ingress:
-    enabled: true
+    enabled: false
     class: nginx
-    host: "test.kube"
+    host: ""
 
 nodeSelector: {}
 
