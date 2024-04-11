@@ -1,0 +1,59 @@
+{{- if .Values.node.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.node.name }}
+  labels:
+  {{- include "node.labels" . | nindent 4}}
+spec:
+  ingressClassName: {{ .Values.node.ingress.class }}
+  rules:
+    {{- if .Values.node.rpc.enabled }}
+    - host: rpc.{{ .Release.node.ingress.host }}
+    http:
+      paths:
+      - backend:
+          service:
+            name: {{ .Release.Name }}-{{ .Values.node.name }}-http
+            port:
+              number: 26657
+        path: /
+        pathType: Prefix
+    {{- end}}
+    {{- if .Values.node.p2p.enabled }}
+    - host: p2p.{{ .Release.node.ingress.host }}
+    http:
+      paths:
+      - backend:
+          service:
+            name: {{ .Release.Name }}-{{ .Values.node.name }}-http
+            port:
+              number: 26656
+        path: /
+        pathType: Prefix
+    {{- end}}
+    {{- if .Values.node.api.enabled }}
+    - host: api.{{ .Release.node.ingress.host }}
+    http:
+      paths:
+      - backend:
+          service:
+            name: {{ .Release.Name }}-{{ .Values.node.name }}-http
+            port:
+              number: 1317
+        path: /
+        pathType: Prefix
+    {{- end}}
+  tls:
+    - hosts:
+      {{- if .Values.node.rpc.enabled }}
+      - rpc.{{ .Values.node.ingress.host }}
+      secretName: {{ .Release.Name }}-{{ .Values.node.name }}-rpc-tls
+      {{- end }}
+      {{- if .Values.node.rpc.enabled }}
+      - p2p.{{ .Values.node.ingress.host }}
+      secretName: {{ .Release.Name }}-{{ .Values.node.name }}-p2p-tls
+      {{- end }}
+      - api.{{ .Values.node.ingress.host }}
+      secretName: {{ .Release.Name }}-{{ .Values.node.name }}-api-tls
+      {{- end }}

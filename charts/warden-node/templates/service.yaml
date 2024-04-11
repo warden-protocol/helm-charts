@@ -1,0 +1,60 @@
+---
+{{- if .Values.node.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.node.name }}-http
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}-{{ .Values.node.name}}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  type: ClusterIP
+  ports:
+    {{- if .Values.node.rpc.enabled }}
+    - name: rpc
+      port: 26657
+      targetPort: rpc
+      protocol: TCP
+    {{- end}}
+    {{- if .Values.node.p2p.enabled }}
+    - name: p2p
+      port: 26656
+      targetPort: p2p
+      protocol: TCP
+    {{- end}}
+    {{- if .Values.node.api.enabled }}
+    - name: api
+      port: 1317
+      targetPort: api
+      protocol: TCP
+    {{- end}}
+    {{- if .Values.node.metrics.enabled }}
+    - name: telemetry
+      port: 26660
+      targetPort: telemetry
+      protocol: TCP
+    {{- end}}
+  selector:
+    app.kubernetes.io/name: {{ .Release.Name }}-{{ .Values.node.name}}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+---
+{{- if .Values.node.grpc.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.node.name }}-grpc
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}-{{ .Values.node.name}}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  type: ClusterIP
+  ports:
+    - name: grpc
+      port: 9090
+      targetPort: 9090
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: {{ .Release.Name }}-{{ .Values.node.name }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
