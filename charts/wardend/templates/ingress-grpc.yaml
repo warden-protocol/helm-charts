@@ -11,7 +11,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.node.ingress.class }}
   rules:
-    - host: grpc.{{ .Release.node.ingress.host }}
+    - host: grpc.{{ .Values.node.ingress.host }}
     http:
       paths:
       - backend:
