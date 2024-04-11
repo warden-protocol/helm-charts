@@ -31,3 +31,24 @@ Selector labels
 app.kubernetes.io/name: {{ .Release.Name }}-node
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
+
+
+{{/*
+ExternalDNS Annotations
+*/}}
+{{- define "node.externalDNS" -}}
+{{- if .Values.node.ingress.externalDNS }}
+external-dns.alpha.kubernetes.io/hostname: "{{- if .Values.node.rpc.enabled }}rpc.{{ .Values.node.ingress.host }}{{- end }}{{- if .Values.node.p2p.enabled }},p2p.{{ .Values.node.ingress.host }}{{- end }}{{- if .Values.node.api.enabled }},api.{{ .Values.node.ingress.host }}{{- end }}"
+{{- end }}
+{{- end }}
+
+{{/*
+Ingress Annotations
+*/}}
+{{- define "node.ingressAnnotations" -}}
+{{- with .Values.node.ingress.annotations }}
+    {{- range $key, $value := . }}
+    {{ $key }}: {{ $value }}
+    {{- end }}
+  {{- end }}
+{{- end }}

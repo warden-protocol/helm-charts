@@ -5,6 +5,13 @@ metadata:
   name: {{ .Release.Name }}-{{ .Values.node.name }}
   labels:
   {{- include "node.labels" . | nindent 4}}
+  annotations: 
+  {{- include "node.externalDNS" . |nindent 4}}
+  {{- with .Values.node.ingress.annotations }}
+    {{- range $key, $value := . }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
+  {{- end }}
 spec:
   ingressClassName: {{ .Values.node.ingress.class }}
   rules:

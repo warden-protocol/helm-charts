@@ -8,6 +8,14 @@ metadata:
   {{- include "node.labels" . | nindent 4}}
   annotations:
     konghq.com/protocols: "grpcs"
+  {{- with .Values.node.ingress.annotations }}
+    {{- range $key, $value := . }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
+  {{- end }}
+    {{- if .Values.node.ingress.externalDNS }}
+    external-dns.alpha.kubernetes.io/hostname: "grpc.{{ .Values.node.ingress.host }}"
+    {{- end }}
 spec:
   ingressClassName: {{ .Values.node.ingress.class }}
   rules:

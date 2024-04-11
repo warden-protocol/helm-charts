@@ -85,7 +85,9 @@ node:
     class: ""
   ingress:
     enabled: false
-    class: nginx
+    annotations: {}
+    externalDNS: false
+    class: ""
     host: ""
 
 nodeSelector: {}
