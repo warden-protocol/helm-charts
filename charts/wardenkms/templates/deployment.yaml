@@ -31,8 +31,8 @@ spec:
         - name: {{ include "wardenkms.fullname" . }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}/{{ .Values.image.name | default (printf "%s" (include "wardenkms.fullname" .)) }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "{{ .Values.image }}:{{ .Values.imageTag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
           {{- if .Values.service.enabled }}
           ports:
            {{- range .Values.service.ports }}
