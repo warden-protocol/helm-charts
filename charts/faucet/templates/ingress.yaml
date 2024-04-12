@@ -1,0 +1,30 @@
+{{- if .Values.ingress.enabled }}
+{{- $fullName := include "faucet.fullname" . -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ $fullName }}
+  labels:
+  {{- include "faucet.labels" . | nindent 4}}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+  {{- toYaml . |nindent 4}}
+  {{- end }}
+spec:
+  ingressClassName: {{.Values.ingress.className | quote }}
+  rules:
+    - host: faucet.{ .Values.ingress.host }
+      http:
+        paths:
+          - backend:
+              service:
+                name: faucet
+                port:
+                  number: 8000
+            path: /
+            pathType: Prefix
+  tls:
+  - hosts:
+    - rpc.{{ .Values.ingress.host }}
+    secretName: {{ .Release.Name }}-faucet-tls
+{{- end }}
