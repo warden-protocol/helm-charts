@@ -34,6 +34,16 @@ entries:
   landing:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-04-12T14:34:22.405203776Z"
+    description: A Helm chart for Kubernetes
+    digest: c727faccbd0becb3153cdb4eba1f12916205726921be1a0292f2dc2856003a33
+    name: landing
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/landing-0.1.1/landing-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-04-12T14:32:11.438123842Z"
     description: A Helm chart for Kubernetes
     digest: 173f062f88c9d88897728650026c8cbed87a028babe772fcd79bfe4c110ef71b
@@ -175,4 +185,4 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/wardenkms-0.1.0/wardenkms-0.1.0.tgz
     version: 0.1.0
-generated: "2024-04-12T14:32:11.438159389Z"
+generated: "2024-04-12T14:34:22.405239903Z"
