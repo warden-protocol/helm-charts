@@ -31,6 +31,17 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/faucet-0.1.0/faucet-0.1.0.tgz
     version: 0.1.0
+  landing:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2024-04-12T14:32:11.438123842Z"
+    description: A Helm chart for Kubernetes
+    digest: 173f062f88c9d88897728650026c8cbed87a028babe772fcd79bfe4c110ef71b
+    name: landing
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/landing-0.1.0/landing-0.1.0.tgz
+    version: 0.1.0
   spaceward:
   - apiVersion: v2
     appVersion: latest
@@ -164,4 +175,4 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/wardenkms-0.1.0/wardenkms-0.1.0.tgz
     version: 0.1.0
-generated: "2024-04-12T13:28:57.185202678Z"
+generated: "2024-04-12T14:32:11.438159389Z"
