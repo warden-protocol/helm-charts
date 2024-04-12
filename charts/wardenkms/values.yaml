@@ -68,13 +68,5 @@ tolerations: []
 
 affinity: {}
 
-env:
-  - name: CHAIN_ID
-    value: wardenprotocol
-  - name: HTTP_ADDR
-    value: ":8080"
-  - name: GRPC_URL
-    value: "wardend:9090"
-envFrom:
-  - secretRef:
-      name: foobar
+env: []
+envFrom: []
