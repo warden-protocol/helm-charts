@@ -74,6 +74,16 @@ entries:
   wardenkms:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-04-12T10:54:33.566839556Z"
+    description: A Helm chart for Kubernetes
+    digest: aded08e364e6aeec804fa1a1e4c29d9c275205eed68dfdaece843d594ea318fd
+    name: wardenkms
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/wardenkms-0.1.2/wardenkms-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-04-12T10:40:22.827045806Z"
     description: A Helm chart for Kubernetes
     digest: e7c3d7854bd5cca152b85ebbb8d9facf811ec8c72db7a674fa6f786a1e9c80b1
@@ -92,4 +102,4 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/wardenkms-0.1.0/wardenkms-0.1.0.tgz
     version: 0.1.0
-generated: "2024-04-12T10:40:22.827067817Z"
+generated: "2024-04-12T10:54:33.566868721Z"
