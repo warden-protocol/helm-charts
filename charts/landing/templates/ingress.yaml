@@ -1,0 +1,30 @@
+{{- if .Values.ingress.enabled }}
+{{- $fullName := include "landing.fullname" . -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ $fullName }}
+  labels:
+  {{- include "landing.labels" . | nindent 4}}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+  {{- toYaml . |nindent 4}}
+  {{- end }}
+spec:
+  ingressClassName: {{.Values.ingress.className | quote }}
+  rules:
+    - host: {{ .Values.ingress.host }}
+      http:
+        paths:
+          - backend:
+              service:
+                name: {{ include "landing.fullname" . }}
+                port:
+                  number: 3000
+            path: /
+            pathType: Prefix
+  tls:
+  - hosts:
+    - rpc.{{ .Values.ingress.host }}
+    secretName: {{ .Release.Name }}-landing-tls
+{{- end }}
