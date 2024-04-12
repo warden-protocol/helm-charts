@@ -20,11 +20,11 @@ spec:
               service:
                 name: {{ include "spaceward.fullname" . }}
                 port:
-                  number: 8000
+                  number: 8080
             path: /
             pathType: Prefix
   tls:
   - hosts:
     - rpc.{{ .Values.ingress.host }}
-    secretName: {{ .Release.Name }}-faucet-tls
+    secretName: {{ .Release.Name }}-spaceward-tls
 {{- end }}
