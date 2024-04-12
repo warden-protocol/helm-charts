@@ -34,6 +34,16 @@ entries:
   landing:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-04-12T14:54:41.237095765Z"
+    description: A Helm chart for Kubernetes
+    digest: ebc66420d2ea2e52e27d614ed55e0647c492a710073c21b17fafc3293d78c32d
+    name: landing
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/landing-0.1.2/landing-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-04-12T14:34:22.405203776Z"
     description: A Helm chart for Kubernetes
     digest: c727faccbd0becb3153cdb4eba1f12916205726921be1a0292f2dc2856003a33
@@ -53,6 +63,16 @@ entries:
     - https://github.com/warden-protocol/helm-charts/releases/download/landing-0.1.0/landing-0.1.0.tgz
     version: 0.1.0
   spaceward:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2024-04-12T14:54:41.344298442Z"
+    description: A Helm chart for Kubernetes
+    digest: d18c51cfadba43a39e23b1aa5301fbe19e8748a296d318d5a5e1ef861c41e0db
+    name: spaceward
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/spaceward-0.1.2/spaceward-0.1.2.tgz
+    version: 0.1.2
   - apiVersion: v2
     appVersion: latest
     created: "2024-04-12T13:28:57.185163946Z"
@@ -185,4 +205,4 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/wardenkms-0.1.0/wardenkms-0.1.0.tgz
     version: 0.1.0
-generated: "2024-04-12T14:34:22.405239903Z"
+generated: "2024-04-12T14:54:41.344355128Z"
