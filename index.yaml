@@ -34,6 +34,16 @@ entries:
   spaceward:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-04-12T13:28:57.185163946Z"
+    description: A Helm chart for Kubernetes
+    digest: dda959781dd97a56563d3f1870b59af55b9a41a72137d9bfbf53f6d57ace0dc1
+    name: spaceward
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/spaceward-0.1.1/spaceward-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-04-12T13:13:09.325201842Z"
     description: A Helm chart for Kubernetes
     digest: 1ba4f6a10361c08abf363ba5616d1b939611efd6163b7aea4f65c1921e197c68
@@ -154,4 +164,4 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/wardenkms-0.1.0/wardenkms-0.1.0.tgz
     version: 0.1.0
-generated: "2024-04-12T13:13:09.325245885Z"
+generated: "2024-04-12T13:28:57.185202678Z"
