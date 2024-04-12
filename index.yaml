@@ -3,6 +3,16 @@ entries:
   faucet:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-04-12T12:08:14.380468815Z"
+    description: A Helm chart for Kubernetes
+    digest: 7f3dd583d183a49bc026b7d39393d1fe3a6ec376cbfde1ab8d6053029408045a
+    name: faucet
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/faucet-0.1.1/faucet-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-04-12T11:29:50.788072517Z"
     description: A Helm chart for Kubernetes
     digest: ba8138a39b36ad7677b30ceea04281568fda8660a7a90cbcfdff501470aef793
@@ -123,4 +133,4 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/wardenkms-0.1.0/wardenkms-0.1.0.tgz
     version: 0.1.0
-generated: "2024-04-12T11:29:50.886470752Z"
+generated: "2024-04-12T12:08:14.380495195Z"
