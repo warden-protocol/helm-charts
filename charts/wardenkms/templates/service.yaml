@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "wardenkms.fullname" . }}
+  labels:
+    {{- include "wardenkms.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+  {{- range .Values.service.ports }}
+    - name: {{ .name }}
+      port: {{ .port }}
+    {{- if .targetPort }}
+      targetPort: {{ .targetPort }}
+    {{- end }}
+    {{- if .protocol }}
+      protocol: {{ .protocol }}
+    {{- else }}
+      protocol: TCP
+    {{- end }}
+  {{- end }}
+  selector:
+    {{- include "wardenkms.selectorLabels" . | nindent 4 }}
