@@ -13,7 +13,7 @@ metadata:
 spec:
   ingressClassName: {{.Values.ingress.className | quote }}
   rules:
-    - host: faucet.{ .Values.ingress.host }
+    - host: faucet.{{ .Values.ingress.host }}
       http:
         paths:
           - backend:
