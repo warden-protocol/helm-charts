@@ -25,6 +25,6 @@ spec:
             pathType: Prefix
   tls:
   - hosts:
-    - rpc.{{ .Values.ingress.host }}
+    - spaceward.{{ .Values.ingress.host }}
     secretName: {{ .Release.Name }}-spaceward-tls
 {{- end }}
