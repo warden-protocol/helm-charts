@@ -1,23 +1,26 @@
 ---
+# Default values for web.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
 replicaCount: 1
 
-image: 730335603902.dkr.ecr.eu-west-1.amazonaws.com/wardenprotocol/production/faucet
-imageTag: 8f9258e
+image: 730335603902.dkr.ecr.eu-west-1.amazonaws.com/wardenprotocol/production/spaceward
+imageTag:
 imagePullPolicy: IfNotPresent
+
 imagePullSecrets:
   - name: awsregistry
-
 nameOverride: ""
-fullnameOverride: "faucet"
+fullnameOverride: ""
+autoscaling:
+  enabled: false
 podAnnotations: {}
+
 podSecurityContext:
   {}
   # fsGroup: 2000
-ingress:
-  enabled: false
-  className: "kong"
-  annotations: {}
-  host: ""
+
 securityContext:
   {}
   # capabilities:
@@ -32,7 +35,13 @@ service:
   enabled: true
   ports:
     - name: http
-      port: 8000
+      port: 8080
+
+ingress:
+  enabled: false
+  className: "kong"
+  annotations:
+  host: ""
 
 resources:
   {}
@@ -46,13 +55,6 @@ resources:
   # requests:
   #   cpu: 100m
   #   memory: 128Mi
-
-autoscaling:
-  enabled: false
-  minReplicas: 1
-  maxReplicas: 100
-  targetCPUUtilizationPercentage: 80
-  # targetMemoryUtilizationPercentage: 80
 
 nodeSelector: {}
 
