@@ -31,6 +31,7 @@ securityContext:
   # runAsUser: 1000
 
 service:
+  annotations: {}
   type: ClusterIP
   enabled: true
   ports:
