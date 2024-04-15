@@ -7,7 +7,9 @@ metadata:
   labels:
     app.kubernetes.io/name: {{ .Release.Name }}-{{ .Values.node.name}}
     app.kubernetes.io/instance: {{ .Release.Name }}
-    release: prom
+    {{- with .Values.serviceMonitor.extraLabels }}
+    {{- toYaml . |nindent 4 }} 
+    {{- end }}
 spec:
   jobLabel: {{ .Release.Name }}-{{ .Values.node.name }}
   selector:
