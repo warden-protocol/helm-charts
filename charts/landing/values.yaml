@@ -30,6 +30,7 @@ securityContext:
   # runAsUser: 1000
 
 service:
+  annotations: {}
   enabled: true
   type: ClusterIP
   port: 3000
