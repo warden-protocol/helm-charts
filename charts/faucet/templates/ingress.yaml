@@ -25,6 +25,6 @@ spec:
             pathType: Prefix
   tls:
   - hosts:
-    - rpc.{{ .Values.ingress.host }}
+    - faucet.{{ .Values.ingress.host }}
     secretName: {{ .Release.Name }}-faucet-tls
 {{- end }}
