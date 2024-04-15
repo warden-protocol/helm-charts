@@ -6,6 +6,10 @@ metadata:
   name: {{ .Release.Name }}-{{ .Values.node.name }}-http
   labels:
     {{- include "node.selectorLabels" . | nindent 4 }}
+  {{- with .Values.serviceAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   type: ClusterIP
   ports:
