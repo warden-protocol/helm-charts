@@ -52,7 +52,7 @@ spec:
           args: 
             - |
               #!/bin/bash
-              keys=${wardend keys list --keyring-backend test | grep validator}
+              keys=$(wardend keys list --keyring-backend test | grep validator)
               if [ -z "$keys" ]; then
                 cat /tmp/mnemonic/MNEMONIC | wardend keys add validator --recover --keyring-backend test
               else
