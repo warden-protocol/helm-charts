@@ -5,8 +5,7 @@ kind: ServiceMonitor
 metadata:
   name: {{ .Release.Name }}-{{ .Values.node.name }}
   labels:
-    app.kubernetes.io/name: {{ .Release.Name }}-{{ .Values.node.name}}
-    app.kubernetes.io/instance: {{ .Release.Name }}
+    {{- include "node.selectorLabels" . | nindent 4 }}
     {{- with .Values.serviceMonitor.extraLabels }}
     {{- toYaml . |nindent 4 }} 
     {{- end }}
@@ -14,7 +13,7 @@ spec:
   jobLabel: {{ .Release.Name }}-{{ .Values.node.name }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ .Release.Name }}-{{ .Values.node.name}}
+      {{- include "node.selectorLabels" . | nindent 6 }}
   endpoints:
     - port: telemetry
       path: /metrics
