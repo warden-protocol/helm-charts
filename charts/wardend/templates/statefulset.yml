@@ -48,12 +48,16 @@ spec:
         {{- if .Values.node.mnemonicSecretName }}
         - name: init-keys
           image: "{{ .Values.image }}:{{ .Values.imageTag | default .Chart.AppVersion }}"
-          command: ["/bin/sh"]
-          args:
-            [
-              "-c",
-              "cat /tmp/mnemonic/MNEMONIC | wardend keys add validator --recover --keyring-backend test",
-            ]
+          command: ["/bin/sh", "-c"]
+          args: 
+            - |
+              #!/bin/bash
+              keys=${wardend keys list --keyring-backend test | grep validator}
+              if [ -z "$keys" ]; then
+                cat /tmp/mnemonic/MNEMONIC | wardend keys add validator --recover --keyring-backend test
+              else
+                echo "Validator key already in place, not adding it"
+              fi
           volumeMounts:
             - name: {{ include "node.name" . }}-data
               mountPath: /root/.warden
