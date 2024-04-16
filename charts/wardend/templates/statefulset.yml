@@ -21,12 +21,14 @@ spec:
         labels:
             {{- include "node.selectorLabels" . | nindent 8 }}
     spec:
+      {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
 {{ toYaml .Values.imagePullSecrets | indent 8 }}
+      {{- end}}
       initContainers:
         - name: init
           image: "{{ .Values.image }}:{{ .Values.imageTag | default .Chart.AppVersion }}"
-          command: [ "/bin/ash" , "/scripts/init.sh" ]
+          command: [ "/bin/bash" , "/scripts/init.sh" ]
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           env:
             - name: SYNC_METHOD

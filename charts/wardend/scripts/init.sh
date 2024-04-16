@@ -1,13 +1,9 @@
-#!/usr/bin/env ash
+#!/usr/bin/env bash
 set -x
 
 #Install utils
-apk update 
-apk --no-cache add ca-certificates curl jq > /dev/null 2>&1
-
-# fail fast should there be a problem installing curl / jq packages
-type curl || exit 1
-type jq || exit 1
+apt update 
+apt install curl jq -y > /dev/null 2>&1
 
 #Check if Home data exists, if not create it.
 if [ ! -d "$WARDEND_HOME/data" ]; then

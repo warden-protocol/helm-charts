@@ -6,8 +6,7 @@ image: 730335603902.dkr.ecr.eu-west-1.amazonaws.com/wardenprotocol/production/wa
 imagePullPolicy: IfNotPresent
 imageTag: "20caac3"
 
-imagePullSecrets:
-  - name: awsregistry
+imagePullSecrets: []
 
 keyringBackend: "test"
 debug: "false"
