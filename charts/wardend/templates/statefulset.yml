@@ -31,23 +31,42 @@ spec:
           env:
             - name: SYNC_METHOD
               value: "{{.Values.syncMethod }}"
-            - name: HOME
-              value: "/warden-data"
-            - name: WARDEND_HOME
-              value: "/warden-data/.warden"
             - name: SNAPSHOT_URL
               value: "{{.Values.snapshot.url }}"
+            {{- if .Values.scratch.genesisUrl }}
+            - name: GENESIS_URL
+              value: "{{ .Values.scratch.genesisUrl }}"
+            {{- end}}
           volumeMounts:
             - name: scripts
               mountPath: /scripts
               readOnly: true
             - name: {{ include "node.name" . }}-data
-              mountPath: /warden-data
+              mountPath: /root/.warden
+        {{- if .Values.node.mnemonicSecretName }}
+        - name: init-keys
+          image: "{{ .Values.image }}:{{ .Values.imageTag | default .Chart.AppVersion }}"
+          command: ["/bin/sh"]
+          args:
+            [
+              "-c",
+              "cat /tmp/mnemonic/MNEMONIC | wardend keys add validator --recover --keyring-backend test",
+            ]
+          volumeMounts:
+            - name: {{ include "node.name" . }}-data
+              mountPath: /root/.warden
+            - name: {{ include "node.name" . }}-mnemonic
+              mountPath: /tmp/mnemonic
+        {{- end}}
       containers:
         - name: {{ include "node.name" . }}
           image: "{{ .Values.image }}:{{ .Values.imageTag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.imagePullPolicy }}
+          {{- if .Values.node.ready }}
           command: ["/usr/bin/wardend","start"]
+          {{- else}}
+          command: ["sleep","36000"]
+          {{- end}}
           ports:
             {{- if .Values.node.rpc.enabled }}
             - name: rpc
@@ -74,6 +93,7 @@ spec:
               containerPort: 26660
               protocol: TCP
             {{- end}}
+          {{- if .Values.node.ready }}
           livenessProbe:
             initialDelaySeconds: 10
             httpGet:
@@ -85,20 +105,31 @@ spec:
               path: /health
               port: rpc
           {{- end }}
-          env:
-            - name: HOME
-              value: "/warden-data"
-            - name: WARDEND_HOME
-              value: "/warden-data/.warden"
           volumeMounts:
             - name: {{ include "node.name" . }}-data
-              mountPath: /warden-data
+              mountPath: /root/.warden
             - name: config
-              mountPath: /warden-data/.warden/config/config.toml
+              mountPath: /root/.warden/config/config.toml
               subPath: config.toml
             - name: config
-              mountPath: /warden-data/.warden/config/app.toml
+              mountPath: /root/.warden/config/app.toml
               subPath: app.toml
+          {{- if .Values.node.nodeKeysSecretName }}
+            - name: {{ include "node.name" . }}-keys
+              mountPath: /root/.warden/config/node_key.json
+              subPath: node_key.json
+          {{- end}}
+          {{- if .Values.node.nodeKeysSecretName }}
+            - name: {{ include "node.name" . }}-keys
+              mountPath: /root/.warden/config/priv_validator_key.json
+              subPath: priv_validator_key.json
+          {{- end}}
+          {{- if .Values.node.genesisSecretName }}
+            - name: genesis
+              mountPath: /root/.warden/config/genesis.json
+              subPath: genesis.json
+          {{- end}}
+          {{- end}}
           resources:
             {{- toYaml .Values.node.resources | nindent 12 }}
       volumes:
@@ -111,3 +142,18 @@ spec:
       - name: {{ include "node.name" . }}-data
         persistentVolumeClaim:
           claimName: {{ .Release.Name }}-{{ .Values.node.name }}-pvc
+      {{- if .Values.node.nodeKeysSecretName }}
+      - name: {{ include "node.name" . }}-keys
+        secret:
+          secretName: {{.Values.node.nodeKeysSecretName}}
+      {{- end}}
+      {{- if .Values.node.mnemonicSecretName }}
+      - name: {{ include "node.name" . }}-mnemonic
+        secret:
+          secretName: {{.Values.node.mnemonicSecretName }}
+      {{- end}}
+      {{- if .Values.node.genesisSecretName }}
+      - name: genesis
+        secret:
+          secretName: {{ .Values.node.genesisSecretName }}
+      {{- end}}

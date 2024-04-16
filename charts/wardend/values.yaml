@@ -10,7 +10,6 @@ imagePullSecrets:
   - name: awsregistry
 
 keyringBackend: "test"
-home: "/warden-data"
 debug: "false"
 
 podAnnotations: {}
@@ -24,13 +23,13 @@ podSecurityContext:
   runAsGroup: 65534
   runAsNonRoot: true
 
-syncMethod: "snapshot"
+# scratch / snapshot
+syncMethod: "scratch"
 
 snapshot:
   url: https://github.com/warden-protocol/snapshots/raw/main/devnet.tar.gz
 
 scratch:
-  genesisSecret: ""
   genesisUrl: ""
 
 moniker: mynode
@@ -38,11 +37,12 @@ minGasPrice: 0uward
 
 node:
   enabled: true
+  ready: true
   name: node
+  mnemonicSecretName: ""
+  nodeKeysSecretName: ""
+  genesisSecretName: ""
   replicaCount: 1
-  nodeKey:
-    secretName: ""
-    mnemonicSecret: ""
   rpc:
     enabled: true
   grpc:
@@ -53,6 +53,7 @@ node:
     addrBookStrict: false
     pex: false
     seedMode: false
+    seeds: ""
     persistentPeers: ""
     privatePeerIds: ""
   api:

@@ -222,7 +222,7 @@ data:
     external_address = "{{ .Values.node.p2p.externalAddress }}"
 
     # Comma separated list of seed nodes to connect to
-    seeds = ""
+    seeds = "{{.Values.node.p2p.seeds}}"
 
     # Comma separated list of nodes to keep persistent connections to
     persistent_peers = "{{ .Values.node.p2p.persistentPeers }}"
