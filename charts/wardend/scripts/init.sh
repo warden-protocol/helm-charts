@@ -6,7 +6,7 @@ apt update
 apt install curl jq -y > /dev/null 2>&1
 
 #Check if Home data exists, if not create it.
-if [ ! -d "$WARDEND_HOME/data" ]; then
+if [ ! -d "$WARDEND_HOME/data" ] || [ ! -d "$WARDEND_HOME/config" ]; then
   if [[ "$SYNC_METHOD" == "scratch" ]]; then
     /usr/bin/wardend init --chain-id "$WARDEND_CHAIN_ID" "$WARDEND_MONIKER"
     if [[ ! -z $WARDEN_GENESIS_RPC ]]; then
@@ -17,5 +17,5 @@ if [ ! -d "$WARDEND_HOME/data" ]; then
         curl -L $SNAPSHOT_URL | tar -xzvf - -C $WARDEND_HOME
   fi
 else
-  echo "Found Warden data folder!"
+  echo "Found Warden data/config folder!"
 fi
