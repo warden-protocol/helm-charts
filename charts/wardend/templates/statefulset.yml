@@ -7,6 +7,17 @@ metadata:
   labels:
     {{- include "node.labels" . | nindent 4 }}
 spec:
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ include "node.name" . }}-data
+      spec:
+        accessModes: [ReadWriteOnce]
+        {{- with .Values.node.persistent.class }}
+        storageClassName: "{{ . }}"
+        {{- end}}
+        resources:
+          requests:
+            storage: {{.Values.node.persistent.size}}
   replicas: {{ .Values.node.replicaCount }}
   selector:
     matchLabels:
@@ -145,9 +156,6 @@ spec:
       - name: config
         configMap:
           name: {{ .Release.Name }}-{{ .Values.node.name }}-config
-      - name: {{ include "node.name" . }}-data
-        persistentVolumeClaim:
-          claimName: {{ .Release.Name }}-{{ .Values.node.name }}-pvc
       {{- if .Values.node.nodeKeysSecretName }}
       - name: {{ include "node.name" . }}-keys
         secret:
