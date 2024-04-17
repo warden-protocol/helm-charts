@@ -52,3 +52,14 @@ Ingress Annotations
     {{- end }}
   {{- end }}
 {{- end }}
+
+{{/*
+Service Annotations
+*/}}
+{{- define "node.serviceAnnotations" -}}
+{{ .Values.serviceAnnotations |toYaml}}
+{{- if .Values.node.p2p.seedMode }}
+service.beta.kubernetes.io/aws-load-balancer-type: "nlb-ip"
+service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+{{- end}}
+{{- end }}

@@ -6,18 +6,22 @@ metadata:
   name: {{ .Release.Name }}-{{ .Values.node.name }}-http
   labels:
     {{- include "node.selectorLabels" . | nindent 4 }}
-  {{- with .Values.serviceAnnotations }}
   annotations:
-    {{- toYaml . | nindent 4 }}
-  {{- end }}
+    {{- include "node.serviceAnnotations" . |nindent 4}}
 spec:
+  {{- if .Values.node.p2p.seedMode }}
+  type: LoadBalancer
+  {{- else }}
   type: ClusterIP
+  {{- end}}
   ports:
     {{- if .Values.node.rpc.enabled }}
+    {{- if not .Values.node.p2p.seedMode }}
     - name: rpc
       port: 26657
       targetPort: 26657
       protocol: TCP
+    {{- end}}
     {{- end}}
     {{- if .Values.node.p2p.enabled }}
     - name: p2p
@@ -26,10 +30,12 @@ spec:
       protocol: TCP
     {{- end}}
     {{- if .Values.node.api.enabled }}
+    {{- if not .Values.node.p2p.seedMode }}
     - name: api
       port: 1317
       targetPort: 1317
       protocol: TCP
+    {{- end}}
     {{- end}}
     {{- if .Values.node.metrics.enabled }}
     - name: telemetry
