@@ -2,9 +2,9 @@
 # Default values for warden.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-image: 730335603902.dkr.ecr.eu-west-1.amazonaws.com/wardenprotocol/production/wardend
+image: ghcr.io/warden-protocol/wardenprotocol/wardend
 imagePullPolicy: IfNotPresent
-imageTag: "20caac3"
+imageTag: "v0.3.0-rc1"
 
 imagePullSecrets: []
 
