@@ -1,0 +1,17 @@
+{{- if .Values.service.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "webhooks.fullname" . }}
+  labels:
+    {{- include "webhooks.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targetport | default .Values.service.port }}
+      protocol: TCP
+      name: {{ .Values.service.port }}-{{ .Values.service.targetport | default .Values.service.port }}
+  selector:
+    {{- include "webhooks.selectorLabels" . | nindent 4 }}
+{{- end }}
