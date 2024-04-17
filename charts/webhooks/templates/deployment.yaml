@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "deploy.fullname" . }}
+  name: {{ include "webhooks.fullname" . }}
   labels:
-    {{- include "deploy.labels" . | nindent 4 }}
+    {{- include "webhooks.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "deploy.selectorLabels" . | nindent 6 }}
+      {{- include "webhooks.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,7 +18,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "deploy.selectorLabels" . | nindent 8 }}
+        {{- include "webhooks.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -27,10 +27,10 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ include "deploy.fullname" . }}
+        - name: {{ include "webhooks.fullname" . }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}/{{ .Values.image.name | default (printf "%s" (include "deploy.fullname" .)) }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.image.repository }}/{{ .Values.image.name | default (printf "%s" (include "webhooks.fullname" .)) }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           {{- if .Values.service.enabled }}
           ports:

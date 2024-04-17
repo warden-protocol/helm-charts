@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "deploy.name" -}}
+{{- define "message-handler.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "deploy.fullname" -}}
+{{- define "message-handler.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "deploy.chart" -}}
+{{- define "message-handler.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "deploy.labels" -}}
-helm.sh/chart: {{ include "deploy.chart" . }}
-{{ include "deploy.selectorLabels" . }}
+{{- define "message-handler.labels" -}}
+helm.sh/chart: {{ include "message-handler.chart" . }}
+{{ include "message-handler.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,7 +45,7 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "deploy.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "deploy.name" . }}
+{{- define "message-handler.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "message-handler.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
