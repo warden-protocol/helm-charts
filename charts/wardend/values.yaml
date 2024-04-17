@@ -48,6 +48,8 @@ node:
     enabled: false
   p2p:
     enabled: true
+    external: false
+    serviceAnnotations: {}
     externalAddress: ""
     addrBookStrict: false
     pex: false

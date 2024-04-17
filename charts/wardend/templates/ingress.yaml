@@ -15,18 +15,6 @@ metadata:
 spec:
   ingressClassName: {{ .Values.node.ingress.class }}
   rules:
-    {{- if .Values.node.p2p.seedMode }}
-    - host: seed.{{ .Values.node.ingress.host }}
-      http:
-        paths:
-          - backend:
-              service:
-                name: {{ .Release.Name }}-{{ .Values.node.name }}-http
-                port:
-                  number: 26656
-            path: /
-            pathType: {{ .Values.node.ingress.pathType }}
-    {{- else }}
     {{- if .Values.node.rpc.enabled }}
     - host: rpc.{{ .Values.node.ingress.host }}
       http:
@@ -36,18 +24,6 @@ spec:
                 name: {{ .Release.Name }}-{{ .Values.node.name }}-http
                 port:
                   number: 26657
-            path: /
-            pathType: {{ .Values.node.ingress.pathType }}
-    {{- end}}
-    {{- if .Values.node.p2p.enabled }}
-    - host: p2p.{{ .Values.node.ingress.host }}
-      http:
-        paths:
-          - backend:
-              service:
-                name: {{ .Release.Name }}-{{ .Values.node.name }}-http
-                port:
-                  number: 26656
             path: /
             pathType: {{ .Values.node.ingress.pathType }}
     {{- end}}
@@ -63,27 +39,15 @@ spec:
             path: /
             pathType: {{ .Values.node.ingress.pathType }}
     {{- end}}
-    {{- end}}
   tls:
-  {{- if .Values.node.p2p.seedMode }}
-  - hosts:
-    - seed.{{ .Values.node.ingress.host }}
-    secretName: {{ .Release.Name }}-{{ .Values.node.name }}-seed-tls
-  {{- else }}
   {{- if .Values.node.rpc.enabled }}
   - hosts:
     - rpc.{{ .Values.node.ingress.host }}
     secretName: {{ .Release.Name }}-{{ .Values.node.name }}-rpc-tls
   {{- end }}
-  {{- if .Values.node.p2p.enabled }}
-  - hosts:
-    - p2p.{{ .Values.node.ingress.host }}
-    secretName: {{ .Release.Name }}-{{ .Values.node.name }}-p2p-tls
-  {{- end }}
   {{- if .Values.node.api.enabled }}
   - hosts:
     - api.{{ .Values.node.ingress.host }}
     secretName: {{ .Release.Name }}-{{ .Values.node.name }}-api-tls
-  {{- end }}
   {{- end}}
 {{- end}}
