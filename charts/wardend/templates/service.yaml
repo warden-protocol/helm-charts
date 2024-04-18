@@ -74,6 +74,7 @@ metadata:
     {{- end}}
 spec:
   type: LoadBalancer
+  loadBalancerClass: {{ .Values.node.p2p.serviceLoadBalancerClass }}
   ports:
     - name: p2p
       port: 26656

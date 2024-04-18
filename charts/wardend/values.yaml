@@ -51,6 +51,7 @@ node:
     enabled: true
     external: false
     serviceAnnotations: {}
+    serviceLoadBalancerClass: "service.k8s.aws/nlb"
     externalAddress: ""
     addrBookStrict: false
     pex: false
@@ -85,6 +86,7 @@ node:
     # requests:
     #   cpu: 100m
     #   memory: 128Mi
+  externalService:
   persistent:
     size: 10Gi
     class: ""
