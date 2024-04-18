@@ -38,6 +38,7 @@ node:
   enabled: true
   ready: true
   name: node
+  logLevel: "info"
   mnemonicSecretName: ""
   nodeKeysSecretName: ""
   genesisSecretName: ""

@@ -55,7 +55,7 @@ data:
     db_dir = "data"
 
     # Output level for logging, including package level options
-    log_level = "info"
+    log_level = "{{ .Values.node.logLevel }}"
 
     # Output format: 'plain' (colored text) or 'json'
     log_format = "plain"
