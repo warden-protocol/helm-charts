@@ -61,7 +61,6 @@ spec:
 ---
 {{- if .Values.node.enabled }}
 {{- if .Values.node.p2p.external }}
-{{- if or (eq .Values.node.name "sentry") (eq .Values.node.name "seed") }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -82,6 +81,5 @@ spec:
       protocol: TCP
   selector:
     {{- include "node.selectorLabels" . | nindent 4 }}
-{{- end }}
 {{- end }}
 {{- end }}
