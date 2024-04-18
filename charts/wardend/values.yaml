@@ -95,6 +95,9 @@ node:
     class: ""
     host: ""
     pathType: ImplementationSpecific
+  stateSync:
+    snapshotInterval: 0
+    snapshotKeepRecent: 2
 
 nodeSelector: {}
 
