@@ -73,6 +73,7 @@ metadata:
     {{- . |toYaml |nindent 4}}
     {{- end}}
 spec:
+  allocateLoadBalancerNodePorts: false
   type: LoadBalancer
   externalTrafficPolicy: {{ .Values.node.p2p.trafficPolicy }}
   internalTrafficPolicy: {{ .Values.node.p2p.trafficPolicy }}
