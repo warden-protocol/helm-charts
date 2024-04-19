@@ -52,6 +52,7 @@ node:
     external: false
     serviceAnnotations: {}
     serviceLoadBalancerClass: "service.k8s.aws/nlb"
+    trafficPolicy: "Local"
     externalAddress: ""
     addrBookStrict: false
     pex: false
