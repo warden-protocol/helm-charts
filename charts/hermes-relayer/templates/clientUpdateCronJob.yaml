@@ -1,0 +1,136 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "hermes-relayer.fullname" . }}
+  namespace: {{ include "hermes-relayer.namespace" . }} 
+  labels:
+    {{- include "hermes-relayer.labels" . | nindent 4}}
+spec:
+  jobTemplate:
+    metadata:
+      name: {{ include "hermes-relayer.fullname" . }}-job
+    spec:
+      backoffLimit: {{ .Values.backoffLimit }}
+      template:
+        metadata:
+        {{- with .Values.cronjobAnnotations }}
+        annotations:
+          {{- toYaml . | nindent 12 }}
+        {{- end }}
+        spec:
+          {{- with .Values.podSecurityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          volumes:
+          - name: chain1mnenomic
+            secret:
+              secretName: {{ .Values.relayer.chain1SecretName }}
+          - name: chain2mnenomic
+            secret:
+              secretName: {{ .Values.relayer.chain2SecretName }}
+          - name: keys
+            emptyDir: {}
+          - name: configfile
+            configMap:
+              name: {{ .Release.Name }}-configmap
+              items:
+                - key: config.toml
+                  path: config.toml
+          initContainers:
+            - name: init-chain-1
+              image: "{{.Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion}}"
+              args: [
+                'keys',
+                'add',
+                '--chain',
+                '{{ .Values.relayer.chain1ID }}',
+                '--mnemonic-file',
+                '/etc/mnemonic/mnemonic'
+              ]
+              volumeMounts:
+                - name: keys
+                  mountPath: "/home/hermes/.hermes/keys"
+                - name: configfile
+                  mountPath: "/home/hermes/.hermes/"
+                - name: chain1mnenomic
+                  readOnly: true
+                  mountPath: /etc/mnemonic
+            - name: init-chain-2
+              image: "{{.Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion}}"
+              args: [
+                'keys',
+                'add',
+                '--chain',
+                '{{ .Values.relayer.chain2ID }}',
+                '--mnemonic-file',
+                '/etc/mnemonic/mnemonic'
+              ]
+              volumeMounts:
+                - name: keys
+                  mountPath: "/home/hermes/.hermes/keys"
+                - name: configfile
+                  mountPath: "/home/hermes/.hermes/"
+                - name: chain2mnenomic
+                  readOnly: true
+                  mountPath: /etc/mnemonic
+          containers:
+            - name: update-client-chain-1
+              image: "{{.Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion}}"
+              imagePullPolicy: {{.Values.image.pullPolicy}}
+              args: [
+                "update",
+                "client",
+                "--host-chain",
+                "{{ .Values.relayer.chain1ID }}",
+                "--client",
+                "{{ .Values.relayer.chain1ClientID }}",
+              ]
+              {{- with .Values.containerSecurityContext }}
+              securityContext:
+                {{- toYaml . | nindent 16 }}
+              {{- end }}
+              resources:
+                {{- toYaml .Values.resources | nindent 16 }}
+              volumeMounts:
+              - name: keys
+                mountPath: /home/hermes/.hermes/keys
+              - name: configfile
+                mountPath: "/home/hermes/.hermes/"
+            - name: update-client-chain-2
+              image: "{{.Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion}}"
+              imagePullPolicy: {{.Values.image.pullPolicy}}
+              args: [
+                "update",
+                "client",
+                "--host-chain",
+                "{{ .Values.relayer.chain2ID }}",
+                "--client",
+                "{{ .Values.relayer.chain2ClientID }}",
+              ]
+              {{- with .Values.containerSecurityContext }}
+              securityContext:
+                {{- toYaml . | nindent 16 }}
+              {{- end }}
+              resources:
+                {{- toYaml .Values.resources | nindent 16 }}
+              volumeMounts:
+              - name: keys
+                mountPath: /home/hermes/.hermes/keys
+              - name: configfile
+                mountPath: "/home/hermes/.hermes/"
+          {{- with .Values.nodeSelector }}
+          nodeSelector:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.affinity }}
+          affinity:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.tolerations }}
+          tolerations:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          restartPolicy: OnFailure
+  schedule: "{{ .Values.relayer.clientUpdateSchedule }}"

@@ -1,0 +1,56 @@
+---
+replicaCount: 1
+image:
+  repository: ghcr.io/informalsystems/hermes
+  pullPolicy: Always
+  tag: ""
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+resources:
+  {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+podSecurityContext:
+  fsGroup: 1001
+  runAsGroup: 1001
+  runAsNonRoot: true
+  runAsUser: 1001
+containerSecurityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
+  privileged: false
+podAnnotations: {}
+cronjobAnnotations: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}
+backoffLimit: 6
+service:
+  telemetryPort: 3001
+serviceMonitor:
+  enabled: false
+  additionalLabels: {}
+  interval: 1m
+  scrapeTimeout: 10s
+  telemetryPath: /metrics
+  targetLabels: []
+  metricRelabelings: []
+  relabelings: []
+relayer:
+  chain1ID:
+  chain1ClientID:
+  chain1SecretName:
+
+  chain2ClientID:
+  chain2ID:
+  chain2SecretName:
+
+  clientUpdateSchedule: "0 * * * *"
+  config: |

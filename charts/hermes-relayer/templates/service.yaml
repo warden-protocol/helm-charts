@@ -1,0 +1,18 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{include "hermes-relayer.fullname" .}}
+  namespace: {{include "hermes-relayer.namespace" .}}
+  labels:
+    {{- include "hermes-relayer.labels" . | nindent 4 }}
+spec:
+  internalTrafficPolicy: Cluster
+  ports:
+    - name: telemetry
+      port: {{ .Values.service.telemetryPort }}
+      protocol: TCP
+      targetPort: {{ .Values.service.telemetryPort }}
+  selector:
+    {{- include "hermes-relayer.selectorLabels" . | nindent 4 }}
+  type: ClusterIP
