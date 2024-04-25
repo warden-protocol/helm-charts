@@ -178,6 +178,16 @@ entries:
     version: 0.1.0
   warden-exporter:
   - apiVersion: v2
+    appVersion: 1.1.1
+    created: "2024-04-25T11:15:40.660641732Z"
+    description: A Helm chart for Warden Exporter
+    digest: ec416896056467b2af4fc4e5f1b0c889ae067da2f4d2e4c098b0e86a0870d9ad
+    name: warden-exporter
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/warden-exporter-0.1.2/warden-exporter-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
     appVersion: 1.0.0
     created: "2024-04-25T10:22:05.396793772Z"
     description: A Helm chart for Warden Exporter
@@ -530,4 +540,4 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/webhooks-0.1.0/webhooks-0.1.0.tgz
     version: 0.1.0
-generated: "2024-04-25T10:22:05.39690539Z"
+generated: "2024-04-25T11:15:40.66077446Z"
