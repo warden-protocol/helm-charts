@@ -33,8 +33,6 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           args:
-            - --config
-            - /config/config.yaml
             - --log-level={{ .Values.logLevel }}
           env:
             {{- include "warden-exporter.renderEnv" .Values.env | nindent 12 }}
