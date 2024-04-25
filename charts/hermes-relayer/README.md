@@ -7,7 +7,7 @@ Kubernetes 1.16+
 ## Get Repository Info
 
 ```console
-helm repo add archway-network https://archway-network.github.io/helm-charts
+helm repo add warden-protocol https://warden-protocol.github.io/helm-charts
 helm repo update
 ```
 
@@ -16,7 +16,7 @@ _See [`helm repo`](https://helm.sh/docs/helm/helm_repo/) for command documentati
 ## Install Chart
 
 ```console
-helm install [RELEASE_NAME] archway-network/hermes-relayer
+helm install [RELEASE_NAME] warden-protocol/hermes-relayer
 ```
 
 _See [configuration](#configuration) below._
@@ -46,5 +46,5 @@ _See [helm upgrade](https://helm.sh/docs/helm/helm_upgrade/) for command documen
 See [Customizing the Chart Before Installing](https://helm.sh/docs/intro/using_helm/#customizing-the-chart-before-installing). To see all configurable options with detailed comments, visit the chart's [values.yaml](./values.yaml), or run these configuration commands:
 
 ```console
-helm show values archway-network/hermes-relayer
+helm show values warden-protocol/hermes-relayer
 ```

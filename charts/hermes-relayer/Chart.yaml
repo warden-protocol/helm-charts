@@ -3,5 +3,5 @@ apiVersion: v2
 name: hermes-relayer
 description: A Helm chart for Kubernetes
 type: application
-version: 0.1.0
+version: 0.1.1
 appVersion: 1.8.2
