@@ -26,14 +26,6 @@ spec:
       {{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      volumes:
-        - name: config
-          configMap:
-            name: {{ .Release.Name }}-config
-            items:
-              - key: config.yaml
-                path: config.yaml
-
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -52,10 +44,6 @@ spec:
               protocol: TCP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          volumeMounts:
-            - name: config
-              mountPath: /config/
-
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
