@@ -65,6 +65,16 @@ entries:
   hermes-relayer:
   - apiVersion: v2
     appVersion: 1.8.2
+    created: "2024-04-25T09:46:38.625018824Z"
+    description: A Helm chart for Kubernetes
+    digest: e0189f95d148cc1fc66d9f5f0e306a623cc41e3ae5ec376e7e1af9c8ae45c5cb
+    name: hermes-relayer
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/hermes-relayer-0.1.1/hermes-relayer-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 1.8.2
     created: "2024-04-24T11:03:03.742327724Z"
     description: A Helm chart for Kubernetes
     digest: 347cb20ef08480ff70f75e814998595e5bf0cb33ce45e2fc416a0c118c4dda6e
@@ -499,4 +509,4 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/webhooks-0.1.0/webhooks-0.1.0.tgz
     version: 0.1.0
-generated: "2024-04-24T11:03:03.742424384Z"
+generated: "2024-04-25T09:46:38.625099567Z"
