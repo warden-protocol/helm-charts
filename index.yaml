@@ -176,6 +176,17 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/spaceward-0.1.0/spaceward-0.1.0.tgz
     version: 0.1.0
+  warden-exporter:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2024-04-25T09:59:20.132185098Z"
+    description: A Helm chart for Warden Exporter
+    digest: 6fc1d09d6ee8570b912d4086fdd3ee1f2eaf94bf6b90f502b2d677c102c764ae
+    name: warden-exporter
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/warden-exporter-0.1.0/warden-exporter-0.1.0.tgz
+    version: 0.1.0
   wardend:
   - apiVersion: v2
     appVersion: latest
@@ -509,4 +520,4 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/webhooks-0.1.0/webhooks-0.1.0.tgz
     version: 0.1.0
-generated: "2024-04-25T09:46:38.625099567Z"
+generated: "2024-04-25T09:59:20.132293591Z"
