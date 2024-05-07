@@ -4,13 +4,9 @@
 
 replicaCount: 1
 
-image:
-  repository: 730335603902.dkr.ecr.eu-west-1.amazonaws.com
-  name: "wardenprotocol/production/warden-keychain-operators/blockchain-listener"
-  pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
-
+image: 730335603902.dkr.ecr.eu-west-1.amazonaws.com/wardenprotocol/production/warden-keychain-operators/blockchain-listener
+imagePullPolicy: IfNotPresent
+imageTag: ""
 imagePullSecrets: [name: awsregistry]
 
 nameOverride: ""
