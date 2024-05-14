@@ -54,6 +54,9 @@ node:
     serviceLoadBalancerClass: "service.k8s.aws/nlb"
     trafficPolicy: "Cluster"
     externalAddress: ""
+    externalDNS:
+      enabled: false
+      domain: ""
     addrBookStrict: false
     pex: false
     seedMode: false
