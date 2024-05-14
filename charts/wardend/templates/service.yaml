@@ -70,6 +70,9 @@ metadata:
     statefulset.kubernetes.io/pod-name: {{ include "node.name" $ }}-{{ $i }}
   annotations:
     {{- include "p2p.serviceAnnotations" $ |nindent 4}}
+    {{- if "p2p.externalDNS" }}
+    external-dns.alpha.kubernetes.io/hostname: {{ include "node.name.short" $ }}-{{ $i }}.{{ include "p2p.externalDNS.domain" $}}
+    {{- end}}
 spec:
   type: LoadBalancer
   ports:

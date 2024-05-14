@@ -5,6 +5,10 @@ Expand the name of the chart.
 {{ .Release.Name }}-{{ .Values.node.name }}
 {{- end }}
 
+{{- define "node.name.short" -}}
+{{ .Values.node.name }}
+{{- end }}
+
 {{- define "service.trafficPolicy" -}}
 {{- default .Values.node.p2p.trafficPolicy }}
 {{- end }}
@@ -15,6 +19,14 @@ Expand the name of the chart.
 {{ $key}}: {{$value}}
 {{- end}}
 {{- end}}
+{{- end }}
+
+{{- define "p2p.externalDNS" -}}
+{{- default .Values.node.p2p.externalDNS.enabled }}
+{{- end }}
+
+{{- define "p2p.externalDNS.domain" -}}
+{{- default .Values.node.p2p.externalDNS.domain }}
 {{- end }}
 
 {{/*
