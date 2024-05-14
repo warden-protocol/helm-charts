@@ -61,29 +61,25 @@ spec:
 ---
 {{- if .Values.node.enabled }}
 {{- if .Values.node.p2p.external }}
+{{- range $i, $e := until (int .Values.node.replicaCount)}}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Release.Name }}-{{ .Values.node.name }}-p2p
+  name: {{ include "node.name" $ }}-{{ $i }}-p2p
   labels:
-    {{- include "node.selectorLabels" . | nindent 4 }}
+    statefulset.kubernetes.io/pod-name: {{ include "node.name" $ }}-{{ $i }}
   annotations:
-    {{- include "node.serviceAnnotations" . |nindent 4}}
-    {{- with .Values.node.p2p.serviceAnnotations }}
-    {{- . |toYaml |nindent 4}}
-    {{- end}}
+    {{- include "p2p.serviceAnnotations" $ |nindent 4}}
 spec:
-  allocateLoadBalancerNodePorts: false
   type: LoadBalancer
-  externalTrafficPolicy: {{ .Values.node.p2p.trafficPolicy }}
-  internalTrafficPolicy: {{ .Values.node.p2p.trafficPolicy }}
-  loadBalancerClass: {{ .Values.node.p2p.serviceLoadBalancerClass }}
   ports:
     - name: p2p
       port: 26656
       targetPort: 26656
       protocol: TCP
   selector:
-    {{- include "node.selectorLabels" . | nindent 4 }}
+    statefulset.kubernetes.io/pod-name: {{ include "node.name" $ }}-{{ $i }}
+---
+{{- end }}
 {{- end }}
 {{- end }}

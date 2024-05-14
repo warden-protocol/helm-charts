@@ -2,7 +2,19 @@
 Expand the name of the chart.
 */}}
 {{- define "node.name" -}}
-{{- default .Release.Name .Values.node.name | trunc 63 | trimSuffix "-" }}
+{{ .Release.Name }}-{{ .Values.node.name }}
+{{- end }}
+
+{{- define "service.trafficPolicy" -}}
+{{- default .Values.node.p2p.trafficPolicy }}
+{{- end }}
+
+{{- define "p2p.serviceAnnotations" -}}
+{{- with .Values.node.p2p.serviceAnnotations }}
+{{- range $key, $value := . }}
+{{ $key}}: {{$value}}
+{{- end}}
+{{- end}}
 {{- end }}
 
 {{/*
