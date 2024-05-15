@@ -11,20 +11,30 @@ metadata:
   {{- toYaml . |nindent 4}}
   {{- end }}
 spec:
-  ingressClassName: {{.Values.ingress.className | quote }}
+  ingressClassName: {{ .Values.ingress.className | quote }}
   rules:
-    - host: {{ .Values.ingress.host }}
+{{- range .Values.ingress.hosts }}
+    - host: {{ .name | quote }}
       http:
         paths:
-          - backend:
+{{- range .paths }}
+          - path: {{ .path | default "/" }}
+            pathType: {{ .pathType | default "Prefix" }}
+            backend:
               service:
-                name: {{ include "landing.fullname" . }}
+                name: {{ include "landing.fullname" $ }}
                 port:
-                  number: 3000
-            path: /
-            pathType: Prefix
+                  number: {{ .port }}
+{{- end }}
+{{- end }}
+{{- if .Values.ingress.tls }}
   tls:
-  - hosts:
-    - {{ .Values.ingress.host }}
-    secretName: {{ .Release.Name }}-landing-tls
+{{- range .Values.ingress.tls }}
+    - hosts:
+{{- range .hosts }}
+        - {{ . | quote }}
+{{- end }}
+{{- end }}
+      secretName: {{ default (printf "%s-landing-tls" .Release.Name) .Values.secretName | quote }}
+{{- end }}
 {{- end }}
