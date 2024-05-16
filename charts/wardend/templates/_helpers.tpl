@@ -29,6 +29,14 @@ Expand the name of the chart.
 {{- default .Values.node.p2p.externalDNS.domain }}
 {{- end }}
 
+{{- define "p2p.trafficPolicy" -}}
+{{- default .Values.node.p2p.trafficPolicy }}
+{{- end }}
+
+{{- define "p2p.serviceLoadBalancerClass" -}}
+{{- default .Values.node.p2p.serviceLoadBalancerClass }}
+{{- end }}
+
 {{/*
 Create chart name and version as used by the chart label.
 */}}

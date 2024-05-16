@@ -74,7 +74,11 @@ metadata:
     external-dns.alpha.kubernetes.io/hostname: {{ include "node.name.short" $ }}-{{ $i }}.{{ include "p2p.externalDNS.domain" $}}
     {{- end}}
 spec:
+  allocateLoadBalancerNodePorts: false
   type: LoadBalancer
+  externalTrafficPolicy: {{ include "p2p.trafficPolicy" $ }}
+  internalTrafficPolicy: {{ include "p2p.trafficPolicy" $ }}
+  loadBalancerClass: {{ include "p2p.serviceLoadBalancerClass" $ }}
   ports:
     - name: p2p
       port: 26656
