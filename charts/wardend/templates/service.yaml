@@ -60,6 +60,29 @@ spec:
 {{- end }}
 ---
 {{- if .Values.node.enabled }}
+{{- range $i, $e := until (int .Values.node.replicaCount)}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "node.name" $ }}-{{ $i }}-rpc
+  labels:
+    statefulset.kubernetes.io/pod-name: {{ include "node.name" $ }}-{{ $i }}
+  annotations:
+    {{- include "node.serviceAnnotations" $ |nindent 4}}
+spec:
+  type: ClusterIP
+  ports:
+    - name: rpc
+      port: 26657
+      targetPort: 26657
+      protocol: TCP
+  selector:
+    statefulset.kubernetes.io/pod-name: {{ include "node.name" $ }}-{{ $i }}
+---
+{{- end }}
+{{- end }}
+---
+{{- if .Values.node.enabled }}
 {{- if .Values.node.p2p.external }}
 {{- range $i, $e := until (int .Values.node.replicaCount)}}
 apiVersion: v1

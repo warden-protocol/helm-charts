@@ -1,22 +1,24 @@
 ---
 {{- if .Values.node.metrics.enabled }}
+{{- range $i, $e := until (int .Values.node.replicaCount)}}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: {{ .Release.Name }}-{{ .Values.node.name }}
+  name: {{ include "node.name" $ }}-{{ $i }}
   labels:
-    {{- include "node.selectorLabels" . | nindent 4 }}
-    {{- with .Values.serviceMonitor.extraLabels }}
-    {{- toYaml . |nindent 4 }} 
-    {{- end }}
+    statefulset.kubernetes.io/pod-name: {{ include "node.name" $ }}-{{ $i }}
+    {{- include "node.selectorLabels" $ | nindent 4 }}
+    {{- include "serviceMonitor.extraLabels" $ | nindent 4 }}
 spec:
-  jobLabel: {{ .Release.Name }}-{{ .Values.node.name }}
+  jobLabel: {{ include "node.name" $ }}-{{ $i }}
   selector:
     matchLabels:
-      {{- include "node.selectorLabels" . | nindent 6 }}
+        statefulset.kubernetes.io/pod-name: {{ include "node.name" $ }}-{{ $i }}
   endpoints:
     - port: telemetry
       path: /metrics
       interval: 1m
       scrapeTimeout: 30s
+---
+{{- end}}
 {{- end}}

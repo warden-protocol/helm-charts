@@ -91,3 +91,12 @@ Service Annotations
 {{- define "node.serviceAnnotations" -}}
 {{ .Values.serviceAnnotations |toYaml}}
 {{- end }}
+
+
+{{- define "serviceMonitor.extraLabels" -}}
+{{- with .Values.serviceMonitor.extraLabels }}
+{{- range $key, $value := . }}
+{{ $key}}: {{$value}}
+{{- end}}
+{{- end }}
+{{- end }}
