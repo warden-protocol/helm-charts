@@ -20,6 +20,9 @@ spec:
       labels:
         {{- include "message-handler.selectorLabels" . | nindent 8 }}
     spec:
+      {{- if .Values.serviceAccount }}
+      serviceAccountName: {{ .Values.serviceAccount }}
+      {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
