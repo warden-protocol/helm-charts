@@ -178,6 +178,16 @@ entries:
   message-handler:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-05-21T09:56:03.876951824Z"
+    description: A Helm chart for Kubernetes
+    digest: 7276b48711c6b01b878e55d59a1b5962b5ac48ca7d0a688d150ae885a84ab589
+    name: message-handler
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/message-handler-0.2.0/message-handler-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-05-08T08:49:24.847053897Z"
     description: A Helm chart for Kubernetes
     digest: cba81b62f9eb79b9084190c09fb7cc5b8d3cdcf27ebb383da8894cbe77908fab
@@ -651,4 +661,4 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/webhooks-0.1.0/webhooks-0.1.0.tgz
     version: 0.1.0
-generated: "2024-05-16T06:44:24.03816644Z"
+generated: "2024-05-21T09:56:03.877121723Z"
