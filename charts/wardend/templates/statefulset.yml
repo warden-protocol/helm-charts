@@ -198,6 +198,11 @@ spec:
           resources:
             {{- toYaml .Values.node.resources | nindent 12 }}
       volumes:
+      {{- if .Values.persistentVolumeClaimName }}
+      - name: {{ .Values.persistentVolumeClaimName }}
+        persistentVolumeClaim:
+          claimName: {{ .Values.persistentVolumeClaimName }}
+      {{- end }}
       - name: scripts
         configMap:
           name: {{.Release.Name}}-{{ .Values.node.name }}-scripts
