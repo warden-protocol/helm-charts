@@ -95,7 +95,11 @@ spec:
                 echo "Validator key already in place, not adding it"
               fi
           volumeMounts:
+            {{- if not .Values.persistentVolumeClaimName }}
             - name: {{ include "node.name" . }}-data
+            {{- else }}
+            - name: {{ .Values.persistentVolumeClaimName }}
+            {{- end }}
               mountPath: /root/.warden
             - name: {{ include "node.name" . }}-mnemonic
               mountPath: /tmp/mnemonic
