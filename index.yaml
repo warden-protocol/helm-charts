@@ -291,6 +291,16 @@ entries:
   wardend:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-05-27T12:13:14.830054895Z"
+    description: A chart to deploy Wardend to Kubernetes
+    digest: 977bad22e4ca89fd17057fa49d78bc6008db809f206b2eb3a5d4775153556328
+    name: wardend
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/wardend-0.8.2/wardend-0.8.2.tgz
+    version: 0.8.2
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-05-27T12:08:09.362833036Z"
     description: A chart to deploy Wardend to Kubernetes
     digest: 522d8ee87cb1a39dd142c05fa5eb9517990235aff96c3d1f4fcbe9477deabd19
@@ -691,4 +701,4 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/webhooks-0.1.0/webhooks-0.1.0.tgz
     version: 0.1.0
-generated: "2024-05-27T12:08:09.363435861Z"
+generated: "2024-05-27T12:13:14.830591896Z"
