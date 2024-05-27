@@ -41,6 +41,7 @@ if [ ! -d "$WARDEND_HOME/cosmovisor" ] || [ ! -d "$WARDEND_HOME/cosmovisor/genes
 
   if [ ! -f "$WARDEND_BINARY" ]; then
     echo "Copying the Wardend binary as the genesis binary"
+    cp /usr/bin/wardend $WARDEND_BINARY
   else
     echo "Found Wardend binary, skipping!"
   fi
