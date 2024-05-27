@@ -6,3 +6,13 @@ metadata:
 data:
   init.sh: |
 {{ tpl (.Files.Get "scripts/init.sh") . | indent 4 }}
+---
+{{- if .Values.cosmovisor.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{ .Release.Name }}-{{ .Values.node.name }}-cosmovisor-init"
+data:
+  init-cosmovisor.sh: |
+{{ tpl (.Files.Get "scripts/init-cosmovisor.sh") . | indent 4 }}
+{{- end }}

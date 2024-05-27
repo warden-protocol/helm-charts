@@ -56,6 +56,21 @@ spec:
               readOnly: true
             - name: {{ include "node.name" . }}-data
               mountPath: /root/.warden
+        {{- if .Values.cosmovisor.enabled }}
+        - name: init-cosmovisor
+          image: "{{ .Values.image }}:{{ .Values.imageTag | default .Chart.AppVersion }}"
+          command: [ "/bin/bash" , "/scripts/init-cosmovisor.sh" ]
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          env:
+            - name: COSMOVISOR_VERSION
+              value: "{{ .Values.cosmovisor.version }}"
+          volumeMounts:
+            - name: scripts-cosmovisor
+              mountPath: /scripts
+              readOnly: true
+            - name: {{ include "node.name" . }}-data
+              mountPath: /root/.warden
+        {{- end }}
         {{- if .Values.node.mnemonicSecretName }}
         - name: init-keys
           image: "{{ .Values.image }}:{{ .Values.imageTag | default .Chart.AppVersion }}"
@@ -79,11 +94,30 @@ spec:
         - name: {{ include "node.name" . }}
           image: "{{ .Values.image }}:{{ .Values.imageTag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.imagePullPolicy }}
+          {{- if .Values.cosmovisor.enabled }}
+          command: ["/root/.warden/cosmovisor/bin/cosmovisor","run","start"]
+          {{- else }}
           {{- if .Values.node.ready }}
           command: ["/usr/bin/wardend","start"]
-          {{- else}}
+          {{- else }}
           command: ["sleep","36000"]
-          {{- end}}
+          {{- end }}
+          {{- end }}
+          {{- if .Values.cosmovisor.enabled }}
+          env:
+            - name: DAEMON_NAME
+              value: "wardend"
+            - name: DAEMON_HOME
+              value: "/root/.warden"
+            - name: DAEMON_RESTART_AFTER_UPGRADE
+              value: "{{ .Values.cosmovisor.restartAfterUpgrade }}"
+            - name: DAEMON_ALLOW_DOWNLOAD_BINARIES
+              value: "{{ .Values.cosmovisor.allowDownloadBinaries }}"
+            - name: DAEMON_LOG_BUFFER_SIZE
+              value: "{{ .Values.cosmovisor.logBufferSize }}"
+            - name: UNSAFE_SKIP_BACKUP
+              value: "{{ .Values.cosmovisor.unsafeSkipBackup }}"
+          {{- end }}
           ports:
             {{- if .Values.node.rpc.enabled }}
             - name: rpc
@@ -153,6 +187,11 @@ spec:
       - name: scripts
         configMap:
           name: {{.Release.Name}}-{{ .Values.node.name }}-scripts
+      {{- if .Values.cosmovisor.enabled }}
+      - name: scripts-cosmovisor
+        configMap:
+          name: {{ .Release.Name }}-{{ .Values.node.name }}-cosmovisor-init
+      {{- end }}
       - name: config
         configMap:
           name: {{ .Release.Name }}-{{ .Values.node.name }}-config
