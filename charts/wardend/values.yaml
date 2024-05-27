@@ -113,6 +113,8 @@ node:
     snapshotInterval: 0
     snapshotKeepRecent: 2
 
+persistentVolumeClaimName: ""
+
 nodeSelector: {}
 
 tolerations: []
