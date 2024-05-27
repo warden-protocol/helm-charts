@@ -56,7 +56,11 @@ spec:
             - name: scripts
               mountPath: /scripts
               readOnly: true
+            {{- if not .Values.persistentVolumeClaimName }}
             - name: {{ include "node.name" . }}-data
+            {{- else }}
+            - name: {{ .Values.persistentVolumeClaimName }}
+            {{- end }}
               mountPath: /root/.warden
         {{- if .Values.cosmovisor.enabled }}
         - name: init-cosmovisor
@@ -70,7 +74,11 @@ spec:
             - name: scripts-cosmovisor
               mountPath: /scripts
               readOnly: true
+            {{- if not .Values.persistentVolumeClaimName }}
             - name: {{ include "node.name" . }}-data
+            {{- else }}
+            - name: {{ .Values.persistentVolumeClaimName }}
+            {{- end }}
               mountPath: /root/.warden
         {{- end }}
         {{- if .Values.node.mnemonicSecretName }}
