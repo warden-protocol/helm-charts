@@ -48,6 +48,8 @@ spec:
               value: "{{.Values.syncMethod }}"
             - name: SNAPSHOT_URL
               value: "{{.Values.snapshot.url }}"
+            - name: WARDEND_HOME
+              value: "{{ .Values.node.home }}"
             {{- if .Values.scratch.genesisUrl }}
             - name: GENESIS_URL
               value: "{{ .Values.scratch.genesisUrl }}"
@@ -61,7 +63,7 @@ spec:
             {{- else }}
             - name: {{ .Values.persistentVolumeClaimName }}
             {{- end }}
-              mountPath: /root/.warden
+              mountPath: {{ .Values.node.home}}
         {{- if .Values.cosmovisor.enabled }}
         - name: init-cosmovisor
           image: "{{ .Values.image }}:{{ .Values.imageTag | default .Chart.AppVersion }}"
@@ -70,6 +72,8 @@ spec:
           env:
             - name: COSMOVISOR_VERSION
               value: "{{ .Values.cosmovisor.version }}"
+            - name: WARDEND_HOME
+              value: "{{ .Values.node.home }}"
           volumeMounts:
             - name: scripts-cosmovisor
               mountPath: /scripts
@@ -79,7 +83,7 @@ spec:
             {{- else }}
             - name: {{ .Values.persistentVolumeClaimName }}
             {{- end }}
-              mountPath: /root/.warden
+              mountPath: {{ .Values.node.home }}
         {{- end }}
         {{- if .Values.node.mnemonicSecretName }}
         - name: init-keys
@@ -100,7 +104,7 @@ spec:
             {{- else }}
             - name: {{ .Values.persistentVolumeClaimName }}
             {{- end }}
-              mountPath: /root/.warden
+              mountPath: {{.Values.node.home}}
             - name: {{ include "node.name" . }}-mnemonic
               mountPath: /tmp/mnemonic
         {{- end}}
@@ -109,7 +113,7 @@ spec:
           image: "{{ .Values.image }}:{{ .Values.imageTag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           {{- if .Values.cosmovisor.enabled }}
-          command: ["/root/.warden/cosmovisor/bin/cosmovisor","run","start"]
+          command: ["{{.Values.node.home}}/cosmovisor/bin/cosmovisor","run","start"]
           {{- else }}
           {{- if .Values.node.ready }}
           command: ["/usr/bin/wardend","start"]
@@ -117,12 +121,14 @@ spec:
           command: ["sleep","36000"]
           {{- end }}
           {{- end }}
-          {{- if .Values.cosmovisor.enabled }}
           env:
+            - name: WARDEND_HOME
+              value: {{ .Values.node.home }}
+          {{- if .Values.cosmovisor.enabled }}
             - name: DAEMON_NAME
               value: "wardend"
             - name: DAEMON_HOME
-              value: "/root/.warden"
+              value: {{ .Values.node.home }}
             - name: DAEMON_RESTART_AFTER_UPGRADE
               value: "{{ .Values.cosmovisor.restartAfterUpgrade }}"
             - name: DAEMON_ALLOW_DOWNLOAD_BINARIES
@@ -176,26 +182,26 @@ spec:
             {{- else }}
             - name: {{ .Values.persistentVolumeClaimName }}
             {{- end }}
-              mountPath: /root/.warden
+              mountPath: {{ .Values.node.home }}
             - name: config
-              mountPath: /root/.warden/config/config.toml
+              mountPath: {{ .Values.node.home }}/config/config.toml
               subPath: config.toml
             - name: config
-              mountPath: /root/.warden/config/app.toml
+              mountPath: {{ .Values.node.home }}/config/app.toml
               subPath: app.toml
           {{- if .Values.node.nodeKeysSecretName }}
             - name: {{ include "node.name" . }}-keys
-              mountPath: /root/.warden/config/node_key.json
+              mountPath: {{ .Values.node.home }}/config/node_key.json
               subPath: node_key.json
           {{- end}}
           {{- if .Values.node.nodeKeysSecretName }}
             - name: {{ include "node.name" . }}-keys
-              mountPath: /root/.warden/config/priv_validator_key.json
+              mountPath: {{ .Values.node.home }}/config/priv_validator_key.json
               subPath: priv_validator_key.json
           {{- end}}
           {{- if .Values.node.genesisSecretName }}
             - name: genesis
-              mountPath: /root/.warden/config/genesis.json
+              mountPath: {{ .Values.node.home }}/config/genesis.json
               subPath: genesis.json
           {{- end}}
           {{- end}}

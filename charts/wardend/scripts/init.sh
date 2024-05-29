@@ -1,13 +1,9 @@
 #!/usr/bin/env bash
 set -x
 
-
-WARDEND_HOME="/root/.warden"
 #Check if Home data exists, if not create it.
 if [ ! -d "$WARDEND_HOME/data" ] && [ ! -d "$WARDEND_HOME/config" ]; then
   #Install utils
-  apt update 
-  apt install curl jq -y > /dev/null 2>&1
   if [[ "$SYNC_METHOD" == "scratch" ]]; then
     /usr/bin/wardend init --chain-id "$WARDEND_CHAIN_ID" "$WARDEND_MONIKER"
     if [[ ! -z $WARDEN_GENESIS_RPC ]]; then
