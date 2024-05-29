@@ -31,6 +31,17 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/blockchain-listener-0.1.0/blockchain-listener-0.1.0.tgz
     version: 0.1.0
+  discord-faucet:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2024-05-29T09:41:55.571954336Z"
+    description: A Helm chart for Discord Faucet
+    digest: 2076faaac5c8c7b0d2b93caa0869463e079ecc2e55c64ca26f4562fefff411c5
+    name: discord-faucet
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/discord-faucet-0.1.0/discord-faucet-0.1.0.tgz
+    version: 0.1.0
   faucet:
   - apiVersion: v2
     appVersion: latest
@@ -731,4 +742,4 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/webhooks-0.1.0/webhooks-0.1.0.tgz
     version: 0.1.0
-generated: "2024-05-27T12:27:47.531959486Z"
+generated: "2024-05-29T09:41:55.572378086Z"
