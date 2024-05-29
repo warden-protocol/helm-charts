@@ -1,0 +1,7 @@
+---
+apiVersion: v2
+name: discord-faucet
+description: A Helm chart for Discord Faucet
+type: application
+version: 0.1.0
+appVersion: 1.0.0
