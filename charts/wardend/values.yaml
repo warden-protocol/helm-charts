@@ -17,9 +17,9 @@ serviceMonitor:
   extraLabels: {}
 
 podSecurityContext:
-  fsGroup: 65534
-  runAsUser: 65534
-  runAsGroup: 65534
+  fsGroup: 1000
+  runAsUser: 1000
+  runAsGroup: 1000
   runAsNonRoot: true
 
 # scratch / snapshot
@@ -46,6 +46,7 @@ node:
   enabled: true
   ready: true
   name: node
+  home: /data/.warden
   logLevel: "info"
   mnemonicSecretName: ""
   nodeKeysSecretName: ""
