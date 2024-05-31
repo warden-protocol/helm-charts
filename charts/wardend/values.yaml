@@ -43,10 +43,10 @@ cosmovisor:
   unsafeSkipBackup: true
 
 node:
-  home: /data/.warden
   enabled: true
   ready: true
   name: node
+  home: /data/.warden
   logLevel: "info"
   mnemonicSecretName: ""
   nodeKeysSecretName: ""
