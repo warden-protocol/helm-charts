@@ -247,6 +247,17 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/message-handler-0.1.0/message-handler-0.1.0.tgz
     version: 0.1.0
+  phoenixbot:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2024-05-31T06:58:03.062444746Z"
+    description: A Helm chart for Kubernetes
+    digest: 237ea9eaf4550856e7bbce0d747c7f9df70c4c99db31cafc49146fb3c3e4b59d
+    name: phoenixbot
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/phoenixbot-0.1.0/phoenixbot-0.1.0.tgz
+    version: 0.1.0
   spaceward:
   - apiVersion: v2
     appVersion: latest
@@ -762,4 +773,4 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/webhooks-0.1.0/webhooks-0.1.0.tgz
     version: 0.1.0
-generated: "2024-05-29T10:29:36.627584651Z"
+generated: "2024-05-31T06:58:03.062632446Z"
