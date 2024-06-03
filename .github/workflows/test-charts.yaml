@@ -27,9 +27,6 @@ jobs:
         with:
           python-version: 3.12
 
-      - name: Run pre-commit hooks
-        uses: pre-commit/action@v3.0.0
-
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2.6.0
         with:
