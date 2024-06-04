@@ -1,0 +1,12 @@
+# This is the CT (chart testing) config file
+# More infos under https://github.com/helm/chart-testing#configuration
+kubectl-timeout: 60s
+debug: true
+remote: origin
+target-branch: main
+chart-dirs:
+  - charts
+check-version-increment: true
+lint-conf: lintconf.yaml
+chart-repos:
+  - warden-protocol=https://warden-protocol.github.io/helm-charts
