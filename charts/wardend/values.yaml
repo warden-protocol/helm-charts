@@ -17,9 +17,9 @@ serviceMonitor:
   extraLabels: {}
 
 podSecurityContext:
-  fsGroup: 1000
-  runAsUser: 1000
-  runAsGroup: 1000
+  fsGroup: warden
+  runAsUser: warden
+  runAsGroup: warden
   runAsNonRoot: true
 
 # scratch / snapshot
