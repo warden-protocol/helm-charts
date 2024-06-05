@@ -27,4 +27,18 @@ nodeSelector: {}
 tolerations: []
 affinity: {}
 
+service:
+  type: ClusterIP
+  port: 8081
+
+serviceMonitor:
+  enabled: false
+  additionalLabels: {}
+  interval: 1m
+  scrapeTimeout: 10s
+  telemetryPath: /metrics
+  targetLabels: []
+  metricRelabelings: []
+  relabelings: []
+
 logLevel: info
