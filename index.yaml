@@ -33,6 +33,20 @@ entries:
     version: 0.1.0
   discord-faucet:
   - apiVersion: v2
+    appVersion: 1.2.0
+    created: "2024-06-05T11:30:17.863717696Z"
+    description: A Helm chart for Discord Faucet
+    digest: 2a1c41aac9e6a3586e99fa96bbc7c93f569bdfdc9d9dd9350dfd5ad25bbbb8ba
+    maintainers:
+    - email: joonas@wardenprotocol.org
+      name: jlehtimaki
+      url: https://github.com/jlehtimaki
+    name: discord-faucet
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/discord-faucet-0.2.0/discord-faucet-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
     appVersion: 1.0.0
     created: "2024-05-29T10:29:36.627423449Z"
     description: A Helm chart for Discord Faucet
@@ -803,4 +817,4 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/webhooks-0.1.0/webhooks-0.1.0.tgz
     version: 0.1.0
-generated: "2024-06-04T09:22:45.443122332Z"
+generated: "2024-06-05T11:30:17.863880308Z"
