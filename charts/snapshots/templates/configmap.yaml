@@ -12,8 +12,8 @@ data:
     ARGOCD_USERNAME=$(cat /etc/argocd/username)
     ARGOCD_PASSWORD=$(cat /etc/argocd/password)
     ARGOCD_SERVER=$(cat /etc/argocd/server)
-    ARGOCD_APP_NAME=$(cat /etc/argocd/app_name)
 
+    ARGOCD_APP_NAMES="{{ join "," .Values.configMap.argocdApps }}"
     STATEFULSET_NAME="{{ .Values.configMap.stsName }}"
     FILENAME="snapshot_{{ .Release.Namespace }}_$(date +%F_%H-%M-%S).tar.lz4"
     S3_BUCKET="{{ .Values.configMap.s3Bucket | default (printf "s3://warden-snapshots/%s/" .Release.Namespace) }}"
@@ -46,14 +46,17 @@ data:
     ARGOCD_TOKEN=$(get_argocd_token)
 
     # disable sync
-    curl -s -X PATCH "$ARGOCD_SERVER/api/v1/applications/$ARGOCD_APP_NAME" \
-      -H "Authorization: Bearer $ARGOCD_TOKEN" \
-      -H "Content-Type: application/json" \
-      -d '{
-            "patch": "{\"spec\":{\"syncPolicy\":null}}",
-            "patchType": "merge"
-          }'
-    echo "Sync policy for application $ARGOCD_APP_NAME successfully disabled"
+    IFS=',' read -r -a app_names <<< "$ARGOCD_APP_NAMES"
+    for app_name in "${app_names[@]}"; do
+      curl -s -X -o /dev/null PATCH "$ARGOCD_SERVER/api/v1/applications/$app_name" \
+        -H "Authorization: Bearer $ARGOCD_TOKEN" \
+        -H "Content-Type: application/json" \
+        -d '{
+              "patch": "{\"spec\":{\"syncPolicy\":null}}",
+              "patchType": "merge"
+            }'
+      echo "Sync policy for application $app_name successfully disabled"
+    done
 
     # scale down the StatefulSet by 1 replica
     new_replicas=$((replicas - 1))
@@ -69,7 +72,7 @@ data:
     # create snapshot
     echo "Creating snapshot..."
     cd /pvc
-    tar --use-compress-program=lz4 -cf /tmp/$FILENAME{{- range .Values.configMap.paths }} {{ . }}{{- end }}
+    tar -I lz4 -cf /tmp/$FILENAME{{- range .Values.configMap.paths }} {{ . }}{{- end }}
 
     # upload to S3
     echo "Uploading snapshot to S3..."
@@ -86,11 +89,13 @@ data:
     echo "StatefulSet $STATEFULSET_NAME has scaled up to $replicas replicas"
 
     # enable sync
-    curl -s -X PATCH "$ARGOCD_SERVER/api/v1/applications/$ARGOCD_APP_NAME" \
-      -H "Authorization: Bearer $ARGOCD_TOKEN" \
-      -H "Content-Type: application/json" \
-      -d '{
-            "patch": "{\"spec\":{\"syncPolicy\":{\"automated\":{\"prune\":true,\"selfHeal\":true}}}}",
-            "patchType": "merge"
-          }'
-    echo "Sync policy for application $ARGOCD_APP_NAME successfully enabled"
+    for app_name in "${app_names[@]}"; do
+      curl -s -X -o /dev/null PATCH "$ARGOCD_SERVER/api/v1/applications/$app_name" \
+        -H "Authorization: Bearer $ARGOCD_TOKEN" \
+        -H "Content-Type: application/json" \
+        -d '{
+              "patch": "{\"spec\":{\"syncPolicy\":{\"automated\":{\"prune\":true,\"selfHeal\":true}}}}",
+              "patchType": "merge"
+            }'
+      echo "Sync policy for application $app_name successfully enabled"
+    done

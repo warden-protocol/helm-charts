@@ -23,6 +23,8 @@ cronjob:
     #   memory: 128Mi
 
 configMap:
+  argocdApps:
+    - applications
   stsName: ""
   s3Bucket: ""
   paths:
