@@ -1,0 +1,73 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .Release.Namespace }}-snapshots
+  labels:
+    {{- include "snapshots.labels" . | nindent 4 }}
+spec:
+  schedule: "{{ .Values.cronjob.schedule }}"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: {{ .Values.serviceAccount.name }}
+          {{- with .Values.cronjob.imagePullSecrets }}
+          imagePullSecrets:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          containers:
+            - name: snapshots-container
+              image: {{ .Values.cronjob.image.repository }}:{{ .Values.cronjob.image.tag }}
+              imagePullPolicy: {{ .Values.cronjob.image.pullPolicy }}
+              resources:
+                {{- toYaml .Values.cronjob.resources | nindent 16 }}
+              volumeMounts:
+                - name: script
+                  mountPath: /script
+                - name: argocd
+                  mountPath: /etc/argocd
+                  readOnly: true
+                - name: pvc
+                  mountPath: /pvc
+                  readOnly: true
+              command: ["/bin/bash", "/script/snapshot.sh"]
+          restartPolicy: Never
+          volumes:
+            - name: script
+              configMap:
+                name: {{ .Release.Namespace }}-snapshots-script
+            - name: argocd
+              secret:
+                secretName: {{ .Values.cronjob.argocdAuthSecret }}
+            - name: pvc
+              persistentVolumeClaim:
+                claimName: {{ .Values.cronjob.claimName }}
+# ---
+# apiVersion: v1
+# kind: Pod
+# metadata:
+#   name: devnet-snapshots
+#   namespace: devnet
+# spec:
+#   serviceAccountName: devnet-snapshots-sa
+#   containers:
+#     - name: backup-container
+#       image: amazon/aws-cli:2.16.2
+#       volumeMounts:
+#         - name: script
+#           mountPath: /script
+#         - name: pvc
+#           mountPath: /pvc
+#           readOnly: true
+#       command: ["/bin/sh", "-c", "sleep 3600000000"]
+#   restartPolicy: Never
+#   volumes:
+#     - name: script
+#       configMap:
+#         name: devnet-snapshots-script
+#     - name: pvc
+#       persistentVolumeClaim:
+#         claimName: validator-1-data-devnet-validator-1-0
