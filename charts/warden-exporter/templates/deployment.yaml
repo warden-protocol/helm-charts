@@ -36,6 +36,10 @@ spec:
             - --log-level={{ .Values.logLevel }}
           env:
             {{- include "warden-exporter.renderEnv" .Values.env | nindent 12 }}
+          {{- with .Values.envFrom }}
+          envFrom:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}

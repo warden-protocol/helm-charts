@@ -37,7 +37,7 @@ service:
 #     "true"
 #   CHAIN_ID:
 #     "buenavista-1"
-
+# envFrom:
 
 resources: {}
 nodeSelector: {}
