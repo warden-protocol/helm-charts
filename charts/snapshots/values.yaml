@@ -27,8 +27,8 @@ configMap:
     - applications
   s3Bucket: ""
   paths:
-    - "data/"
-    - "wasm/"
+    - "data"
+    - "wasm"
 
 nameOverride: ""
 fullnameOverride: ""
