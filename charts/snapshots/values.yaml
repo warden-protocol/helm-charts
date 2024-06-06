@@ -13,7 +13,7 @@ cronjob:
     tag: 2.16.2
   imagePullSecrets: []
   argocdAuthSecret: ""
-  claimName: ""
+  stsName: ""
   resources: {}
     # limits:
     #   cpu: 100m
@@ -25,7 +25,6 @@ cronjob:
 configMap:
   argocdApps:
     - applications
-  stsName: ""
   s3Bucket: ""
   paths:
     - "data/"

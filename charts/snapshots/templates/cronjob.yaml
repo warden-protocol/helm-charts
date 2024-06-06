@@ -14,34 +14,72 @@ spec:
       template:
         spec:
           serviceAccountName: {{ .Values.serviceAccount.name }}
-          {{- with .Values.cronjob.imagePullSecrets }}
-          imagePullSecrets:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
           containers:
-            - name: snapshots-container
-              image: {{ .Values.cronjob.image.repository }}:{{ .Values.cronjob.image.tag }}
-              imagePullPolicy: {{ .Values.cronjob.image.pullPolicy }}
-              resources:
-                {{- toYaml .Values.cronjob.resources | nindent 16 }}
-              volumeMounts:
-                - name: script
-                  mountPath: /script
-                - name: argocd
-                  mountPath: /etc/argocd
-                  readOnly: true
-                - name: pvc
-                  mountPath: /pvc
-                  readOnly: true
-              command: ["/bin/bash", "/script/snapshot.sh"]
+          - name: snapshots-container-prepare
+            image: {{ .Values.cronjob.image.repository }}:{{ .Values.cronjob.image.tag }}
+            imagePullPolicy: {{ .Values.cronjob.image.pullPolicy }}
+            command:
+            - /bin/sh
+            - -c
+            - |
+              /bin/sh /scripts/prepare.sh
+              replicas=$(kubectl get sts {{ .Values.cronjob.stsName }} -o jsonpath='{.spec.replicas}')
+              echo $replicas
+              pvcname={{ .Values.cronjob.stsName }}-data-{{ .Values.cronjob.stsName }}-$replicas
+              echo $pvcname
+              cat <<EOF | kubectl apply -f -
+              apiVersion: batch/v1
+              kind: Job
+              metadata:
+                name: {{ .Release.Namespace }}-snapshots
+                namespace: {{ .Release.Namespace }}
+              spec:
+                template:
+                  spec:
+                    serviceAccountName: {{ .Values.serviceAccount.name }}
+                    {{- with .Values.cronjob.imagePullSecrets }}
+                    imagePullSecrets:
+                      {{- toYaml . | nindent 22 }}
+                    {{- end }}
+                    containers:
+                      - name: snapshots-container
+                        image: {{ .Values.cronjob.image.repository }}:{{ .Values.cronjob.image.tag }}
+                        imagePullPolicy: {{ .Values.cronjob.image.pullPolicy }}
+                        resources:
+                          {{- toYaml .Values.cronjob.resources | nindent 26 }}
+                        volumeMounts:
+                          - name: scripts
+                            mountPath: /scripts
+                          - name: argocd
+                            mountPath: /etc/argocd
+                            readOnly: true
+                          - name: pvc
+                            mountPath: /pvc
+                            readOnly: true
+                        command: ["/bin/bash", "/scripts/snapshot.sh"]
+                    restartPolicy: Never
+                    volumes:
+                      - name: scripts
+                        configMap:
+                          name: {{ .Release.Namespace }}-snapshots-scripts
+                      - name: argocd
+                        secret:
+                          secretName: {{ .Values.cronjob.argocdAuthSecret }}
+                      - name: pvc
+                        persistentVolumeClaim:
+                          claimName: $pvcname
+              EOF
+            volumeMounts:
+              - name: scripts
+                mountPath: /scripts
+              - name: argocd
+                mountPath: /etc/argocd
+                readOnly: true
           restartPolicy: Never
           volumes:
-            - name: script
+            - name: scripts
               configMap:
-                name: {{ .Release.Namespace }}-snapshots-script
+                name: {{ .Release.Namespace }}-snapshots-scripts
             - name: argocd
               secret:
                 secretName: {{ .Values.cronjob.argocdAuthSecret }}
-            - name: pvc
-              persistentVolumeClaim:
-                claimName: {{ .Values.cronjob.claimName }}
