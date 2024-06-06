@@ -45,29 +45,3 @@ spec:
             - name: pvc
               persistentVolumeClaim:
                 claimName: {{ .Values.cronjob.claimName }}
-# ---
-# apiVersion: v1
-# kind: Pod
-# metadata:
-#   name: devnet-snapshots
-#   namespace: devnet
-# spec:
-#   serviceAccountName: devnet-snapshots-sa
-#   containers:
-#     - name: backup-container
-#       image: amazon/aws-cli:2.16.2
-#       volumeMounts:
-#         - name: script
-#           mountPath: /script
-#         - name: pvc
-#           mountPath: /pvc
-#           readOnly: true
-#       command: ["/bin/sh", "-c", "sleep 3600000000"]
-#   restartPolicy: Never
-#   volumes:
-#     - name: script
-#       configMap:
-#         name: devnet-snapshots-script
-#     - name: pvc
-#       persistentVolumeClaim:
-#         claimName: validator-1-data-devnet-validator-1-0
