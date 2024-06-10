@@ -272,6 +272,20 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/phoenixbot-0.1.0/phoenixbot-0.1.0.tgz
     version: 0.1.0
+  prometheus-rules:
+  - apiVersion: v2
+    created: "2024-06-10T11:16:44.811550685Z"
+    description: A Helm chart for defining PrometheusRule alerts
+    digest: a22ba048bdab92d6e21a94fe5694f3037a7961e21ccf2c78d6f5aa83b8a5247a
+    maintainers:
+    - email: joonas@wardenprotocol.org
+      name: jlehtimaki
+      url: https://github.com/jlehtimaki
+    name: prometheus-rules
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/prometheus-rules-1.0.0/prometheus-rules-1.0.0.tgz
+    version: 1.0.0
   snapshots:
   - apiVersion: v2
     appVersion: latest
@@ -845,4 +859,4 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/webhooks-0.1.0/webhooks-0.1.0.tgz
     version: 0.1.0
-generated: "2024-06-10T06:53:31.197446061Z"
+generated: "2024-06-10T11:16:44.81176259Z"
