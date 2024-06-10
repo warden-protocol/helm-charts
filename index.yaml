@@ -272,6 +272,20 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/phoenixbot-0.1.0/phoenixbot-0.1.0.tgz
     version: 0.1.0
+  snapshots:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2024-06-10T06:53:31.197265062Z"
+    description: A Helm chart for Kubernetes
+    digest: 003341c47f5e04c2bfbcf62ee091223e7dd0c1c35bd4826dea81eb6f2b892e01
+    maintainers:
+    - email: eugene.zavertiaev@eqlab.io
+      name: zavertiaev
+    name: snapshots
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/snapshots-0.1.0/snapshots-0.1.0.tgz
+    version: 0.1.0
   spaceward:
   - apiVersion: v2
     appVersion: latest
@@ -831,4 +845,4 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/webhooks-0.1.0/webhooks-0.1.0.tgz
     version: 0.1.0
-generated: "2024-06-06T08:35:01.675255409Z"
+generated: "2024-06-10T06:53:31.197446061Z"
