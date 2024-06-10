@@ -1,0 +1,10 @@
+---
+apiVersion: v2
+name: prometheus-rules
+description: A Helm chart for defining PrometheusRule alerts
+type: application
+version: 1.0.0
+maintainers:
+  - name: jlehtimaki
+    email: joonas@wardenprotocol.org
+    url: https://github.com/jlehtimaki
