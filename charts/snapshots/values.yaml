@@ -14,7 +14,7 @@ cronjob:
   imagePullSecrets: []
   argocdAuthSecret: ""
   stsName: ""
-  jobTtl: 60
+  ttlSecondsAfterFinished: 60
   resources: {}
     # limits:
     #   cpu: 100m
