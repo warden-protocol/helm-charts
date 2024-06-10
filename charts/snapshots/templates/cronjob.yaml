@@ -32,7 +32,7 @@ spec:
                 name: {{ .Release.Namespace }}-snapshots
                 namespace: {{ .Release.Namespace }}
               spec:
-                ttlSecondsAfterFinished: 60
+                ttlSecondsAfterFinished: {{ .Values.cronjob.jobTtl }}
                 template:
                   spec:
                     serviceAccountName: {{ .Values.serviceAccount.name }}
