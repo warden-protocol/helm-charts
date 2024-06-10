@@ -30,6 +30,6 @@ configMap:
   paths:
     - "data"
     - "wasm"
- 
+
 nameOverride: ""
 fullnameOverride: ""
