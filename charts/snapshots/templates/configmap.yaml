@@ -83,14 +83,17 @@ data:
     chmod +x kubectl
     mv kubectl /usr/local/bin/
 
-    # create snapshot
+    # create snapshot and upload to S3
     echo "Creating snapshot..."
     cd /pvc
-    tar -I lz4 -cf /tmp/$FILENAME{{- range .Values.configMap.paths }} {{ . }}{{- end }}
 
-    # upload to S3
-    echo "Uploading snapshot to S3..."
-    aws s3 cp /tmp/$FILENAME $S3_BUCKET --no-progress
+    PATHS=({{- range .Values.configMap.paths }} {{ . }}{{- end }})
+    TOTAL_SIZE=0
+    for DIR in "${PATHS[@]}"; do
+      DIR_SIZE=$(du -sb "$DIR" | awk '{print $1}')
+      TOTAL_SIZE=$((TOTAL_SIZE + DIR_SIZE))
+    done
+    tar -I lz4 -cf -{{- range .Values.configMap.paths }} {{ . }}{{- end }} | aws s3 cp - "${S3_BUCKET}${FILENAME}" --expected-size "$TOTAL_SIZE" --no-progress
 
     # get the number of replicas in the StatefulSet
     replicas=$(kubectl get sts {{ .Values.cronjob.stsName }} -o jsonpath='{.spec.replicas}')
