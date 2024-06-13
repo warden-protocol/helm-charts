@@ -289,6 +289,19 @@ entries:
   snapshots:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-06-13T11:57:12.805622321Z"
+    description: A Helm chart for Kubernetes
+    digest: da790fb168138e672396ee0814a330e322e5070241114969b56695d3f4870167
+    maintainers:
+    - email: eugene.zavertiaev@eqlab.io
+      name: zavertiaev
+    name: snapshots
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/snapshots-0.1.5/snapshots-0.1.5.tgz
+    version: 0.1.5
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-06-13T08:07:23.990082637Z"
     description: A Helm chart for Kubernetes
     digest: cfda0f3cb0dd068d075db8a69c86fb167be35f11c33045fd8c17e1d58473002b
@@ -885,4 +898,4 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/webhooks-0.1.0/webhooks-0.1.0.tgz
     version: 0.1.0
-generated: "2024-06-13T08:07:23.990238899Z"
+generated: "2024-06-13T11:57:12.805923561Z"
