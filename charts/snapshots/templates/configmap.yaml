@@ -118,4 +118,3 @@ data:
             }'
       echo -e "\nSync policy for application $app_name successfully enabled"
     done
-я
