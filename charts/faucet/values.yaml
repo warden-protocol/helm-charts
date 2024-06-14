@@ -1,11 +1,11 @@
 ---
 replicaCount: 1
 
-image: 730335603902.dkr.ecr.eu-west-1.amazonaws.com/wardenprotocol/production/faucet
-imageTag: 8f9258e
+image: ghcr.io/warden-protocol/wardenprotocol/faucet
+imageTag: ""
 imagePullPolicy: IfNotPresent
 imagePullSecrets:
-  - name: awsregistry
+  - name: ghcr
 
 nameOverride: ""
 fullnameOverride: "faucet"
@@ -63,3 +63,9 @@ affinity: {}
 
 env: []
 envFrom: []
+
+secretmanager:
+  enabled: false
+  serviceAccount: ""
+  secrets: []
+  cmd: "/usr/bin/faucet-v2"
