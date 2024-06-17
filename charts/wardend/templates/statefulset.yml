@@ -125,14 +125,14 @@ spec:
         - name: {{ include "node.name" . }}
           image: "{{ .Values.image }}:{{ .Values.imageTag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.imagePullPolicy }}
+          {{- if .Values.node.ready }}
           {{- if .Values.cosmovisor.enabled }}
           command: ["{{.Values.node.home}}/cosmovisor/bin/cosmovisor","run","start"]
           {{- else }}
-          {{- if .Values.node.ready }}
           command: ["/usr/bin/wardend","start"]
+          {{- end }}
           {{- else }}
           command: ["sleep","36000"]
-          {{- end }}
           {{- end }}
           env:
             - name: WARDEND_HOME
