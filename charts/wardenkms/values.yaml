@@ -8,8 +8,7 @@ replicaCount: 1
 image: ghcr.io/warden-protocol/wardenprotocol/wardenkms
 imageTag: ""
 imagePullPolicy: IfNotPresent
-imagePullSecrets:
-  - name: ghcr
+imagePullSecrets: []
 
 nameOverride: ""
 fullnameOverride: ""
@@ -71,8 +70,11 @@ affinity: {}
 env: []
 envFrom: []
 
-secretmanager:
+secretManager:
   enabled: false
-  serviceAccount: ""
+  serviceAccount:
+    create: false
+    name: ""
+    annotations: {}
   secrets: []
   cmd: "/wardenkms"

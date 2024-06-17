@@ -4,8 +4,7 @@ replicaCount: 1
 image: ghcr.io/warden-protocol/wardenprotocol/faucet
 imageTag: ""
 imagePullPolicy: IfNotPresent
-imagePullSecrets:
-  - name: ghcr
+imagePullSecrets: []
 
 nameOverride: ""
 fullnameOverride: "faucet"
@@ -64,8 +63,11 @@ affinity: {}
 env: []
 envFrom: []
 
-secretmanager:
+secretManager:
   enabled: false
-  serviceAccount: ""
+  serviceAccount:
+    create: false
+    name: ""
+    annotations: {}
   secrets: []
   cmd: "/usr/bin/faucet-v2"

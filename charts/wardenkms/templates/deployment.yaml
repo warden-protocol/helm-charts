@@ -21,8 +21,8 @@ spec:
       labels:
         {{- include "wardenkms.selectorLabels" . | nindent 8 }}
     spec:
-      {{- if .Values.secretmanager.enabled }}
-      serviceAccountName: {{ .Values.secretmanager.serviceAccount }}
+      {{- if .Values.secretManager.enabled }}
+      serviceAccountName: {{ .Values.secretManager.serviceAccount.name }}
       {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -36,9 +36,9 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image }}:{{ .Values.imageTag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.imagePullPolicy }}
-          {{- if .Values.secretmanager.enabled }}
+          {{- if .Values.secretManager.enabled }}
           command: ["/bin/sh", "-c"]
-          args: ["eval $(awk -F= '{print \"export \"$1\"=\"$2}' /etc/env/*) && {{ .Values.secretmanager.cmd }}"]
+          args: ["eval $(awk -F= '{print \"export \"$1\"=\"$2}' /etc/env/*) && {{ .Values.secretManager.cmd }}"]
           volumeMounts:
             - name: secrets
               mountPath: "/etc/env"
@@ -74,7 +74,7 @@ spec:
           envFrom:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-      {{- if .Values.secretmanager.enabled }}
+      {{- if .Values.secretManager.enabled }}
       volumes:
         - name: secrets
           csi:
