@@ -15,6 +15,11 @@ replicas: 1
 nodes: []
 cosigners: []
 
+topologySpreadConstraints:
+  enabled: false
+  maxSkew: 1
+  whenUnsatisfiable: DoNotSchedule
+
 metrics:
   enabled: true
   serviceMonitor:
