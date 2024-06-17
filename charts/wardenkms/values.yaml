@@ -5,12 +5,11 @@
 
 replicaCount: 1
 
-image: 730335603902.dkr.ecr.eu-west-1.amazonaws.com/wardenprotocol/production/wardenkms
-imageTag: dbc5193
+image: ghcr.io/warden-protocol/wardenprotocol/wardenkms
+imageTag: ""
 imagePullPolicy: IfNotPresent
+imagePullSecrets: []
 
-imagePullSecrets:
-  - name: awsregistry
 nameOverride: ""
 fullnameOverride: ""
 
@@ -70,3 +69,12 @@ affinity: {}
 
 env: []
 envFrom: []
+
+secretManager:
+  enabled: false
+  serviceAccount:
+    create: false
+    name: ""
+    annotations: {}
+  secrets: []
+  cmd: "/wardenkms"
