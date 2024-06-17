@@ -34,6 +34,15 @@ spec:
         labels:
             {{- include "node.selectorLabels" . | nindent 8 }}
     spec:
+      {{- if .Values.topologySpreadConstraints.enabled }}
+      topologySpreadConstraints:
+      - maxSkew: {{ .Values.topologySpreadConstraints.maxSkew }}
+        topologyKey: "topology.kubernetes.io/zone"
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            {{- include "node.selectorLabels" . | nindent 12 }}
+      {{- end }}
       {{- with .Values.podSecurityContext }}
       securityContext:
         {{- toYaml . | nindent 8 }} 
@@ -168,6 +177,11 @@ spec:
               containerPort: 26660
               protocol: TCP
             {{- end}}
+            {{- if .Values.node.externalSigner }}
+            - name: signer
+              containerPort: 1234
+              protocol: TCP
+            {{- end}}
           {{- if .Values.node.ready }}
           livenessProbe:
             initialDelaySeconds: 10
@@ -198,11 +212,13 @@ spec:
               mountPath: {{ .Values.node.home }}/config/node_key.json
               subPath: node_key.json
           {{- end}}
+          {{- if not .Values.node.externalSigner }}
           {{- if .Values.node.nodeKeysSecretName }}
             - name: {{ include "node.name" . }}-keys
               mountPath: {{ .Values.node.home }}/config/priv_validator_key.json
               subPath: priv_validator_key.json
-          {{- end}}
+          {{- end }}
+          {{- end }}
           {{- if .Values.node.genesisSecretName }}
             - name: genesis
               mountPath: {{ .Values.node.home }}/config/genesis.json
