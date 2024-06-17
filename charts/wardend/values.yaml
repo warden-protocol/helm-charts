@@ -42,12 +42,18 @@ cosmovisor:
   logBufferSize: "512"
   unsafeSkipBackup: true
 
+topologySpreadConstraints:
+  enabled: false
+  maxSkew: 1
+  whenUnsatisfiable: DoNotSchedule
+
 node:
   enabled: true
   ready: true
   name: node
   home: /data/.warden
   logLevel: "info"
+  externalSigner: false
   mnemonicSecretName: ""
   nodeKeysSecretName: ""
   genesisSecretName: ""

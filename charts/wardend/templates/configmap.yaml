@@ -73,7 +73,11 @@ data:
 
     # TCP or UNIX socket address for CometBFT to listen on for
     # connections from an external PrivValidator process
+    {{- if .Values.node.externalSigner }}
+    priv_validator_laddr = "tcp://0.0.0.0:1234"
+    {{ else }}
     priv_validator_laddr = ""
+    {{- end }}
 
     # Path to the JSON file containing the private key to use for node authentication in the p2p protocol
     node_key_file = "config/node_key.json"
