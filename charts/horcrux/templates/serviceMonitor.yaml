@@ -1,0 +1,21 @@
+---
+{{- if .Values.metrics.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "name" . }}
+  labels:
+    {{- include "selectorLabels" $ | nindent 4 }}
+    {{ .Values.metrics.serviceMonitor.extraLabels | nindent 4 }}
+spec:
+  jobLabel: {{ include "name" . }}
+  selector:
+    matchLabels:
+        {{- include "selectorLabels" $ | nindent 4 }}
+  endpoints:
+    - port: metrics
+      path: /metrics
+      interval: 3s
+      scrapeTimeout: 30s
+---
+{{- end}}

@@ -1,0 +1,90 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "name" . }}
+  labels:
+    {{- include "labels" . | nindent 4 }}
+spec:
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ include "name" . }}
+      spec:
+        accessModes: [ReadWriteOnce]
+        storageClassName: {{ .Values.persistentDisk.class }}
+        resources:
+          requests:
+            storage: {{.Values.persistentDisk.size}}
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+       {{- include "selectorLabels" . | nindent 8 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+          {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+          {{- include "selectorLabels" . | nindent 8 }}
+    spec:
+      initContainers:
+        - name: init
+          image: "ubuntu:24.04"
+          command: [ "/bin/sh" , "/scripts/init.sh" ]
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          env:
+            - name: THRESHOLD
+              value: "{{ .Values.threshold }}"
+            - name: GRPC_TIMEOUT
+              value: "{{ .Values.grpcTimeout }}"
+            - name: RAFT_TIMEOUT
+              value: "{{ .Values.raftTimeout }}"
+            - name: NODES
+              value: "{{ .Values.nodes }}"
+            - name: COSIGNERS
+              value: "{{ .Values.cosigners }}"
+          volumeMounts:
+            - name: scripts
+              mountPath: /scripts
+              readOnly: true
+            - name: {{ include "name" . }}
+              mountPath: /home/horcrux/.horcrux
+            {{- range $name, $config := .Values.secretVolume }}
+            - name: {{ $name }}
+              mountPath: /tmp/secrets
+            {{- end }}
+      containers:
+        - name: {{ include "name" . }}
+          image: "{{ .Values.image }}:{{ .Values.imageTag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          command: ["horcrux","start","--home","/home/horcrux/.horcrux"]
+          ports:
+            - name: horcrux
+              containerPort: 2222
+              protocol: TCP
+            {{- if .Values.metrics.enabled }}
+            - name: metrics
+              containerPort: 6061
+              protocol: TCP
+            {{- end}}
+          volumeMounts:
+            - name: {{ include "name" . }}
+              mountPath: "/home/horcrux/.horcrux"
+            - name: config
+              mountPath: "/home/horcrux/.horcrux/config.yaml"
+              subPath: config.yaml
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+      {{- range $name, $config := .Values.secretVolume }}
+      - name: {{ $name }}
+        {{ $config | toYaml | nindent 8}}
+      {{- end }}
+      - name: scripts
+        configMap:
+          name: {{.Release.Name}}-{{ .Values.name }}-scripts
+      - name: config
+        configMap:
+          name: {{ include "name" . }}-config
+
