@@ -1,0 +1,23 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "name" .}}-config
+data:
+  config.yaml: |
+    signMode: threshold
+    thresholdMode:
+      threshold: {{ .Values.threshold }}
+      cosigners:
+      {{- range $index, $node := .Values.cosigners }}
+      - shardID: {{ add1 $index }}
+        p2pAddr: tcp://{{ $node }}
+      {{- end }}
+      grpcTimeout: 500ms
+      raftTimeout: 500ms
+    chainNodes:
+    {{- range $node := .Values.nodes }}
+    - privValAddr: tcp://{{ $node }}
+    {{- end }}
+    debugAddr: "0.0.0.0:6061"
+    grpcAddr: ""

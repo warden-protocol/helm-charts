@@ -1,0 +1,41 @@
+---
+# Default values for warden.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+name: horcrux
+image: ghcr.io/strangelove-ventures/horcrux
+imagePullPolicy: IfNotPresent
+imageTag: v3.3.0
+
+# Does not work with other than one replica
+replicas: 1
+
+# Node and cosigner configuration
+# Set services names of both the nodes and cosigners
+nodes: []
+cosigners: []
+
+metrics:
+  enabled: true
+  serviceMonitor:
+    extraLabels: ""
+
+persistentDisk:
+  size: 20Gi
+  class: gp2
+
+secretVolume: {}
+# chain_name: {}
+
+# Threshold to set for signers
+threshold: 2
+
+# Timeouts
+grpcTimeout: 1000ms
+raftTimeout: 1000ms
+
+resources: {}
+podAnnotations: {}
+serviceAnnotations: {}
+serviceMonitor:
+  extraLabels: {}
