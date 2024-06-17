@@ -27,6 +27,7 @@ Common labels
 */}}
 {{- define "labels" -}}
 helm.sh/chart: {{ include "release.chart" . }}
+app.kubernetes.io/signer: horcrux
 {{ include "selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
