@@ -148,6 +148,21 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/hermes-relayer-0.1.0/hermes-relayer-0.1.0.tgz
     version: 0.1.0
+  horcrux:
+  - apiVersion: v2
+    appVersion: v3.3.0
+    created: "2024-06-17T09:09:51.695227542Z"
+    description: A chart to deploy Horcrux to Kubernetes
+    digest: d986a42ab9fa0973f6a0a9ced2f5efda8d58e10dffc99961dcbe5bfff3b4e361
+    maintainers:
+    - email: joonas@wardenprotocol.org
+      name: jlehtimaki
+      url: https://github.com/jlehtimaki
+    name: horcrux
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/horcrux-0.1.0/horcrux-0.1.0.tgz
+    version: 0.1.0
   landing:
   - apiVersion: v2
     appVersion: latest
@@ -898,4 +913,4 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/webhooks-0.1.0/webhooks-0.1.0.tgz
     version: 0.1.0
-generated: "2024-06-13T11:57:12.805923561Z"
+generated: "2024-06-17T09:09:51.695395735Z"
