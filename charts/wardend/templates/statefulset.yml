@@ -188,7 +188,7 @@ spec:
             httpGet:
               path: /health
               port: rpc
-          {{- if not .Values.node.externalSigner.enabled }}
+          {{- if not .Values.node.externalSigner }}
           readinessProbe:
             initialDelaySeconds: 10
             httpGet:
