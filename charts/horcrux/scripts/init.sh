@@ -3,14 +3,8 @@
 HORCRUX_HOME=/home/horcrux/.horcrux
 SECRETS=/tmp/secrets
 
-# Check if the directory exists
-if [ -d "$HORCRUX_HOME" ]; then
-    echo "Directory exists at $HORCRUX_HOME"
-else
-    echo "Directory does not exist at $HORCRUX_HOME"
-    mkdir -p $HORCRUX_HOME
-    chown -fR horcrux:horcrux $HORCRUX_HOME
-fi
+mkdir -p $HORCRUX_HOME/state
+chown -fR 2345:2345 $HORCRUX_HOME
 
 # Check that all files are present
 for file in "$SECRETS"/*; do
