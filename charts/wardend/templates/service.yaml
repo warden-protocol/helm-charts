@@ -35,12 +35,6 @@ spec:
       targetPort: 26660
       protocol: TCP
     {{- end}}
-    {{- if .Values.node.externalSigner }}
-    - name: signer
-      port: 1234
-      targetPort: 1234
-      protocol: TCP
-    {{- end}}
   selector:
     {{- include "node.selectorLabels" . | nindent 4 }}
 {{- end }}
@@ -112,6 +106,27 @@ spec:
     - name: p2p
       port: 26656
       targetPort: 26656
+      protocol: TCP
+  selector:
+    statefulset.kubernetes.io/pod-name: {{ include "node.name" $ }}-{{ $i }}
+---
+{{- end }}
+{{- end }}
+{{- end }}
+{{- if .Values.node.enabled }}
+{{- if .Values.node.externalSigner }}
+{{- range $i, $e := until (int .Values.node.replicaCount)}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "node.name" $ }}-{{ $i }}-signer
+  labels:
+    statefulset.kubernetes.io/pod-name: {{ include "node.name" $ }}-{{ $i }}
+spec:
+  ports:
+    - name: signer
+      port: 1234
+      targetPort: 1234
       protocol: TCP
   selector:
     statefulset.kubernetes.io/pod-name: {{ include "node.name" $ }}-{{ $i }}
