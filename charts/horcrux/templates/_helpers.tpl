@@ -41,6 +41,7 @@ Selector labels
 {{- define "selectorLabels" -}}
 app.kubernetes.io/name: {{ .Release.Name }}-{{ .Values.name }}
 app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/signer: horcrux
 {{- end }}
 
 {{- define "add1" -}}
