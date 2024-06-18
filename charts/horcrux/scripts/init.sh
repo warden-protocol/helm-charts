@@ -9,6 +9,7 @@ if [ -d "$HORCRUX_HOME" ]; then
 else
     echo "Directory does not exist at $HORCRUX_HOME"
     mkdir -p $HORCRUX_HOME
+    chown -fR horcrux:horcrux $HORCRUX_HOME
 fi
 
 # Check that all files are present
