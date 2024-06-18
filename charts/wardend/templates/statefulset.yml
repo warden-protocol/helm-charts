@@ -188,11 +188,13 @@ spec:
             httpGet:
               path: /health
               port: rpc
+          {{- if not .Values.node.externalSigner.enabled }}
           readinessProbe:
             initialDelaySeconds: 10
             httpGet:
               path: /health
               port: rpc
+          {{- end }}
           {{- end }}
           volumeMounts:
             {{- if not .Values.persistentVolumeClaimName }}
