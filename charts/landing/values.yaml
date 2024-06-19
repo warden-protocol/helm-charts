@@ -5,11 +5,11 @@
 
 replicaCount: 1
 
-image: 730335603902.dkr.ecr.eu-west-1.amazonaws.com/wardenprotocol/production/landing
-imageTag: stage-20240411-68e014e
+image: ghcr.io/warden-protocol/frontend/landing
+imageTag: ""
 imagePullPolicy: IfNotPresent
 
-imagePullSecrets: [name: awsregistry]
+imagePullSecrets: []
 
 nameOverride: ""
 fullnameOverride: ""
@@ -69,3 +69,12 @@ affinity: {}
 
 env: []
 envFrom: []
+
+secretManager:
+  enabled: false
+  serviceAccount:
+    create: false
+    name: ""
+    annotations: {}
+  secrets: []
+  cmd: "yarn start:landing"

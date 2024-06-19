@@ -20,6 +20,9 @@ spec:
       labels:
         {{- include "spaceward.selectorLabels" . | nindent 8 }}
     spec:
+      {{- if .Values.secretManager.enabled }}
+      serviceAccountName: {{ .Values.secretManager.serviceAccount.name }}
+      {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -32,6 +35,14 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image }}:{{ .Values.imageTag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.imagePullPolicy }}
+          {{- if .Values.secretManager.enabled }}
+          command: ["/bin/sh", "-c"]
+          args: ["eval $(awk -F= '{print \"export \"$1\"=\"$2}' /etc/env/*) && {{ .Values.secretManager.cmd }}"]
+          volumeMounts:
+            - name: secrets
+              mountPath: "/etc/env"
+              readOnly: true
+          {{- end }}
           {{- if .Values.service.enabled }}
           ports:
             {{- range .Values.service.ports }}
@@ -62,6 +73,15 @@ spec:
           envFrom:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+      {{- if .Values.secretManager.enabled }}
+      volumes:
+        - name: secrets
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "{{ include "spaceward.fullname" . }}"
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
