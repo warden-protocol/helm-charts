@@ -1,0 +1,11 @@
+image: "ghcr.io/warden-protocol/aws-pod-eip-controller:main"
+serviceAccountName: ""
+logLevel: DEBUG
+clusterName: ""
+vpcID: ""
+region: ""
+# set to empty string to watch all namespaces
+watchNamespace: ""
+createServiceAccount: false
+resyncPeriod: 0
+nodeSelector: {}
