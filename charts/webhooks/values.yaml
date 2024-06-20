@@ -4,10 +4,10 @@
 
 replicaCount: 1
 
-image: 730335603902.dkr.ecr.eu-west-1.amazonaws.com/wardenprotocol/production/warden-keychain-operators/webhooks
+image: ghcr.io/open-custody/keychain-operators/webhooks
 imagePullPolicy: IfNotPresent
 imageTag: ""
-imagePullSecrets: [name: awsregistry]
+imagePullSecrets: []
 
 nameOverride: ""
 fullnameOverride: ""
@@ -64,3 +64,12 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+secretManager:
+  enabled: false
+  serviceAccount:
+    create: false
+    name: ""
+    annotations: {}
+  secrets: []
+  cmd: "yarn webhooks"

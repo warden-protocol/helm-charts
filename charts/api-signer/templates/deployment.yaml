@@ -1,0 +1,103 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "api-signer.fullname" . }}
+  labels:
+    {{- include "api-signer.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "api-signer.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "api-signer.labels" . | nindent 8 }}
+      {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    spec:
+      {{- if .Values.secretManager.enabled }}
+      serviceAccountName: {{ .Values.secretManager.serviceAccount.name }}
+      {{- end }}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - /api-signer
+            - run
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+          {{- if .Values.secretManager.enabled }}
+            - name: config
+              mountPath: /storage/filedb/CONFIG.json
+              subPath: CONFIG.json
+            - name: secrets
+              mountPath: /storage/filedb/SECRETS.json
+              subPath: SECRETS.json
+            - name: secrets
+              mountPath: /storage/filedb/CREDENTIALS.json
+              subPath: CREDENTIALS.json
+          {{- else }}
+          volumeMounts:
+            - name: filedb
+              mountPath: /storage/filedb
+              readOnly: true
+          {{- end }}
+      volumes:
+      {{- if .Values.secretManager.enabled }}
+        - name: config
+          configMap:
+            name: api-signer-secrets-config
+            items:
+              - key: config
+                path: CONFIG.json
+        - name: secrets
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "api-signer-secrets"
+      {{- else }}
+        - name: filedb
+          projected:
+            sources:
+            - secret:
+                name: api-signer-secrets
+                items:
+                - key: secrets
+                  path: SECRETS.json
+                - key: credentials
+                  path: CREDENTIALS.json
+            - configMap:
+                name: api-signer-config
+                items:
+                - key: config
+                  path: CONFIG.json
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
