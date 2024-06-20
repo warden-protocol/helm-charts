@@ -12,6 +12,18 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/api-signer-0.1.0/api-signer-0.1.0.tgz
     version: 0.1.0
+  aws-pod-eip-controller:
+  - apiVersion: v2
+    created: "2024-06-20T13:35:52.003822923Z"
+    description: kubernetes aws-pod-eip-controller
+    digest: 86b809a0b065be22753d24c96009973de978074b0a8e35fbba0064c20e48af06
+    home: https://github.com/aws-samples/aws-pod-eip-controller
+    name: aws-pod-eip-controller
+    sources:
+    - https://github.com/aws-samples/aws-pod-eip-controller/charts
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/aws-pod-eip-controller-0.1.0/aws-pod-eip-controller-0.1.0.tgz
+    version: 0.1.0
   blockchain-listener:
   - apiVersion: v2
     appVersion: latest
@@ -1219,4 +1231,4 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/webhooks-0.1.0/webhooks-0.1.0.tgz
     version: 0.1.0
-generated: "2024-06-20T12:23:25.105184986Z"
+generated: "2024-06-20T13:35:52.003960862Z"
