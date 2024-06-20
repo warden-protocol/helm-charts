@@ -1,6 +1,32 @@
 apiVersion: v1
 entries:
+  api-signer:
+  - apiVersion: v2
+    created: "2024-06-20T12:23:24.578098552Z"
+    description: A Helm chart for deploying Fordefi's API Signer
+    digest: 9f18df2660b524503119400e43634945dddbff7179343c766730d8cb0148a595
+    maintainers:
+    - name: zavertiaev
+    name: api-signer
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/api-signer-0.1.0/api-signer-0.1.0.tgz
+    version: 0.1.0
   blockchain-listener:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2024-06-20T12:23:24.681443771Z"
+    description: A Helm chart for Kubernetes
+    digest: 29cf6ffe96a55b8695415bf58d9fc5fa191a612940f5a408580d17efea42f289
+    maintainers:
+    - name: zavertiaev
+    - name: jlehtimaki
+    - name: mikolajsobolewski
+    name: blockchain-listener
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/blockchain-listener-0.2.0/blockchain-listener-0.2.0.tgz
+    version: 0.2.0
   - apiVersion: v2
     appVersion: latest
     created: "2024-05-08T08:49:24.731094854Z"
@@ -144,6 +170,20 @@ entries:
   hermes-relayer:
   - apiVersion: v2
     appVersion: 1.8.2
+    created: "2024-06-20T12:23:24.768559864Z"
+    description: A Helm chart for Kubernetes
+    digest: ffea153b709092f8e828b179abfb88315869ad1c6f2caaea953a01ee77541ec4
+    maintainers:
+    - name: zavertiaev
+    - name: jlehtimaki
+    - name: mikolajsobolewski
+    name: hermes-relayer
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/hermes-relayer-0.2.0/hermes-relayer-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: 1.8.2
     created: "2024-04-25T09:46:38.625018824Z"
     description: A Helm chart for Kubernetes
     digest: e0189f95d148cc1fc66d9f5f0e306a623cc41e3ae5ec376e7e1af9c8ae45c5cb
@@ -234,6 +274,20 @@ entries:
     - https://github.com/warden-protocol/helm-charts/releases/download/horcrux-0.1.0/horcrux-0.1.0.tgz
     version: 0.1.0
   landing:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2024-06-20T12:23:24.869143391Z"
+    description: A Helm chart for Kubernetes
+    digest: 76326cc759f51cf6d693b9056987e55b5ee594cce18e6f2fc83c91696751b6ab
+    maintainers:
+    - name: zavertiaev
+    - name: jlehtimaki
+    - name: mikolajsobolewski
+    name: landing
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/landing-0.3.0/landing-0.3.0.tgz
+    version: 0.3.0
   - apiVersion: v2
     appVersion: latest
     created: "2024-05-15T08:32:01.740165738Z"
@@ -425,6 +479,20 @@ entries:
     - https://github.com/warden-protocol/helm-charts/releases/download/snapshots-0.1.0/snapshots-0.1.0.tgz
     version: 0.1.0
   spaceward:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2024-06-20T12:23:24.997762318Z"
+    description: A Helm chart for Kubernetes
+    digest: 4d704cbb3e8a08d89ed8ac1048f7910ac34b6c72ea6b8dceb50d3d19f1c9c031
+    maintainers:
+    - name: zavertiaev
+    - name: jlehtimaki
+    - name: mikolajsobolewski
+    name: spaceward
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/spaceward-0.2.0/spaceward-0.2.0.tgz
+    version: 0.2.0
   - apiVersion: v2
     appVersion: latest
     created: "2024-04-15T12:04:37.466632619Z"
@@ -1099,6 +1167,20 @@ entries:
   webhooks:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-06-20T12:23:25.104919752Z"
+    description: A Helm chart for Kubernetes
+    digest: 9e3d618c634722b44ae73e28caa7e2173d745cb2aec8e7a39270f90a2e60b8b4
+    maintainers:
+    - name: zavertiaev
+    - name: jlehtimaki
+    - name: mikolajsobolewski
+    name: webhooks
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/webhooks-0.2.0/webhooks-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-05-08T08:49:24.975036465Z"
     description: A Helm chart for Kubernetes
     digest: 690fd5582f46846cc37531eda99d2324aa5f1b3da20f7ec97acb50cdb0f33826
@@ -1137,4 +1219,4 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/webhooks-0.1.0/webhooks-0.1.0.tgz
     version: 0.1.0
-generated: "2024-06-20T11:08:18.518655454Z"
+generated: "2024-06-20T12:23:25.105184986Z"
