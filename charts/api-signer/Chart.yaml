@@ -2,7 +2,7 @@ apiVersion: v2
 description: A Helm chart for deploying Fordefi's API Signer
 name: api-signer
 type: application
-version: v0.31.27
+version: 0.1.0
 
 maintainers:
   - name: "zavertiaev"

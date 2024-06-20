@@ -54,3 +54,10 @@ relayer:
 
   clientUpdateSchedule: "0 * * * *"
   config: |
+secretManager:
+  enabled: false
+  serviceAccount:
+    create: false
+    name: ""
+    annotations: {}
+  secrets: []

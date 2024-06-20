@@ -19,17 +19,29 @@ spec:
           {{- toYaml . | nindent 12 }}
         {{- end }}
         spec:
+          {{- if .Values.secretManager.enabled }}
+          serviceAccountName: {{ .Values.secretManager.serviceAccount.name }}
+          {{- end }}
           {{- with .Values.podSecurityContext }}
           securityContext:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           volumes:
+          {{- if .Values.secretManager.enabled }}
+          - name: secrets
+            csi:
+              driver: secrets-store.csi.k8s.io
+              readOnly: true
+              volumeAttributes:
+                secretProviderClass: "{{ include "hermes-relayer.fullname" . }}"
+          {{- else }}
           - name: chain1mnenomic
             secret:
               secretName: {{ .Values.relayer.chain1SecretName }}
           - name: chain2mnenomic
             secret:
               secretName: {{ .Values.relayer.chain2SecretName }}
+          {{- end }}
           - name: keys
             emptyDir: {}
           - name: configfile
@@ -54,9 +66,16 @@ spec:
                   mountPath: "/home/hermes/.hermes/keys"
                 - name: configfile
                   mountPath: "/home/hermes/.hermes/"
+                {{- if .Values.secretManager.enabled }}
+                - name: secrets
+                  mountPath: "/etc/mnemonic/mnemonic"
+                  subPath: chain1
+                  readOnly: true
+                {{- else }}
                 - name: chain1mnenomic
                   readOnly: true
-                  mountPath: /etc/mnemonic
+                  mountPath: "/etc/mnemonic"
+                {{- end }}
             - name: init-chain-2
               image: "{{.Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion}}"
               args: [
@@ -72,9 +91,16 @@ spec:
                   mountPath: "/home/hermes/.hermes/keys"
                 - name: configfile
                   mountPath: "/home/hermes/.hermes/"
+                {{- if .Values.secretManager.enabled }}
+                - name: secrets
+                  mountPath: "/etc/mnemonic/mnemonic"
+                  subPath: chain2
+                  readOnly: true
+                {{- else }}
                 - name: chain2mnenomic
                   readOnly: true
-                  mountPath: /etc/mnemonic
+                  mountPath: "/etc/mnemonic"
+                {{- end }}
           containers:
             - name: update-client-chain-1
               image: "{{.Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion}}"

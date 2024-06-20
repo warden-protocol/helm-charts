@@ -24,28 +24,6 @@ securityContext: {}
 
 resources: {}
 
-volumes:
-- name: filedb
-  projected:
-    sources:
-    - secret:
-        name: api-signer-secrets
-        items:
-        - key: secrets
-          path: SECRETS.json
-        - key: credentials
-          path: CREDENTIALS.json
-    - configMap:
-        name: api-signer-config
-        items:
-        - key: config
-          path: CONFIG.json
-
-volumeMounts:
-- name: filedb
-  mountPath: /storage/filedb
-  readOnly: true
-
 nodeSelector: {}
 
 tolerations: []
