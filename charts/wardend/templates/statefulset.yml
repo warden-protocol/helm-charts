@@ -34,6 +34,14 @@ spec:
         labels:
             {{- include "node.selectorLabels" . | nindent 8 }}
     spec:
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- if .Values.topologySpreadConstraints.enabled }}
       topologySpreadConstraints:
       - maxSkew: {{ .Values.topologySpreadConstraints.maxSkew }}
