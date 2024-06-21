@@ -46,7 +46,9 @@ serviceMonitor:
 relayer:
   chain1ID:
   chain1ClientID:
+  chain1SecretName:
   chain2ClientID:
+  chain2SecretName:
   chain2ID:
   clientUpdateSchedule: "0 * * * *"
   config: |
