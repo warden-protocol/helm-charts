@@ -62,7 +62,7 @@ spec:
       {{- if .Values.secretManager.enabled }}
         - name: config
           configMap:
-            name: api-signer-secrets-config
+            name: {{ include "api-signer.name" . }}-config
             items:
               - key: config
                 path: CONFIG.json
@@ -71,20 +71,20 @@ spec:
             driver: secrets-store.csi.k8s.io
             readOnly: true
             volumeAttributes:
-              secretProviderClass: "api-signer-secrets"
+              secretProviderClass: {{ include "api-signer.fullname" . }}
       {{- else }}
         - name: filedb
           projected:
             sources:
             - secret:
-                name: api-signer-secrets
+                name: {{ include "api-signer.name" . }}
                 items:
                 - key: secrets
                   path: SECRETS.json
                 - key: credentials
                   path: CREDENTIALS.json
             - configMap:
-                name: api-signer-config
+                name: {{ include "api-signer.name" . }}-config
                 items:
                 - key: config
                   path: CONFIG.json

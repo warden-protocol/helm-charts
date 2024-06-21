@@ -3,7 +3,7 @@ apiVersion: v2
 name: hermes-relayer
 description: A Helm chart for Kubernetes
 type: application
-version: 0.2.0
+version: 0.2.1
 maintainers:
   - name: "zavertiaev"
   - name: "jlehtimaki"
