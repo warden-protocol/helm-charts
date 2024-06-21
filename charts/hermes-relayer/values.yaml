@@ -47,9 +47,11 @@ relayer:
   chain1ID:
   chain1ClientID:
   chain1SecretName:
+
   chain2ClientID:
-  chain2SecretName:
   chain2ID:
+  chain2SecretName:
+
   clientUpdateSchedule: "0 * * * *"
   config: |
 secretManager:
