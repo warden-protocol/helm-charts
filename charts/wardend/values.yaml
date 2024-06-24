@@ -127,3 +127,11 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+secretManager:
+  enabled: false
+  serviceAccount:
+    create: false
+    name: ""
+    annotations: {}
+  secrets: []

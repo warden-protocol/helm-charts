@@ -2,7 +2,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: {{ .Release.Namespace }}-snapshots-role
+  name: {{ include "snapshots.fullname" . }}-role
   labels:
     {{- include "snapshots.labels" . | nindent 4 }}
 rules:
@@ -19,7 +19,7 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: {{ .Release.Namespace }}-snapshot-rolebinding
+  name: {{ include "snapshots.fullname" . }}-rolebinding
   labels:
     {{- include "snapshots.labels" . | nindent 4 }}
 subjects:
@@ -27,5 +27,5 @@ subjects:
     name: {{ .Values.serviceAccount.name }}
 roleRef:
   kind: Role
-  name: {{ .Release.Namespace }}-snapshots-role
+  name: {{ include "snapshots.fullname" . }}-role
   apiGroup: rbac.authorization.k8s.io

@@ -33,3 +33,7 @@ configMap:
 
 nameOverride: ""
 fullnameOverride: ""
+
+secretManager:
+  enabled: false
+  secrets: []

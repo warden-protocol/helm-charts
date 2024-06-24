@@ -23,7 +23,7 @@ spec:
   replicas: {{ .Values.node.replicaCount }}
   selector:
     matchLabels:
-       {{- include "node.selectorLabels" . | nindent 8 }}
+      {{- include "node.selectorLabels" . | nindent 8 }}
   template:
     metadata:
       labels:
@@ -34,6 +34,9 @@ spec:
         labels:
             {{- include "node.selectorLabels" . | nindent 8 }}
     spec:
+      {{- if .Values.secretManager.enabled }}
+      serviceAccountName: {{ .Values.secretManager.serviceAccount.name }}
+      {{- end }}
       {{- with .Values.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
@@ -57,7 +60,7 @@ spec:
       {{- end}}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
-{{ toYaml .Values.imagePullSecrets | indent 8 }}
+      {{ toYaml .Values.imagePullSecrets | indent 8 }}
       {{- end }}
       initContainers:
         - name: init
@@ -126,8 +129,15 @@ spec:
             - name: {{ .Values.persistentVolumeClaimName }}
             {{- end }}
               mountPath: {{.Values.node.home}}
+            {{- if .Values.secretManager.enabled }}
+            - name: secrets
+              subPath: MNEMONIC
+            {{- else }}
             - name: {{ include "node.name" . }}-mnemonic
-              mountPath: /tmp/mnemonic
+            {{- end }}
+              mountPath: /tmp/mnemonic/MNEMONIC
+              readOnly: true
+            {{- end }}
         {{- end}}
       containers:
         - name: {{ include "node.name" . }}
@@ -217,24 +227,35 @@ spec:
             - name: config
               mountPath: {{ .Values.node.home }}/config/app.toml
               subPath: app.toml
-          {{- if .Values.node.nodeKeysSecretName }}
+            {{- if .Values.node.nodeKeysSecretName }}
+            {{- if .Values.secretManager.enabled }}
+            - name: secrets
+            {{- else }}
             - name: {{ include "node.name" . }}-keys
+            {{- end }}
               mountPath: {{ .Values.node.home }}/config/node_key.json
               subPath: node_key.json
-          {{- end}}
-          {{- if not .Values.node.externalSigner }}
-          {{- if .Values.node.nodeKeysSecretName }}
+            {{- end }}
+            {{- if not .Values.node.externalSigner }}
+            {{- if .Values.node.nodeKeysSecretName }}
+            {{- if .Values.secretManager.enabled }}
+            - name: secrets
+            {{- else }}
             - name: {{ include "node.name" . }}-keys
+            {{- end }}
               mountPath: {{ .Values.node.home }}/config/priv_validator_key.json
               subPath: priv_validator_key.json
-          {{- end }}
-          {{- end }}
-          {{- if .Values.node.genesisSecretName }}
+            {{- end }}
+            {{- end }}
+            {{- if .Values.node.genesisSecretName }}
+            {{- if .Values.secretManager.enabled }}
+            - name: secrets
+            {{- else }}
             - name: genesis
+            {{- end }}
               mountPath: {{ .Values.node.home }}/config/genesis.json
               subPath: genesis.json
-          {{- end}}
-          {{- end}}
+            {{- end }}
           resources:
             {{- toYaml .Values.node.resources | nindent 12 }}
       volumes:
@@ -254,6 +275,14 @@ spec:
       - name: config
         configMap:
           name: {{ .Release.Name }}-{{ .Values.node.name }}-config
+      {{- if .Values.secretManager.enabled }}
+      - name: secrets
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: {{ .Release.Name }}-{{ .Values.node.name }}
+      {{- else }}
       {{- if .Values.node.nodeKeysSecretName }}
       - name: {{ include "node.name" . }}-keys
         secret:
@@ -269,3 +298,4 @@ spec:
         secret:
           secretName: {{ .Values.node.genesisSecretName }}
       {{- end}}
+      {{- end }}

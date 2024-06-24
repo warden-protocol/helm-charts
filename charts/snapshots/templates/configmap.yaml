@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Namespace }}-snapshots-scripts
+  name: {{ include "snapshots.fullname" . }}-scripts
   labels:
     {{- include "snapshots.labels" . | nindent 4 }}
 data:
