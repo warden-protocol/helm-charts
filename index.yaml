@@ -2,6 +2,17 @@ apiVersion: v1
 entries:
   api-signer:
   - apiVersion: v2
+    created: "2024-06-24T10:15:10.261169812Z"
+    description: A Helm chart for deploying Fordefi's API Signer
+    digest: 3f57bcb02b602a660ea640240914731e5f94d2edb9f34d0717df215a96f8d202
+    maintainers:
+    - name: zavertiaev
+    name: api-signer
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/api-signer-0.1.1/api-signer-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
     created: "2024-06-20T12:23:24.578098552Z"
     description: A Helm chart for deploying Fordefi's API Signer
     digest: 9f18df2660b524503119400e43634945dddbff7179343c766730d8cb0148a595
@@ -1231,4 +1242,4 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/webhooks-0.1.0/webhooks-0.1.0.tgz
     version: 0.1.0
-generated: "2024-06-20T13:35:52.003960862Z"
+generated: "2024-06-24T10:15:10.261303493Z"
