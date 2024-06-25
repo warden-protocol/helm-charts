@@ -385,6 +385,20 @@ entries:
   message-handler:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-06-25T07:52:39.685073442Z"
+    description: A Helm chart for Kubernetes
+    digest: efb41b4159cfc97b76d434c4f6e4afe9b6d319afd8525c24518b69efef5b8e2c
+    maintainers:
+    - name: zavertiaev
+    - name: jlehtimaki
+    - name: mikolajsobolewski
+    name: message-handler
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/message-handler-0.3.0/message-handler-0.3.0.tgz
+    version: 0.3.0
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-05-21T09:56:03.876951824Z"
     description: A Helm chart for Kubernetes
     digest: 7276b48711c6b01b878e55d59a1b5962b5ac48ca7d0a688d150ae885a84ab589
@@ -449,6 +463,18 @@ entries:
     - https://github.com/warden-protocol/helm-charts/releases/download/prometheus-rules-1.0.0/prometheus-rules-1.0.0.tgz
     version: 1.0.0
   snapshots:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2024-06-25T07:52:39.82041356Z"
+    description: A Helm chart for Kubernetes
+    digest: 1559f2af1ce0d912b18c4dfc1e328d97b8d0979d38af6a05a21f4ce6a672b9bb
+    maintainers:
+    - name: zavertiaev
+    name: snapshots
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/snapshots-0.2.0/snapshots-0.2.0.tgz
+    version: 0.2.0
   - apiVersion: v2
     appVersion: latest
     created: "2024-06-13T11:57:12.805622321Z"
@@ -616,6 +642,20 @@ entries:
     - https://github.com/warden-protocol/helm-charts/releases/download/warden-exporter-0.1.0/warden-exporter-0.1.0.tgz
     version: 0.1.0
   wardend:
+  - apiVersion: v2
+    appVersion: "728343694"
+    created: "2024-06-25T07:52:39.927381287Z"
+    description: A chart to deploy Wardend to Kubernetes
+    digest: 5eec27df1598578325394e7a4d372f92c4a71e10f699a22748623c410029e553
+    maintainers:
+    - email: joonas@wardenprotocol.org
+      name: jlehtimaki
+      url: https://github.com/jlehtimaki
+    name: wardend
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/wardend-1.9.0/wardend-1.9.0.tgz
+    version: 1.9.0
   - apiVersion: v2
     appVersion: "728343694"
     created: "2024-06-20T11:08:18.518170754Z"
@@ -1242,4 +1282,4 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/webhooks-0.1.0/webhooks-0.1.0.tgz
     version: 0.1.0
-generated: "2024-06-24T10:15:10.261303493Z"
+generated: "2024-06-25T07:52:39.927765256Z"
