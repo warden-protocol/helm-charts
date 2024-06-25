@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: {{ .Release.Namespace }}-snapshots
+  name: {{ include "snapshots.fullname" . }}
   labels:
     {{- include "snapshots.labels" . | nindent 4 }}
 spec:
@@ -29,7 +29,7 @@ spec:
               apiVersion: batch/v1
               kind: Job
               metadata:
-                name: {{ .Release.Namespace }}-snapshots
+                name: {{ include "snapshots.fullname" . }}
                 namespace: {{ .Release.Namespace }}
               spec:
                 ttlSecondsAfterFinished: {{ .Values.cronjob.ttlSecondsAfterFinished }}
@@ -60,10 +60,18 @@ spec:
                     volumes:
                       - name: scripts
                         configMap:
-                          name: {{ .Release.Namespace }}-snapshots-scripts
+                          name: {{ include "snapshots.fullname" . }}-scripts
                       - name: argocd
+                      {{- if .Values.secretManager.enabled }}
+                        csi:
+                          driver: secrets-store.csi.k8s.io
+                          readOnly: true
+                          volumeAttributes:
+                            secretProviderClass: {{ include "snapshots.fullname" . }}
+                      {{- else }}
                         secret:
                           secretName: {{ .Values.cronjob.argocdAuthSecret }}
+                      {{- end }}
                       - name: pvc
                         persistentVolumeClaim:
                           claimName: $pvcname
@@ -78,7 +86,15 @@ spec:
           volumes:
             - name: scripts
               configMap:
-                name: {{ .Release.Namespace }}-snapshots-scripts
+                name: {{ include "snapshots.fullname" . }}-scripts
             - name: argocd
+            {{- if .Values.secretManager.enabled }}
+              csi:
+                driver: secrets-store.csi.k8s.io
+                readOnly: true
+                volumeAttributes:
+                  secretProviderClass: {{ include "snapshots.fullname" . }}
+            {{- else }}
               secret:
                 secretName: {{ .Values.cronjob.argocdAuthSecret }}
+            {{- end }}
