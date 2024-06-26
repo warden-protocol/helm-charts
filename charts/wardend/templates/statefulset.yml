@@ -169,6 +169,15 @@ spec:
             - name: UNSAFE_SKIP_BACKUP
               value: "{{ .Values.cosmovisor.unsafeSkipBackup }}"
           {{- end }}
+          {{- if .Values.eipController.enabled }}
+            - name: EIP
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.labels['aws-pod-eip-controller-public-ip']
+            - name: WARDEND_P2P_EXTERNAL_ADDRESS
+              value: $(EIP):26656
+          {{- end }}
           ports:
             {{- if .Values.node.rpc.enabled }}
             - name: rpc

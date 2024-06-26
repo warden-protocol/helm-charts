@@ -47,6 +47,9 @@ topologySpreadConstraints:
   maxSkew: 1
   whenUnsatisfiable: DoNotSchedule
 
+eipController:
+  enabled: false
+
 node:
   enabled: true
   ready: true
