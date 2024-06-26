@@ -2,6 +2,17 @@ apiVersion: v1
 entries:
   api-signer:
   - apiVersion: v2
+    created: "2024-06-26T09:53:52.429559136Z"
+    description: A Helm chart for deploying Fordefi's API Signer
+    digest: a4b8b29e5b48f070c809ede40c887a28b594a4096a5ff8d3efccb2a60234f753
+    maintainers:
+    - name: zavertiaev
+    name: api-signer
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/api-signer-0.1.2/api-signer-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
     created: "2024-06-24T10:15:10.261169812Z"
     description: A Helm chart for deploying Fordefi's API Signer
     digest: 3f57bcb02b602a660ea640240914731e5f94d2edb9f34d0717df215a96f8d202
@@ -128,6 +139,20 @@ entries:
   faucet:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-06-26T09:53:52.557921208Z"
+    description: Faucet chart for Kubernetes deployment
+    digest: e2feed547d0aed5b6655db28abe5e9bdd0528e88d16766f930e765048861974e
+    maintainers:
+    - name: zavertiaev
+    - name: jlehtimaki
+    - name: mikolajsobolewski
+    name: faucet
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/faucet-0.2.1/faucet-0.2.1.tgz
+    version: 0.2.1
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-06-17T11:37:07.797857902Z"
     description: Faucet chart for Kubernetes deployment
     digest: c8ebec86c38eb8c61c0cf5d9e7474bf2580875c1af5046c2f89d550d0af7b093
@@ -191,6 +216,20 @@ entries:
     - https://github.com/warden-protocol/helm-charts/releases/download/faucet-0.1.0/faucet-0.1.0.tgz
     version: 0.1.0
   hermes-relayer:
+  - apiVersion: v2
+    appVersion: 1.8.2
+    created: "2024-06-26T09:53:52.720177489Z"
+    description: A Helm chart for Kubernetes
+    digest: 0e148d19e0dc75267f563feef8882fa9d33c836f2285cf4b874fc25b0297a674
+    maintainers:
+    - name: zavertiaev
+    - name: jlehtimaki
+    - name: mikolajsobolewski
+    name: hermes-relayer
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/hermes-relayer-0.2.1/hermes-relayer-0.2.1.tgz
+    version: 0.2.1
   - apiVersion: v2
     appVersion: 1.8.2
     created: "2024-06-20T12:23:24.768559864Z"
@@ -465,6 +504,18 @@ entries:
   snapshots:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-06-26T09:53:52.825793953Z"
+    description: A Helm chart for Kubernetes
+    digest: 3e040066d23553573115dee6e3939f4a4bd603866d428102dbf4176cec958012
+    maintainers:
+    - name: zavertiaev
+    name: snapshots
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/snapshots-0.2.1/snapshots-0.2.1.tgz
+    version: 0.2.1
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-06-25T07:52:39.82041356Z"
     description: A Helm chart for Kubernetes
     digest: 1559f2af1ce0d912b18c4dfc1e328d97b8d0979d38af6a05a21f4ce6a672b9bb
@@ -528,6 +579,20 @@ entries:
     - https://github.com/warden-protocol/helm-charts/releases/download/snapshots-0.1.0/snapshots-0.1.0.tgz
     version: 0.1.0
   spaceward:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2024-06-26T09:53:52.949089246Z"
+    description: A Helm chart for Kubernetes
+    digest: c60c3db447661a44633c7105a5c00cda538acf31a96e335e205912eacabd524a
+    maintainers:
+    - name: zavertiaev
+    - name: jlehtimaki
+    - name: mikolajsobolewski
+    name: spaceward
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/spaceward-0.2.1/spaceward-0.2.1.tgz
+    version: 0.2.1
   - apiVersion: v2
     appVersion: latest
     created: "2024-06-20T12:23:24.997762318Z"
@@ -1189,6 +1254,20 @@ entries:
   wardenkms:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-06-26T09:53:53.077647313Z"
+    description: A Helm chart for Kubernetes
+    digest: 66d891ec988f54a02e0011e12abfebad039eb70fd2fd727a3fa5284a9d33943c
+    maintainers:
+    - name: zavertiaev
+    - name: jlehtimaki
+    - name: mikolajsobolewski
+    name: wardenkms
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/wardenkms-0.2.1/wardenkms-0.2.1.tgz
+    version: 0.2.1
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-06-17T11:37:07.909667507Z"
     description: A Helm chart for Kubernetes
     digest: 994985c5fb87295ce602baede60e6b6b759fd1a457d2dcf9d67d3ec7467c338d
@@ -1296,4 +1375,4 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/webhooks-0.1.0/webhooks-0.1.0.tgz
     version: 0.1.0
-generated: "2024-06-26T06:06:25.489676684Z"
+generated: "2024-06-26T09:53:53.07799146Z"
