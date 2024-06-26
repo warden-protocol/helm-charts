@@ -19,6 +19,9 @@ spec:
       labels:
         {{- include "discord-faucet.selectorLabels" . | nindent 8 }}
     spec:
+      {{- if .Values.secretManager.enabled }}
+      serviceAccountName: {{ .Values.secretManager.serviceAccount.name }}
+      {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -31,6 +34,13 @@ spec:
             {{- toYaml .Values.containerSecurityContext | nindent 12 }}
           image: "{{ .Values.image }}:{{ .Values.imageTag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.imagePullPolicy }}
+          {{- if .Values.secretManager.enabled }}
+          volumeMounts:
+            - name: secrets
+              mountPath: "/etc/app.json"
+              subPath: "{{ (index .Values.secretManager.secrets 0) | replace "/" "_" }}"
+              readOnly: true
+          {{- end }}
           ports:
             - name: metrics
               containerPort: {{ .Values.service.port }}
@@ -45,6 +55,15 @@ spec:
           {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      {{- if .Values.secretManager.enabled }}
+      volumes:
+        - name: secrets
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "{{ include "discord-faucet.fullname" . }}"
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

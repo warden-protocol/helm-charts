@@ -20,6 +20,9 @@ spec:
       labels:
         {{- include "warden-exporter.selectorLabels" . | nindent 8 }}
     spec:
+      {{- if .Values.secretManager.enabled }}
+      serviceAccountName: {{ .Values.secretManager.serviceAccount.name }}
+      {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -34,6 +37,13 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           args:
             - --log-level={{ .Values.logLevel }}
+          {{- if .Values.secretManager.enabled }}
+          volumeMounts:
+            - name: secrets
+              mountPath: "/etc/app.json"
+              subPath: "{{ (index .Values.secretManager.secrets 0) | replace "/" "_" }}"
+              readOnly: true
+          {{- end }}
           env:
             {{- include "warden-exporter.renderEnv" .Values.env | nindent 12 }}
           {{- with .Values.envFrom }}
@@ -53,6 +63,15 @@ spec:
             initialDelaySeconds: 3
             periodSeconds: 60
             failureThreshold: 3
+      {{- if .Values.secretManager.enabled }}
+      volumes:
+        - name: secrets
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "{{ include "warden-exporter.fullname" . }}"
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
