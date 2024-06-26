@@ -42,12 +42,3 @@ serviceMonitor:
   relabelings: []
 
 logLevel: info
-
-secretManager:
-  enabled: false
-  serviceAccount:
-    create: false
-    name: ""
-    annotations: {}
-  secrets: []
-  cmd: "/usr/bin/discord-faucet"
