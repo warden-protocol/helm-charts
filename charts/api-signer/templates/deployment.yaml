@@ -62,7 +62,7 @@ spec:
       {{- if .Values.secretManager.enabled }}
         - name: config
           configMap:
-            name: {{ include "api-signer.name" . }}-config
+            name: {{ include "api-signer.fullname" . }}-config
             items:
               - key: config
                 path: CONFIG.json
@@ -77,14 +77,14 @@ spec:
           projected:
             sources:
             - secret:
-                name: {{ include "api-signer.name" . }}
+                name: {{ include "api-signer.fullname" . }}
                 items:
                 - key: secrets
                   path: SECRETS.json
                 - key: credentials
                   path: CREDENTIALS.json
             - configMap:
-                name: {{ include "api-signer.name" . }}-config
+                name: {{ include "api-signer.fullname" . }}-config
                 items:
                 - key: config
                   path: CONFIG.json
