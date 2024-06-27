@@ -42,3 +42,11 @@ serviceMonitor:
   relabelings: []
 
 logLevel: info
+
+secretManager:
+  enabled: false
+  serviceAccount:
+    create: false
+    name: ""
+    annotations: {}
+  secrets: []
