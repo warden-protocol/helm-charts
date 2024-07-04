@@ -11,11 +11,10 @@ spec:
   jobLabel: {{ include "name" . }}
   selector:
     matchLabels:
-        {{- include "selectorLabels" $ | nindent 4 }}
+      {{- include "selectorLabels" $ | nindent 6 }}
   endpoints:
     - port: metrics
       path: /metrics
       interval: 3s
       scrapeTimeout: 30s
----
-{{- end}}
+{{- end }}
