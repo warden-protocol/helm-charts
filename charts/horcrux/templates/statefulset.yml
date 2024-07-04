@@ -18,24 +18,27 @@ spec:
   replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
-       {{- include "selectorLabels" . | nindent 8 }}
+      {{- include "selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
       annotations:
-          {{- toYaml . | nindent 8 }}
+        {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-          {{- include "selectorLabels" . | nindent 8 }}
+        {{- include "selectorLabels" . | nindent 8 }}
     spec:
-     {{- if .Values.topologySpreadConstraints.enabled }}
+      {{- if .Values.secretManager.enabled }}
+      serviceAccountName: {{ .Values.secretManager.serviceAccount.name }}
+      {{- end }}
+      {{- if .Values.topologySpreadConstraints.enabled }}
       topologySpreadConstraints:
-      - maxSkew: {{ .Values.topologySpreadConstraints.maxSkew }}
-        topologyKey: "topology.kubernetes.io/zone"
-        whenUnsatisfiable: DoNotSchedule
-        labelSelector:
-          matchLabels:
-            app.kubernetes.io/signer: horcrux
+        - maxSkew: {{ .Values.topologySpreadConstraints.maxSkew }}
+          topologyKey: "topology.kubernetes.io/zone"
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/signer: horcrux
       {{- end }}
       initContainers:
         - name: init
@@ -63,6 +66,11 @@ spec:
             - name: {{ $name }}
               mountPath: /tmp/secrets
             {{- end }}
+            {{- if .Values.secretManager.enabled }}
+            - name: secrets
+              mountPath: "/tmp/secrets"
+              readOnly: true
+            {{- end }}
       containers:
         - name: {{ include "name" . }}
           image: "{{ .Values.image }}:{{ .Values.imageTag | default .Chart.AppVersion }}"
@@ -86,14 +94,21 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
-      {{- range $name, $config := .Values.secretVolume }}
-      - name: {{ $name }}
-        {{ $config | toYaml | nindent 8}}
-      {{- end }}
-      - name: scripts
-        configMap:
-          name: {{.Release.Name}}-{{ .Values.name }}-scripts
-      - name: config
-        configMap:
-          name: {{ include "name" . }}-config
-
+        {{- range $name, $config := .Values.secretVolume }}
+        - name: {{ $name }}
+          {{ $config | toYaml | nindent 10}}
+        {{- end }}
+        {{- if .Values.secretManager.enabled }}
+        - name: secrets
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: {{ include "name" . }}
+        {{- end }}
+        - name: scripts
+          configMap:
+            name: {{.Release.Name}}-{{ .Values.name }}-scripts
+        - name: config
+          configMap:
+            name: {{ include "name" . }}-config

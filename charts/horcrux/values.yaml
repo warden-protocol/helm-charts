@@ -44,3 +44,11 @@ podAnnotations: {}
 serviceAnnotations: {}
 serviceMonitor:
   extraLabels: {}
+
+secretManager:
+  enabled: false
+  serviceAccount:
+    create: false
+    name: ""
+    annotations: {}
+  secrets: []
