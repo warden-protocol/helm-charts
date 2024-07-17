@@ -139,6 +139,20 @@ spec:
             {{- end }}
         {{- end}}
       containers:
+        {{- if .Values.oracle.enabled }}
+        - name: slinky
+          image: "{{ .Values.oracle.image}}:{{ .Values.oracle.imageTag}}"
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          ports:
+            - name: oracle
+              containerPort: 8080
+              protocol: TCP
+            {{- if .Values.oracle.metricsEnabled }}
+            - name: oracle-metrics
+              containerPort: 8002
+              protocol: TCP
+            {{- end }}
+        {{- end }}
         - name: {{ include "node.name" . }}
           image: "{{ .Values.image }}:{{ .Values.imageTag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.imagePullPolicy }}

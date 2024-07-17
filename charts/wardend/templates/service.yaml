@@ -29,12 +29,6 @@ spec:
       targetPort: 1317
       protocol: TCP
     {{- end}}
-    {{- if .Values.node.metrics.enabled }}
-    - name: telemetry
-      port: 26660
-      targetPort: 26660
-      protocol: TCP
-    {{- end}}
   selector:
     {{- include "node.selectorLabels" . | nindent 4 }}
 {{- end }}
@@ -127,6 +121,31 @@ spec:
     - name: signer
       port: 1234
       targetPort: 1234
+      protocol: TCP
+  selector:
+    statefulset.kubernetes.io/pod-name: {{ include "node.name" $ }}-{{ $i }}
+---
+{{- end }}
+{{- end }}
+{{- end }}
+{{- if .Values.node.enabled }}
+{{- if .Values.node.metrics.enabled }}
+{{- range $i, $e := until (int .Values.node.replicaCount)}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "node.name" $ }}-{{ $i }}-metrics
+  labels:
+    statefulset.kubernetes.io/pod-name: {{ include "node.name" $ }}-{{ $i }}
+spec:
+  ports:
+    - name: telemetry
+      port: 26660
+      targetPort: 26660
+      protocol: TCP
+    - name: oracle-metrics
+      port: 8002
+      targetPort: 8002
       protocol: TCP
   selector:
     statefulset.kubernetes.io/pod-name: {{ include "node.name" $ }}-{{ $i }}

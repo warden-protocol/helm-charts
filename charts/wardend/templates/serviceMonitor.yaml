@@ -22,3 +22,26 @@ spec:
 ---
 {{- end}}
 {{- end}}
+{{- if .Values.oracle.metricsEnabled }}
+{{- range $i, $e := until (int .Values.node.replicaCount)}}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "node.name" $ }}-{{ $i }}
+  labels:
+    statefulset.kubernetes.io/pod-name: {{ include "node.name" $ }}-{{ $i }}
+    {{- include "node.selectorLabels" $ | nindent 4 }}
+    {{- include "serviceMonitor.extraLabels" $ | nindent 4 }}
+spec:
+  jobLabel: {{ include "node.name" $ }}-{{ $i }}
+  selector:
+    matchLabels:
+        statefulset.kubernetes.io/pod-name: {{ include "node.name" $ }}-{{ $i }}
+  endpoints:
+    - port: oracle-metrics
+      path: /metrics
+      interval: 1m
+      scrapeTimeout: 30s
+---
+{{- end}}
+{{- end}}
