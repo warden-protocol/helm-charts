@@ -143,6 +143,10 @@ spec:
       port: 26660
       targetPort: 26660
       protocol: TCP
+    - name: oracle-metrics
+      port: 8002
+      targetPort: 8002
+      protocol: TCP
   selector:
     statefulset.kubernetes.io/pod-name: {{ include "node.name" $ }}-{{ $i }}
 ---
