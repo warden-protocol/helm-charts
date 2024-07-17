@@ -31,6 +31,18 @@ securityContext: {}
 
 service:
   enabled: false
+  # ports: {}
+  # type: ""
+
+serviceMonitor:
+  enabled: false
+  additionalLabels: {}
+  interval: 1m
+  scrapeTimeout: 10s
+  telemetryPath: /metrics
+  targetLabels: []
+  metricRelabelings: []
+  relabelings: []
 
 ingress:
   enabled: false
