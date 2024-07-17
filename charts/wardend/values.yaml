@@ -138,3 +138,9 @@ secretManager:
     name: ""
     annotations: {}
   secrets: []
+
+oracle:
+  enabled: false
+  image: ghcr.io/skip-mev/slinky-sidecar
+  imageTag: v1.0.3
+  metricsEnabled: false
