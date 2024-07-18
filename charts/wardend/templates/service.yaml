@@ -130,7 +130,7 @@ spec:
 {{- end }}
 {{- if .Values.node.enabled }}
 {{- if .Values.node.metrics.enabled }}
-{{- $values = .Values }}
+{{- $values := .Values }}
 {{- range $i, $e := until (int .Values.node.replicaCount)}}
 apiVersion: v1
 kind: Service
