@@ -5,19 +5,19 @@ kind: Ingress
 metadata:
   name: {{ $fullName }}
   labels:
-  {{- include "main.labels" . | nindent 4}}
+    {{- include "main.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
   annotations:
-  {{- toYaml . |nindent 4}}
+    {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
   ingressClassName: {{ .Values.ingress.className | quote }}
   rules:
-{{- range .Values.ingress.hosts }}
+    {{- range .Values.ingress.hosts }}
     - host: {{ .name | quote }}
       http:
         paths:
-{{- range .paths }}
+          {{- range .paths }}
           - path: {{ .path | default "/" }}
             pathType: {{ .pathType | default "Prefix" }}
             backend:
@@ -25,16 +25,16 @@ spec:
                 name: {{ include "main.fullname" $ }}
                 port:
                   number: {{ .port }}
-{{- end }}
-{{- end }}
-{{- if .Values.ingress.tls }}
+          {{- end }}
+    {{- end }}
+  {{- if .Values.ingress.tls }}
   tls:
-{{- range .Values.ingress.tls }}
+    {{- range .Values.ingress.tls }}
     - hosts:
-{{- range .hosts }}
+        {{- range .hosts }}
         - {{ . | quote }}
-{{- end }}
-{{- end }}
-      secretName: {{ default (printf "%s-main-tls" .Release.Name) .Values.secretName | quote }}
-{{- end }}
+        {{- end }}
+      secretName: {{ .secretName | default (printf "%s-main-tls" $.Release.Name) | quote }}
+    {{- end }}
+  {{- end }}
 {{- end }}

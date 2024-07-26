@@ -23,6 +23,9 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
+      {{- if .Values.secretManager.enabled }}
+      serviceAccountName: {{ .Values.secretManager.serviceAccount.name }}
+      {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -35,6 +38,14 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+       {{- if .Values.secretManager.enabled }}
+          command: [ "/bin/sh", "-c" ]
+          args: [ "eval $(cat /etc/env/* | sed 's/^/export /') && {{ .Values.secretManager.cmd }}" ]
+          volumeMounts:
+            - name: secrets
+              mountPath: "/etc/env"
+              readOnly: true
+      {{- end }}
       {{- if .Values.service.ports }}
           ports:
             {{- range .Values.service.ports }}

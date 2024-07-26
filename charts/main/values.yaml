@@ -17,6 +17,8 @@ fullnameOverride: ""
 podAnnotations: {}
 podLabels: {}
 
+secretManager:
+  enabled: false
 
 podSecurityContext: {}
   # fsGroup: 2000
