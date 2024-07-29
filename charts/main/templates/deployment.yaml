@@ -38,7 +38,7 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-       {{- if .Values.secretManager.enabled }}
+      {{- if .Values.secretManager.enabled }}
           command: [ "/bin/sh", "-c" ]
           args: [ "eval $(cat /etc/env/* | sed 's/^/export /') && {{ .Values.secretManager.cmd }}" ]
           volumeMounts:
