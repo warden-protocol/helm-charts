@@ -40,7 +40,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
       {{- if .Values.secretManager.enabled }}
           command: [ "/bin/sh", "-c" ]
-          args: [ "eval $(cat /etc/env/* | sed 's/^/export /') && {{ .Values.secretManager.cmd }}" ]
+          args: [ "eval $(awk -F= '{print \"export \"$1\"=\"$2}' /etc/env/*) && {{ .Values.secretManager.cmd }}" ]
           volumeMounts:
             - name: secrets
               mountPath: "/etc/env"
