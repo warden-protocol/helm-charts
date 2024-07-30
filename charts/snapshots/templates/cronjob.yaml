@@ -24,6 +24,11 @@ spec:
             - |
               /bin/sh /scripts/prepare.sh
               replicas=$(kubectl get sts {{ .Values.cronjob.stsName }} -o jsonpath='{.spec.replicas}')
+              readyReplicas=$(kubectl get sts {{ .Values.cronjob.stsName }} -o jsonpath='{.status.readyReplicas}')
+              if [ "$replicas" -ne "$readyReplicas" ]; then
+                echo "One or more replicas are not ready. Exiting."
+                exit 1
+              fi
               pvcname={{ .Values.cronjob.stsName }}-data-{{ .Values.cronjob.stsName }}-$replicas
               cat <<EOF | kubectl apply -f -
               apiVersion: batch/v1
