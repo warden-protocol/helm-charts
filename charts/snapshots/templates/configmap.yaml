@@ -23,6 +23,7 @@ data:
 
     # get the number of replicas in the StatefulSet
     replicas=$(kubectl get sts {{ .Values.cronjob.stsName }} -o jsonpath='{.spec.replicas}')
+    readyReplicas=$(kubectl get sts {{ .Values.cronjob.stsName }} -o jsonpath='{.status.readyReplicas}')
 
     # verify StatefulSet exists
     if [ $? -ne 0 ] || [ "$replicas" -eq 0 ]; then
@@ -30,6 +31,12 @@ data:
       exit 1
     else
       echo "StatefulSet {{ .Values.cronjob.stsName }} has $replicas replicas"
+    fi
+
+    # verify the number of ready replicas matches the total replicas
+    if [ "$replicas" -ne "$readyReplicas" ]; then
+      echo "One or more replicas are not ready. Exiting."
+      exit 1
     fi
 
     # get Argo CD authentication token
