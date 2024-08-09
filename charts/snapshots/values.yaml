@@ -7,6 +7,9 @@ serviceAccount:
 
 cronjob:
   schedule: "0 */6 * * *"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  backoffLimit: 0
   image:
     repository: amazon/aws-cli
     pullPolicy: IfNotPresent
