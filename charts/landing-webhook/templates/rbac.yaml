@@ -7,7 +7,7 @@ metadata:
 rules:
   - apiGroups: ["apps"]
     resources: ["deployments"]
-    resourceNames: {{ .Values.rbac.targetResourceNames }}
+    resourceNames: [{{ .Values.targetResourceName | quote }}]
     verbs: ["get", "patch"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1

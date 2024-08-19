@@ -36,4 +36,24 @@ spec:
       eventSourceName: {{ include "landing-webhook.fullname" . }}
       eventName: restart
   triggers:
-    - template:{{ .Values.sensor.template | toYaml | nindent 8 }}
+    - template:
+        name: webhook-trigger
+        k8s:
+          operation: patch
+          source:
+            resource:
+              apiVersion: apps/v1
+              kind: Deployment
+              metadata:
+                name: {{ .Values.targetResourceName }}
+                namespace: {{ .Release.Namespace }}
+              spec:
+                template:
+                  metadata:
+                    annotations:
+                      restartEventTime: ""
+          parameters:
+            - src:
+                dependencyName: webhook
+                contextKey: time
+              dest: spec.template.metadata.annotations.restartEventTime

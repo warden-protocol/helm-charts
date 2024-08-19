@@ -13,11 +13,7 @@ eventSource:
   endpoint: ""
   method: ""
 
-sensor:
-  template: {}
-
-rbac:
-  targetResourceNames: []
+targetResourceName: ""
 
 service:
   port: 12000
