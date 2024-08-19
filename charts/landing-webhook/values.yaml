@@ -1,0 +1,31 @@
+---
+# Default values for deploy.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+nameOverride: ""
+fullnameOverride: ""
+
+eventBus:
+  replicas: 3
+
+eventSource:
+  name: ""
+  eventName: ""
+  endpoint: ""
+  method: ""
+
+sensor:
+  template: {}
+
+service:
+  port: 12000
+  # targetport - dafault as port
+
+ingress:
+  enabled: false
+  className: "kong"
+  annotations:
+  hosts: []
+  tls: []
+  secretName:
