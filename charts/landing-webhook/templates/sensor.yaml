@@ -1,0 +1,59 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: EventBus
+metadata:
+  name: {{ include "landing-webhook.fullname" . }}
+spec:
+  nats:
+    native:
+      replicas: {{ .Values.eventBus.replicas }}
+      auth: token
+---
+apiVersion: argoproj.io/v1alpha1
+kind: EventSource
+metadata:
+  name: {{ include "landing-webhook.fullname" . }}
+  labels:
+    eventsource-name: {{ include "landing-webhook.fullname" . }}
+spec:
+  webhook:
+    restart:
+      port: {{ .Values.service.port }}
+      endpoint: {{ .Values.eventSource.endpoint }}
+      method: {{ .Values.eventSource.method }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Sensor
+metadata:
+  name: {{ include "landing-webhook.fullname" . }}
+  labels:
+    {{- include "landing-webhook.labels" . | nindent 4 }}
+spec:
+  template:
+    serviceAccountName: {{ include "landing-webhook.fullname" . }}
+  dependencies:
+    - name: webhook
+      eventSourceName: {{ include "landing-webhook.fullname" . }}
+      eventName: restart
+  triggers:
+    - template:
+        name: webhook-trigger
+        k8s:
+          operation: patch
+          source:
+            resource:
+              apiVersion: apps/v1
+              kind: Deployment
+              metadata:
+                name: {{ .Values.targetResourceName }}
+                namespace: {{ .Release.Namespace }}
+              spec:
+                template:
+                  metadata:
+                    annotations:
+                      restartEventTime: ""
+          parameters:
+            - src:
+                dependencyName: webhook
+                contextKey: time
+              dest: spec.template.metadata.annotations.restartEventTime
