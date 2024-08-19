@@ -16,8 +16,8 @@ metadata:
   labels:
     eventsource-name: {{ include "landing-webhook.fullname" . }}
 spec:
-  {{- .Values.eventSource.name | nindent 2 }}:
-    {{- .Values.eventSource.eventName | nindent 4 }}:
+  webhook:
+    restart:
       port: {{ .Values.service.port }}
       endpoint: {{ .Values.eventSource.endpoint }}
       method: {{ .Values.eventSource.method }}
@@ -32,8 +32,8 @@ spec:
   template:
     serviceAccountName: {{ include "landing-webhook.fullname" . }}
   dependencies:
-    - name: {{ .Values.eventSource.name }}
+    - name: webhook
       eventSourceName: {{ include "landing-webhook.fullname" . }}
-      eventName: {{ .Values.eventSource.eventName }}
+      eventName: restart
   triggers:
     - template:{{ .Values.sensor.template | toYaml | nindent 8 }}
