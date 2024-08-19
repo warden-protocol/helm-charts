@@ -10,13 +10,14 @@ eventBus:
   replicas: 3
 
 eventSource:
-  name: ""
-  eventName: ""
   endpoint: ""
   method: ""
 
 sensor:
   template: {}
+
+rbac:
+  targetResourceNames: []
 
 service:
   port: 12000
