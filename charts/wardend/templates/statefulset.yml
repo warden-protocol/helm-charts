@@ -134,7 +134,7 @@ spec:
             {{- else }}
             - name: {{ include "node.name" . }}-mnemonic
             {{- end }}
-              mountPath: /tmp/mnemonic/MNEMONIC
+              mountPath: /tmp/mnemonic
               readOnly: true
             {{- end }}
         {{- end}}
