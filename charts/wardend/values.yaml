@@ -50,6 +50,8 @@ topologySpreadConstraints:
 eipController:
   enabled: false
 
+env: []
+
 node:
   enabled: true
   ready: true

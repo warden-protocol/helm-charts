@@ -166,6 +166,9 @@ spec:
           command: ["sleep","36000"]
           {{- end }}
           env:
+          {{- with .Values.env }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
             - name: WARDEND_HOME
               value: {{ .Values.node.home }}
           {{- if .Values.cosmovisor.enabled }}
