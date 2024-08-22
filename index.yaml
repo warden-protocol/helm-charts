@@ -500,6 +500,20 @@ entries:
   main:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-08-22T06:11:53.261427195Z"
+    description: A Helm chart for Kubernetes
+    digest: 2a8a7e4621507ed2146acc41b0f788943c030164b0873360d4f236ea3eafea7d
+    maintainers:
+    - name: zavertiaev
+    - name: jlehtimaki
+    - name: mikolajsobolewski
+    name: main
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/main-0.4.3/main-0.4.3.tgz
+    version: 0.4.3
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-07-29T15:15:12.754985656Z"
     description: A Helm chart for Kubernetes
     digest: 9e0ef7c6f719f82be9016268b51fd187ee94ff16b21da974bc576c795a81a870
@@ -1746,4 +1760,4 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/webhooks-0.1.0/webhooks-0.1.0.tgz
     version: 0.1.0
-generated: "2024-08-21T12:28:00.217600872Z"
+generated: "2024-08-22T06:11:53.261684255Z"
