@@ -16,9 +16,10 @@ metadata:
   labels:
     eventsource-name: {{ include "landing-webhook.fullname" . }}
 spec:
+  eventBusName: {{ include "landing-webhook.fullname" . }}
   webhook:
     restart:
-      port: {{ .Values.service.port }}
+      port: {{ .Values.service.port | quote }}
       endpoint: {{ .Values.eventSource.endpoint }}
       method: {{ .Values.eventSource.method }}
 ---
@@ -29,6 +30,7 @@ metadata:
   labels:
     {{- include "landing-webhook.labels" . | nindent 4 }}
 spec:
+  eventBusName: {{ include "landing-webhook.fullname" . }}
   template:
     serviceAccountName: {{ include "landing-webhook.fullname" . }}
   dependencies:
