@@ -181,6 +181,20 @@ entries:
   faucet:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-08-30T11:01:40.351583598Z"
+    description: Faucet chart for Kubernetes deployment
+    digest: 7dfb0b813e03bbd051d8e24fee5ee3fe4994740b2ddabdbb781f93685b41f500
+    maintainers:
+    - name: zavertiaev
+    - name: jlehtimaki
+    - name: mikolajsobolewski
+    name: faucet
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/faucet-0.2.5/faucet-0.2.5.tgz
+    version: 0.2.5
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-08-30T10:48:42.914627995Z"
     description: Faucet chart for Kubernetes deployment
     digest: e1b097b065142d2bcf7ea50a9589192f82e64658bfb1d4c330a3d06ea4cd9899
@@ -1814,4 +1828,4 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/webhooks-0.1.0/webhooks-0.1.0.tgz
     version: 0.1.0
-generated: "2024-08-30T10:48:42.914941091Z"
+generated: "2024-08-30T11:01:40.351822193Z"
