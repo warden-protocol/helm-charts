@@ -20,7 +20,7 @@ spec:
               service:
                 name: faucet
                 port:
-                  number: 8000
+                  number: 8081
             path: /
             pathType: Prefix
   tls:
