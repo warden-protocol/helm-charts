@@ -70,4 +70,4 @@ secretManager:
     name: ""
     annotations: {}
   secrets: []
-  cmd: "/usr/bin/faucet-v2"
+  cmd: "/usr/bin/faucet"
