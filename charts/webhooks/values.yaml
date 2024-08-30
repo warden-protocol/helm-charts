@@ -72,4 +72,5 @@ secretManager:
     name: ""
     annotations: {}
   secrets: []
+  pullSecrets: []
   cmd: "yarn webhooks"
