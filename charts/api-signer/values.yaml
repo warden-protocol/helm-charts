@@ -10,8 +10,8 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: latest
 
-imagePullSecrets:
-- name: fordefi-reg-creds
+imagePullSecrets: []
+
 nameOverride: ""
 fullnameOverride: ""
 
@@ -41,3 +41,4 @@ secretManager:
     name: ""
     annotations: {}
   secrets: []
+  pullSecrets: []

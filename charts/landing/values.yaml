@@ -77,4 +77,5 @@ secretManager:
     name: ""
     annotations: {}
   secrets: []
+  pullSecrets: []
   cmd: "yarn start:landing"
