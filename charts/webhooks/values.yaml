@@ -65,6 +65,9 @@ tolerations: []
 
 affinity: {}
 
+extraEnv: []
+envFrom: ""
+
 secretManager:
   enabled: false
   serviceAccount:

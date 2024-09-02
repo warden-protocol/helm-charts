@@ -37,7 +37,7 @@ spec:
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           {{- if .Values.secretManager.enabled }}
           command: ["/bin/sh", "-c"]
-          args: ["eval $(cat /etc/env/* | sed 's/^/export /') && {{ .Values.secretManager.cmd }}"]
+          args: [{{ include "webhooks.args" . | quote }}]
           volumeMounts:
             - name: secrets
               mountPath: "/etc/env"

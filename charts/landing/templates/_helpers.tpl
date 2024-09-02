@@ -49,3 +49,10 @@ Selector labels
 app.kubernetes.io/name: {{ include "landing.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
+
+{{/*
+Command args
+*/}}
+{{- define "landing.args" -}}
+eval $(cat{{ range .Values.secretManager.secrets }} /etc/env/{{ . | replace "/" "_" }}{{ end }} | sed 's/^/export /') && {{ .Values.secretManager.cmd }}
+{{- end }}

@@ -49,3 +49,10 @@ Selector labels
 app.kubernetes.io/name: {{ include "blockchain-listener.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
+
+{{/*
+Command args
+*/}}
+{{- define "blockchain-listener.args" -}}
+eval $(cat{{ range .Values.secretManager.secrets }} /etc/env/{{ . | replace "/" "_" }}{{ end }} | sed 's/^/export /') && {{ .Values.secretManager.cmd }}
+{{- end }}
