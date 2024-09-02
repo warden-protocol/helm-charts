@@ -60,6 +60,20 @@ entries:
   blockchain-listener:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-09-02T15:35:19.829927981Z"
+    description: A Helm chart for Kubernetes
+    digest: f96132ef70cc2321f528de81948d43f14d8976b42202c82368e72d7809e36185
+    maintainers:
+    - name: zavertiaev
+    - name: jlehtimaki
+    - name: mikolajsobolewski
+    name: blockchain-listener
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/blockchain-listener-0.3.1/blockchain-listener-0.3.1.tgz
+    version: 0.3.1
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-09-02T09:26:08.52966153Z"
     description: A Helm chart for Kubernetes
     digest: 34006aa159fc445edfb1beb80a38d1c841d63335450caebd5b47e961781dd9cc
@@ -475,6 +489,20 @@ entries:
   landing:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-09-02T15:35:20.003234459Z"
+    description: A Helm chart for Kubernetes
+    digest: 4c9d50febcb4dd36601062b5828770ec689902cdfe72ff46eca663b1cabe38ee
+    maintainers:
+    - name: zavertiaev
+    - name: jlehtimaki
+    - name: mikolajsobolewski
+    name: landing
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/landing-0.4.1/landing-0.4.1.tgz
+    version: 0.4.1
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-09-02T09:26:08.685728178Z"
     description: A Helm chart for Kubernetes
     digest: 74d70d20a5f1618572bdc4422964ea81ed87b3f4ce03f4b07fe61c11f4ed8bdb
@@ -682,6 +710,20 @@ entries:
     - https://github.com/warden-protocol/helm-charts/releases/download/main-0.1.0/main-0.1.0.tgz
     version: 0.1.0
   message-handler:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2024-09-02T15:35:20.160866732Z"
+    description: A Helm chart for Kubernetes
+    digest: de948bc787bd0640c4ad623c9fef9cd7734aead78bef724926390dd5f52372e4
+    maintainers:
+    - name: zavertiaev
+    - name: jlehtimaki
+    - name: mikolajsobolewski
+    name: message-handler
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/message-handler-0.4.1/message-handler-0.4.1.tgz
+    version: 0.4.1
   - apiVersion: v2
     appVersion: latest
     created: "2024-09-02T09:26:08.851949477Z"
@@ -1801,6 +1843,20 @@ entries:
   webhooks:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-09-02T15:35:20.330562437Z"
+    description: A Helm chart for Kubernetes
+    digest: 3852b6a65d0e80a349108040ccab76c95c3af475d07f353ae820530261fc9be8
+    maintainers:
+    - name: zavertiaev
+    - name: jlehtimaki
+    - name: mikolajsobolewski
+    name: webhooks
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/webhooks-0.3.2/webhooks-0.3.2.tgz
+    version: 0.3.2
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-09-02T11:36:35.323831878Z"
     description: A Helm chart for Kubernetes
     digest: 28197782174c8d13a44f0275f197ef5c87faa1d22f6921f0f1a3c97c0c6bf090
@@ -1909,4 +1965,4 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/webhooks-0.1.0/webhooks-0.1.0.tgz
     version: 0.1.0
-generated: "2024-09-02T11:36:35.324185596Z"
+generated: "2024-09-02T15:35:20.331218023Z"
