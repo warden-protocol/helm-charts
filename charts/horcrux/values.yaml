@@ -5,7 +5,7 @@
 name: horcrux
 image: ghcr.io/strangelove-ventures/horcrux
 imagePullPolicy: IfNotPresent
-imageTag: v3.3.0
+imageTag: v3.3.1
 
 # Does not work with other than one replica
 replicas: 1
