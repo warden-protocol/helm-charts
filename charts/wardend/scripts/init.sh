@@ -12,3 +12,23 @@ if [ ! -d "$WARDEND_HOME/data" ] && [ ! -d "$WARDEND_HOME/config" ]; then
 else
     echo "Found Warden data/config folder!"
 fi
+
+# Check if node keys is the expected one
+HOSTNAME=${hostname//-/_}
+SRC_NOKE_KEY="/tmp/keys/node_key_$HOSTNAME.json"
+DST_NOKE_KEY="$WARDEND_HOME/config/node_key.json"
+SRC_HASH=$(sha256sum "$SRC_NODE_KEY" | awk '{ print $1 }'))
+DST_HASH=$(sha256sum "$DST_NOKE_KEY" | awk '{ print $1 }'))
+
+if [ "$SRC_HASH" != "$DST_HASH" ]; then
+  echo "Node key has changed. Copying new version..."
+  cp "$SRC_NOKE_KEY" "$DST_NOKE_KEY"
+  if [ $? -eq 0 ]; then
+      echo "Node key updated successfully."
+  else
+      echo "Failed to update node_key"
+      exit 1
+  fi
+else
+    echo "Node Key is up to date. No action needed."
+fi

@@ -55,7 +55,7 @@ spec:
       {{- end }}
       {{- with .Values.podSecurityContext }}
       securityContext:
-        {{- toYaml . | nindent 8 }} 
+        {{- toYaml . | nindent 8 }}
       {{- end}}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -87,6 +87,10 @@ spec:
             - name: {{ .Values.persistentVolumeClaimName }}
             {{- end }}
               mountPath: {{ .Values.node.home}}
+            {{- if .Values.nodeKeysSecretName }}
+            - name: {{ include "node.name" . }}-keys
+              mountPath: /tmp/keys
+            {{- end }}
         {{- if .Values.cosmovisor.enabled }}
         - name: init-cosmovisor
           image: "{{ .Values.image }}:{{ .Values.imageTag | default .Chart.AppVersion }}"
