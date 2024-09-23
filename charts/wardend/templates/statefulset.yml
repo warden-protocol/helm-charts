@@ -256,7 +256,7 @@ spec:
             - name: config
               mountPath: {{ .Values.node.home }}/config/app.toml
               subPath: app.toml
-            {{- if le .Values.node.replicaCount 1 }}
+            {{- if le (int .Values.node.replicaCount) 1 }}
             {{- if .Values.node.nodeKeysSecretName }}
             {{- if .Values.secretManager.enabled }}
             - name: secrets
@@ -265,7 +265,6 @@ spec:
             {{- end }}
               mountPath: {{ .Values.node.home }}/config/node_key.json
               subPath: node_key.json
-            {{- end }}
             {{- end }}
             {{- if not .Values.node.externalSigner }}
             {{- if .Values.node.nodeKeysSecretName }}
@@ -276,6 +275,7 @@ spec:
             {{- end }}
               mountPath: {{ .Values.node.home }}/config/priv_validator_key.json
               subPath: priv_validator_key.json
+            {{- end }}
             {{- end }}
             {{- end }}
             {{- if .Values.node.genesisSecretName }}
