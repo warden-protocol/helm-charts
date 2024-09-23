@@ -87,7 +87,7 @@ spec:
             - name: {{ .Values.persistentVolumeClaimName }}
             {{- end }}
               mountPath: {{ .Values.node.home}}
-            {{- if .Values.nodeKeysSecretName }}
+            {{- if .Values.node.nodeKeysSecretName }}
             - name: {{ include "node.name" . }}-keys
               mountPath: /tmp/keys
             {{- end }}
