@@ -86,7 +86,7 @@ spec:
             {{- else }}
             - name: {{ .Values.persistentVolumeClaimName }}
             {{- end }}
-              mountPath: {{ .Values.node.home}}
+              mountPath: {{ .Values.node.home }}
             {{- if .Values.node.nodeKeysSecretName }}
             - name: {{ include "node.name" . }}-keys
               mountPath: /tmp/keys
@@ -256,6 +256,7 @@ spec:
             - name: config
               mountPath: {{ .Values.node.home }}/config/app.toml
               subPath: app.toml
+            {{- if le .Values.node.replicaCount 1 }}
             {{- if .Values.node.nodeKeysSecretName }}
             {{- if .Values.secretManager.enabled }}
             - name: secrets
@@ -264,6 +265,7 @@ spec:
             {{- end }}
               mountPath: {{ .Values.node.home }}/config/node_key.json
               subPath: node_key.json
+            {{- end }}
             {{- end }}
             {{- if not .Values.node.externalSigner }}
             {{- if .Values.node.nodeKeysSecretName }}
