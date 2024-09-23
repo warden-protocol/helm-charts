@@ -14,7 +14,8 @@ else
 fi
 
 # Check if node keys is the expected one
-HOSTNAME=${hostname//-/_}
+HOST=$(hostname)
+HOSTNAME=${HOST//-/_}
 SRC_NOKE_KEY="/tmp/keys/node_key_$HOSTNAME.json"
 DST_NOKE_KEY="$WARDEND_HOME/config/node_key.json"
 SRC_HASH=$(sha256sum "$SRC_NODE_KEY" | awk '{ print $1 }')
