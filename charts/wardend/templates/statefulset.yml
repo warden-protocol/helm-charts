@@ -119,7 +119,7 @@ spec:
             {{- end }}
               mountPath: {{ .Values.node.home }}
         {{- end }}
-        {{- if not .Values.node.externalSigner }}
+        {{- if or .Values.node.mnemonicSecretName .Values.secretManager.enabled }}
         - name: init-keys
           image: "{{ .Values.image }}:{{ .Values.imageTag | default .Chart.AppVersion }}"
           command: ["/bin/sh", "-c"]
