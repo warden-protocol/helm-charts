@@ -12,6 +12,10 @@ keyringBackend: "test"
 debug: "false"
 
 podAnnotations: {}
+podDisruptionBudget:
+  enabled: false
+  minAvailable: ""
+  maxUnavailable: ""
 serviceAnnotations: {}
 serviceMonitor:
   extraLabels: {}
