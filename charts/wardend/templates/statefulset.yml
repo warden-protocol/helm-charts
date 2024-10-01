@@ -77,6 +77,17 @@ spec:
             - name: GENESIS_URL
               value: "{{ .Values.scratch.genesisUrl }}"
             {{- end}}
+            {{- if and .Values.eipController.enabled .Values.eipController.check }}
+            - name: EIP
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.labels['aws-pod-eip-controller-public-ip']
+            - name: EIP_CHECK
+              value:  {{ .Values.eipController.check }}
+            - name: EIP_RETRIES
+              value:  {{ .Values.eipController.retries }} 
+            {{- end }}
           volumeMounts:
             - name: scripts
               mountPath: /scripts

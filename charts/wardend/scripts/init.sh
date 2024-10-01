@@ -35,3 +35,21 @@ if [ -e "$SRC_NOKE_KEY" ]; then
       echo "Node Key is up to date. No action needed."
   fi
 fi
+
+if [ -n "$EIP_CHECK" ]; then
+    if [ -z "$EIP_RETRIES" ]; then
+        echo "EIP_RETRIES is not set";
+        exit 1;
+    fi
+    for i in $(seq 1 $EIP_RETRIES); do
+        if [ -n "$EIP" ]; then
+            echo "EIP is set: $EIP";
+            exit 0;
+        fi;
+        echo "Waiting for EIP ('$i'/$EIP_RETRIES)...";
+        sleep 15;
+    done;
+    echo "EIP not set after $EIP_RETRIES attempts";
+    exit 1;
+fi
+
