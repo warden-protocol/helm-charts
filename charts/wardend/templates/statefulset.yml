@@ -15,10 +15,10 @@ spec:
         accessModes: [ReadWriteOnce]
         {{- with .Values.node.persistent.class }}
         storageClassName: "{{ . }}"
-        {{- end}}
+        {{- end }}
         resources:
           requests:
-            storage: {{.Values.node.persistent.size}}
+            storage: {{ .Values.node.persistent.size }}
   {{- end }}
   replicas: {{ .Values.node.replicaCount }}
   selector:
@@ -56,7 +56,7 @@ spec:
       {{- with .Values.podSecurityContext }}
       securityContext:
         {{- toYaml . | nindent 8 }}
-      {{- end}}
+      {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
       {{ toYaml .Values.imagePullSecrets | indent 8 }}
@@ -76,7 +76,7 @@ spec:
             {{- if .Values.scratch.genesisUrl }}
             - name: GENESIS_URL
               value: "{{ .Values.scratch.genesisUrl }}"
-            {{- end}}
+            {{- end }}
           volumeMounts:
             - name: scripts
               mountPath: /scripts
@@ -87,9 +87,16 @@ spec:
             - name: {{ .Values.persistentVolumeClaimName }}
             {{- end }}
               mountPath: {{ .Values.node.home }}
+            {{- if .Values.secretManager.enabled }}
+            - name: secrets
+              mountPath: /tmp/keys
+              readOnly: true
+            {{- else }}
             {{- if .Values.node.nodeKeysSecretName }}
             - name: {{ include "node.name" . }}-keys
               mountPath: /tmp/keys
+              readOnly: true
+            {{- end }}
             {{- end }}
         {{- if .Values.cosmovisor.enabled }}
         - name: init-cosmovisor
@@ -112,7 +119,7 @@ spec:
             {{- end }}
               mountPath: {{ .Values.node.home }}
         {{- end }}
-        {{- if .Values.node.mnemonicSecretName }}
+        {{- if or .Values.node.mnemonicSecretName .Values.secretManager.enabled }}
         - name: init-keys
           image: "{{ .Values.image }}:{{ .Values.imageTag | default .Chart.AppVersion }}"
           command: ["/bin/sh", "-c"]
@@ -134,14 +141,16 @@ spec:
               mountPath: {{.Values.node.home}}
             {{- if .Values.secretManager.enabled }}
             - name: secrets
-              subPath: MNEMONIC
+              mountPath: /tmp/mnemonic
+              readOnly: true
             {{- else }}
+            {{- if .Values.node.mnemonicSecretName }}
             - name: {{ include "node.name" . }}-mnemonic
-            {{- end }}
               mountPath: /tmp/mnemonic
               readOnly: true
             {{- end }}
-        {{- end}}
+            {{- end }}
+        {{- end }}
       containers:
         {{- if .Values.oracle.enabled }}
         - name: slinky
@@ -203,32 +212,32 @@ spec:
             - name: rpc
               containerPort: 26657
               protocol: TCP
-            {{- end}}
+            {{- end }}
             {{- if .Values.node.p2p.enabled }}
             - name: p2p
               containerPort: 26656
               protocol: TCP
-            {{- end}}
+            {{- end }}
             {{- if .Values.node.api.enabled }}
             - name: api
               containerPort: 1317
               protocol: TCP
-            {{- end}}
+            {{- end }}
             {{- if .Values.node.grpc.enabled }}
             - name: grpc
               containerPort: 9090
               protocol: TCP
-            {{- end}}
+            {{- end }}
             {{- if .Values.node.metrics.enabled }}
             - name: telemetry
               containerPort: 26660
               protocol: TCP
-            {{- end}}
+            {{- end }}
             {{- if .Values.node.externalSigner }}
             - name: signer
               containerPort: 1234
               protocol: TCP
-            {{- end}}
+            {{- end }}
           {{- if .Values.node.ready }}
           livenessProbe:
             initialDelaySeconds: 10
@@ -257,76 +266,66 @@ spec:
               mountPath: {{ .Values.node.home }}/config/app.toml
               subPath: app.toml
             {{- if le (int .Values.node.replicaCount) 1 }}
-            {{- if .Values.node.nodeKeysSecretName }}
-            {{- if .Values.secretManager.enabled }}
-            - name: secrets
-            {{- else }}
-            - name: {{ include "node.name" . }}-keys
-            {{- end }}
-              mountPath: {{ .Values.node.home }}/config/node_key.json
-              subPath: node_key.json
-            {{- end }}
             {{- if not .Values.node.externalSigner }}
-            {{- if .Values.node.nodeKeysSecretName }}
             {{- if .Values.secretManager.enabled }}
             - name: secrets
+              mountPath: {{ .Values.node.home }}/config/priv_validator_key.json
+              subPath: priv_validator_key.json
             {{- else }}
+            {{- if .Values.node.nodeKeysSecretName }}
             - name: {{ include "node.name" . }}-keys
-            {{- end }}
               mountPath: {{ .Values.node.home }}/config/priv_validator_key.json
               subPath: priv_validator_key.json
             {{- end }}
             {{- end }}
             {{- end }}
-            {{- if .Values.node.genesisSecretName }}
-            {{- if .Values.secretManager.enabled }}
-            - name: secrets
-            {{- else }}
-            - name: genesis
             {{- end }}
+            {{- if .Values.node.genesisSecretName }}
+            - name: genesis
               mountPath: {{ .Values.node.home }}/config/genesis.json
               subPath: genesis.json
             {{- end }}
           resources:
             {{- toYaml .Values.node.resources | nindent 12 }}
       volumes:
-      {{- if .Values.persistentVolumeClaimName }}
-      - name: {{ .Values.persistentVolumeClaimName }}
-        persistentVolumeClaim:
-          claimName: {{ .Values.persistentVolumeClaimName }}
-      {{- end }}
-      - name: scripts
-        configMap:
-          name: {{.Release.Name}}-{{ .Values.node.name }}-scripts
-      {{- if .Values.cosmovisor.enabled }}
-      - name: scripts-cosmovisor
-        configMap:
-          name: {{ .Release.Name }}-{{ .Values.node.name }}-cosmovisor-init
-      {{- end }}
-      - name: config
-        configMap:
-          name: {{ .Release.Name }}-{{ .Values.node.name }}-config
-      {{- if .Values.secretManager.enabled }}
-      - name: secrets
-        csi:
-          driver: secrets-store.csi.k8s.io
-          readOnly: true
-          volumeAttributes:
-            secretProviderClass: {{ .Release.Name }}-{{ .Values.node.name }}
-      {{- else }}
-      {{- if .Values.node.nodeKeysSecretName }}
-      - name: {{ include "node.name" . }}-keys
-        secret:
-          secretName: {{.Values.node.nodeKeysSecretName}}
-      {{- end}}
-      {{- if .Values.node.mnemonicSecretName }}
-      - name: {{ include "node.name" . }}-mnemonic
-        secret:
-          secretName: {{.Values.node.mnemonicSecretName }}
-      {{- end}}
-      {{- if .Values.node.genesisSecretName }}
-      - name: genesis
-        secret:
-          secretName: {{ .Values.node.genesisSecretName }}
-      {{- end}}
-      {{- end }}
+        {{- if .Values.persistentVolumeClaimName }}
+        - name: {{ .Values.persistentVolumeClaimName }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistentVolumeClaimName }}
+        {{- end }}
+        - name: scripts
+          configMap:
+            name: {{.Release.Name}}-{{ .Values.node.name }}-scripts
+        {{- if .Values.cosmovisor.enabled }}
+        - name: scripts-cosmovisor
+          configMap:
+            name: {{ .Release.Name }}-{{ .Values.node.name }}-cosmovisor-init
+        {{- end }}
+        - name: config
+          configMap:
+            name: {{ .Release.Name }}-{{ .Values.node.name }}-config
+        {{- if .Values.secretManager.enabled }}
+        - name: secrets
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: {{ .Release.Name }}-{{ .Values.node.name }}
+        {{- else }}
+        {{- if .Values.node.nodeKeysSecretName }}
+        - name: {{ include "node.name" . }}-keys
+          secret:
+            secretName: {{.Values.node.nodeKeysSecretName }}
+        {{- end }}
+        {{- if .Values.node.mnemonicSecretName }}
+        - name: {{ include "node.name" . }}-mnemonic
+          secret:
+            secretName: {{.Values.node.mnemonicSecretName }}
+        {{- end }}
+        {{- end }}
+        {{- if .Values.node.genesisSecretName }}
+        - name: genesis
+          secret:
+            secretName: {{ .Values.node.genesisSecretName }}
+        {{- end }}
+{{- end }}
