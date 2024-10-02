@@ -85,8 +85,6 @@ spec:
                   fieldPath: metadata.labels['aws-pod-eip-controller-public-ip']
             - name: EIP_CHECK
               value:  {{ .Values.eipController.check }}
-            - name: EIP_RETRIES
-              value:  {{ .Values.eipController.retries }} 
             {{- end }}
           volumeMounts:
             - name: scripts
