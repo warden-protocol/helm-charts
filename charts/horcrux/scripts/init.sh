@@ -12,7 +12,7 @@ for file in "$HORCRUX_HOME"/state/*; do
         # Check if the file contains the word "DELETE"
         if grep -q "DELETE" "$file"; then
             echo "File $(basename "$file") contains 'DELETE'. Deleting..."
-            mv "$file" "$file".deleted
+            rm -f "$file"
             if [ $? -eq 0 ]; then
                 echo "File $(basename "$file") deleted successfully."
             else
