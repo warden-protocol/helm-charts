@@ -53,6 +53,7 @@ topologySpreadConstraints:
 
 eipController:
   enabled: false
+  check: false
 
 env: []
 
