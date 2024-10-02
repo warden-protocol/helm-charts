@@ -54,7 +54,7 @@ topologySpreadConstraints:
 eipController:
   enabled: false
   check: false
-  retries: 20
+
 env: []
 
 node:
