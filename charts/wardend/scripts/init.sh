@@ -1,18 +1,6 @@
 #!/usr/bin/env bash
 set -x
 
-# Check EIP
-if [ -n "$EIP_CHECK" ]; then
-    while true; do
-        if [ -n "$EIP" ]; then
-            echo "EIP is set: $EIP";
-            exit 0;
-        fi
-        echo "Waiting for EIP.";
-        sleep 15;
-    done
-fi
-
 #Check if Home data exists, if not create it.
 if [ ! -d "$WARDEND_HOME/data" ] && [ ! -d "$WARDEND_HOME/config" ]; then
     #Install utils

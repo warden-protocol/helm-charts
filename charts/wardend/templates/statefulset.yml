@@ -77,15 +77,6 @@ spec:
             - name: GENESIS_URL
               value: "{{ .Values.scratch.genesisUrl }}"
             {{- end}}
-            {{- if and .Values.eipController.enabled .Values.eipController.check }}
-            - name: EIP
-              valueFrom:
-                fieldRef:
-                  apiVersion: v1
-                  fieldPath: metadata.labels['aws-pod-eip-controller-public-ip']
-            - name: EIP_CHECK
-              value: "{{ .Values.eipController.check }}"
-            {{- end }}
           volumeMounts:
             - name: scripts
               mountPath: /scripts
@@ -216,6 +207,11 @@ spec:
             - name: WARDEND_P2P_EXTERNAL_ADDRESS
               value: $(EIP):26656
           {{- end }}
+          {{- if and .Values.eipController.enabled .Values.eipController.check }}
+            - name: EIP_CHECK
+              value: "{{ .Values.eipController.check }}"
+          {{- end }}
+          volumeMounts:
           ports:
             {{- if .Values.node.rpc.enabled }}
             - name: rpc
@@ -256,9 +252,18 @@ spec:
           {{- if not .Values.node.externalSigner }}
           readinessProbe:
             initialDelaySeconds: 10
-            httpGet:
-              path: /health
-              port: rpc
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  if [ -z "$EIP_CHECK"]; then
+                  if [ -z "$EIP" ]; then
+                    echo "EIP is not set or empty"
+                    exit 1
+                  fi
+                  fi
+                  curl -f http://localhost:26656/health || exit 1
           {{- end }}
           {{- end }}
           volumeMounts:
