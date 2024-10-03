@@ -37,7 +37,7 @@ DST_HASH=$(sha256sum "$DST_NODE_KEY" | awk '{ print $1 }')
 if [ -e "$SRC_NODE_KEY" ]; then
     if [ "$SRC_HASH" != "$DST_HASH" ]; then
         echo "Node key has changed. Copying new version..."
-        cp "$SRC_NOKE_KEY" "$DST_NOKE_KEY"
+        cp "$SRC_NODE_KEY" "$DST_NODE_KEY"
         if [ $? -eq 0 ]; then
             echo "Node key updated successfully."
         else
