@@ -84,7 +84,7 @@ spec:
                   apiVersion: v1
                   fieldPath: metadata.labels['aws-pod-eip-controller-public-ip']
             - name: EIP_CHECK
-              value:  {{ .Values.eipController.check }}
+              value: "{{ .Values.eipController.check }}"
             {{- end }}
           volumeMounts:
             - name: scripts
