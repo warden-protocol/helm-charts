@@ -263,7 +263,7 @@ spec:
                     exit 1
                   fi
                   fi
-                  curl -f http://localhost:26656/health || exit 1
+                  curl -f http://localhost:26657/health || exit 1
           {{- end }}
           {{- end }}
           volumeMounts:
