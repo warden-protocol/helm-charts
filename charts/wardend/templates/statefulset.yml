@@ -128,8 +128,7 @@ spec:
             {{- end }}
               mountPath: {{ .Values.node.home }}
         {{- end }}
-        {{- if or .Values.node.mnemonicSecretName .Values.secretManager.enabled }}
-        {{- if not .Values.node.externalSigner }}
+        {{- if .Values.node.mnemonicSecretName }}
         - name: init-keys
           image: "{{ .Values.image }}:{{ .Values.imageTag | default .Chart.AppVersion }}"
           command: ["/bin/sh", "-c"]
@@ -151,16 +150,11 @@ spec:
               mountPath: {{.Values.node.home}}
             {{- if .Values.secretManager.enabled }}
             - name: secrets
-              mountPath: /tmp/mnemonic
-              readOnly: true
             {{- else }}
-            {{- if .Values.node.mnemonicSecretName }}
             - name: {{ include "node.name" . }}-mnemonic
+            {{- end }}
               mountPath: /tmp/mnemonic
               readOnly: true
-            {{- end }}
-            {{- end }}
-        {{- end }}
         {{- end }}
       containers:
         {{- if .Values.oracle.enabled }}
