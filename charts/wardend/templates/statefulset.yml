@@ -129,6 +129,7 @@ spec:
               mountPath: {{ .Values.node.home }}
         {{- end }}
         {{- if or .Values.node.mnemonicSecretName .Values.secretManager.enabled }}
+        {{- if not .Values.node.externalSigner }}
         - name: init-keys
           image: "{{ .Values.image }}:{{ .Values.imageTag | default .Chart.AppVersion }}"
           command: ["/bin/sh", "-c"]
@@ -159,6 +160,7 @@ spec:
               readOnly: true
             {{- end }}
             {{- end }}
+        {{- end }}
         {{- end }}
       containers:
         {{- if .Values.oracle.enabled }}
