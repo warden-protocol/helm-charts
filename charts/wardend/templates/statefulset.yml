@@ -322,7 +322,7 @@ spec:
           secret:
             secretName: {{.Values.node.nodeKeysSecretName }}
         {{- end }}
-        {{- if and .Values.node.mnemonicSecretName not .Values.node.externalSigner }}
+        {{- if and .Values.node.mnemonicSecretName (not .Values.node.externalSigner) }}
         - name: {{ include "node.name" . }}-mnemonic
           secret:
             secretName: {{.Values.node.mnemonicSecretName }}
