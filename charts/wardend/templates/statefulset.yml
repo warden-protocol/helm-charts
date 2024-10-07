@@ -148,20 +148,6 @@ spec:
               readOnly: true
         {{- end }}
       containers:
-        {{- if .Values.oracle.enabled }}
-        - name: slinky
-          image: "{{ .Values.oracle.image}}:{{ .Values.oracle.imageTag}}"
-          imagePullPolicy: {{ .Values.imagePullPolicy }}
-          ports:
-            - name: oracle
-              containerPort: 8080
-              protocol: TCP
-            {{- if .Values.oracle.metricsEnabled }}
-            - name: oracle-metrics
-              containerPort: 8002
-              protocol: TCP
-            {{- end }}
-        {{- end }}
         - name: {{ include "node.name" . }}
           image: "{{ .Values.image }}:{{ .Values.imageTag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.imagePullPolicy }}
@@ -207,7 +193,6 @@ spec:
             - name: EIP_CHECK
               value: "{{ .Values.eipController.check }}"
           {{- end }}
-          volumeMounts:
           ports:
             {{- if .Values.node.rpc.enabled }}
             - name: rpc
@@ -297,6 +282,51 @@ spec:
             {{- end }}
           resources:
             {{- toYaml .Values.node.resources | nindent 12 }}
+        {{- if .Values.oracle.enabled }}
+        - name: slinky
+          image: "{{ .Values.oracle.image}}:{{ .Values.oracle.imageTag}}"
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          ports:
+            - name: oracle
+              containerPort: 8080
+              protocol: TCP
+            {{- if .Values.oracle.metricsEnabled }}
+            - name: oracle-metrics
+              containerPort: 8002
+              protocol: TCP
+            {{- end }}
+        {{- end }}
+        {{- if .Values.echo.enabled }}
+        - name: echo
+          image: "{{ .Values.echo.image}}:{{ .Values.echo.imageTag}}"
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          ports:
+            - name: health
+              containerPort: {{ .Values.echo.port }}
+              protocol: TCP
+          env:
+            - name: ENDPOINTS
+              value: "{{ .Values.echo.endpoints }}"
+            - name: BEHIND_THRESHOLD
+              value: "{{ .Values.echo.behindThreshold }}"
+            {{- if .Values.echo.peers }}
+            - name: PEERS
+              value: "{{ .Values.echo.peers }}"
+            {{- end }}
+          startupProbe:
+            failureThreshold: 300
+            periodSeconds: 2
+            initialDelaySeconds: 1
+            httpGet:
+              path: /health
+              port: health
+          livenessProbe:
+            failureThreshold: 1
+            initialDelaySeconds: 10
+            httpGet:
+              path: /health
+              port: health
+        {{- end }}
       volumes:
         {{- if .Values.persistentVolumeClaimName }}
         - name: {{ .Values.persistentVolumeClaimName }}
