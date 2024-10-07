@@ -46,6 +46,16 @@ cosmovisor:
   logBufferSize: "512"
   unsafeSkipBackup: true
 
+echo:
+  enabled: false
+  image: ghcr.io/warden-protocol/echo
+  imageTag: "1.1.0"
+  imagePullPolicy: IfNotPresent
+  port: 10010
+  behindThreshold: 5
+  endpoints: "http://localhost:26657"
+  peers: ""
+
 topologySpreadConstraints:
   enabled: false
   maxSkew: 1
