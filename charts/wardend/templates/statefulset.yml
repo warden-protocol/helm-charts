@@ -253,7 +253,7 @@ spec:
                 - /bin/sh
                 - -c
                 - |
-                  if [ -n "$EIP_CHECK"]; then
+                  if [ -n "$EIP_CHECK" ]; then
                   if [ -z "$EIP" ]; then
                     echo "EIP is not set or empty"
                     exit 1
