@@ -65,6 +65,10 @@ metadata:
     {{- include "node.serviceAnnotations" $ |nindent 4}}
 spec:
   type: ClusterIP
+  {{- if .Values.echo.enabled }}
+  clusterIP: None
+  publishNotReadyAddresses: true
+  {{- end }}
   ports:
     - name: rpc
       port: 26657
