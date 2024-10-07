@@ -251,15 +251,13 @@ spec:
             exec:
               command:
                 - /bin/sh
-                - -c
+                - -exc
                 - |
-                  if [ -n "$EIP_CHECK" ]; then
-                  if [ -z "$EIP" ]; then
+                  if [ ! -z "${EIP_CHECK+x}" ] && [ -z "$EIP" ]; then
                     echo "EIP is not set or empty"
                     exit 1
                   fi
-                  fi
-                  curl -f http://localhost:26657/health || exit 1
+                  curl --max-time 10  -f http://localhost:26657/health || exit 1
           {{- end }}
           {{- end }}
           volumeMounts:
