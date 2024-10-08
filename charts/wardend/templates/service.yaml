@@ -114,6 +114,7 @@ spec:
 {{- end }}
 {{- if .Values.node.enabled }}
 {{- if .Values.node.externalSigner }}
+{{- $values := .Values }}
 {{- range $i, $e := until (int .Values.node.replicaCount)}}
 apiVersion: v1
 kind: Service
@@ -122,6 +123,10 @@ metadata:
   labels:
     statefulset.kubernetes.io/pod-name: {{ include "node.name" $ }}-{{ $i }}
 spec:
+  {{- if $values.echo.enabled }}
+  clusterIP: None
+  publishNotReadyAddresses: true
+  {{- end }}
   ports:
     - name: signer
       port: 1234
