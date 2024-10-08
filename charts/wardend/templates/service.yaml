@@ -54,6 +54,7 @@ spec:
 {{- end }}
 ---
 {{- if .Values.node.enabled }}
+{{- $values := .Values }}
 {{- range $i, $e := until (int .Values.node.replicaCount)}}
 apiVersion: v1
 kind: Service
@@ -65,7 +66,7 @@ metadata:
     {{- include "node.serviceAnnotations" $ |nindent 4}}
 spec:
   type: ClusterIP
-  {{- if .Values.echo.enabled }}
+  {{- if $values.echo.enabled }}
   clusterIP: None
   publishNotReadyAddresses: true
   {{- end }}
