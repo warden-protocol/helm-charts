@@ -154,6 +154,8 @@ spec:
           {{- if .Values.node.ready }}
           {{- if .Values.cosmovisor.enabled }}
           command: ["{{.Values.node.home}}/cosmovisor/bin/cosmovisor","run","start"]
+          {{- else if .Values.eipController.check }}
+          command: ["/bin/bash","/scripts/docker-entrypoint.sh"]
           {{- else }}
           command: ["/usr/bin/wardend","start"]
           {{- end }}
@@ -226,13 +228,13 @@ spec:
             {{- end }}
           {{- if .Values.node.ready }}
           livenessProbe:
-            initialDelaySeconds: 10
+            initialDelaySeconds: 180
             httpGet:
               path: /health
               port: rpc
           {{- if not .Values.node.externalSigner }}
           readinessProbe:
-            initialDelaySeconds: 10
+            initialDelaySeconds: 180
             exec:
               command:
                 - /bin/sh
@@ -248,6 +250,9 @@ spec:
           {{- end }}
           {{- end }}
           volumeMounts:
+            - name: scripts
+              mountPath: /scripts
+              readOnly: true
             {{- if not .Values.persistentVolumeClaimName }}
             - name: {{ include "node.name" . }}-data
             {{- else }}
