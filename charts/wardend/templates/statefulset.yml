@@ -154,10 +154,12 @@ spec:
           {{- if .Values.node.ready }}
           {{- if .Values.cosmovisor.enabled }}
           command: ["{{.Values.node.home}}/cosmovisor/bin/cosmovisor","run","start"]
-          {{- else if .Values.eipController.check }}
+          {{- else }}
+          {{- if .Values.eipController.check }}
           command: ["/bin/bash","/scripts/docker-entrypoint.sh"]
           {{- else }}
           command: ["/usr/bin/wardend","start"]
+          {{- end}}
           {{- end }}
           {{- else }}
           command: ["sleep","36000"]

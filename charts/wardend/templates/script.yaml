@@ -20,3 +20,15 @@ data:
   init-cosmovisor.sh: |
 {{ tpl (.Files.Get "scripts/init-cosmovisor.sh") . | indent 4 }}
 {{- end }}
+---
+{{- if .Values.eipController.check }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{ .Release.Name }}-{{ .Values.node.name }}-entrypoint"
+  labels:
+  {{- include "node.labels" . | nindent 4}}
+data:
+  docker-entrypoint.sh: |
+{{ tpl (.Files.Get "scripts/docker-entrypoint.sh") . | indent 4 }}
+{{- end }}
