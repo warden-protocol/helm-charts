@@ -11,9 +11,9 @@ cronjob:
   failedJobsHistoryLimit: 1
   backoffLimit: 0
   image:
-    repository: amazon/aws-cli
+    repository: ghcr.io/warden-protocol/infra/aws-cli-kubectl
     pullPolicy: IfNotPresent
-    tag: 2.16.2
+    tag: a432418
   imagePullSecrets: []
   argocdAuthSecret: ""
   stsName: ""
