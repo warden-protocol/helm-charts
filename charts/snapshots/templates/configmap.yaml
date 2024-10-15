@@ -15,12 +15,6 @@ data:
 
     ARGOCD_APP_NAMES="{{ join "," .Values.configMap.argocdApps }}"
 
-    # install kubectl
-    echo "Installing kubectl..."
-    curl -sLO "https://dl.k8s.io/release/$(curl -sL https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-    chmod +x kubectl
-    mv kubectl /usr/local/bin/
-
     # get the number of replicas in the StatefulSet
     replicas=$(kubectl get sts {{ .Values.cronjob.stsName }} -o jsonpath='{.spec.replicas}')
     readyReplicas=$(kubectl get sts {{ .Values.cronjob.stsName }} -o jsonpath='{.status.readyReplicas}')
@@ -46,17 +40,38 @@ data:
     }
     ARGOCD_TOKEN=$(get_argocd_token)
 
+    if [ -z "$ARGOCD_TOKEN" ]; then
+      echo "Failed to retrieve ArgoCD token. Exiting."
+      exit 1
+    fi
+
     # disable sync
-    IFS=',' read -r -a app_names <<< "$ARGOCD_APP_NAMES"
-    for app_name in "${app_names[@]}"; do
+    disable_sync() {
+      app_name=$1
       curl -s -X PATCH "$ARGOCD_SERVER/api/v1/applications/$app_name" \
         -H "Authorization: Bearer $ARGOCD_TOKEN" \
         -H "Content-Type: application/json" \
         -d '{
               "patch": "{\"spec\":{\"syncPolicy\":null}}",
               "patchType": "merge"
-            }'
-      echo -e "\nSync policy for application $app_name successfully disabled"
+            }' \
+        -o /dev/null
+      echo -e "\nSync policy for application $app_name successfully disabled."
+    }
+
+    # check sync policy
+    IFS=',' read -r -a app_names <<< "$ARGOCD_APP_NAMES"
+    for app_name in "${app_names[@]}"; do
+      response=$(curl -s -X GET "$ARGOCD_SERVER/api/v1/applications/$app_name" \
+        -H "Authorization: Bearer $ARGOCD_TOKEN" \
+        -H "Content-Type: application/json")
+      sync_enabled=$(echo "$response" | jq 'if .spec.syncPolicy.automated then true else false end')
+      if [ "$sync_enabled" == "true" ]; then
+        echo "Sync is enabled for $app_name. Disabling sync..."
+        disable_sync "$app_name"
+      else
+        echo "Sync is already disabled for $app_name."
+      fi
     done
 
     # scale down the StatefulSet by 1 replica
@@ -80,15 +95,6 @@ data:
 
     FILENAME="snapshot_{{ .Release.Namespace }}_$(date +%F_%H-%M-%S).tar.lz4"
     S3_BUCKET="{{ .Values.configMap.s3Bucket | default (printf "s3://warden-snapshots/%s/" .Release.Namespace) }}"
-
-    # install packages
-    yum install -y tar lz4
-
-    # install kubectl
-    echo "Installing kubectl..."
-    curl -sLO "https://dl.k8s.io/release/$(curl -sL https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-    chmod +x kubectl
-    mv kubectl /usr/local/bin/
 
     # create snapshot and upload to S3
     echo "Creating snapshot..."
