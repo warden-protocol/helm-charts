@@ -139,6 +139,14 @@ node:
   stateSync:
     snapshotInterval: 0
     snapshotKeepRecent: 2
+  livenessProbe:
+    path: /health
+    port: rpc
+    initialDelaySeconds: 30
+    failureThreshold: 5
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 3
 
 persistentVolumeClaimName: ""
 

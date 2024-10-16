@@ -226,10 +226,14 @@ spec:
             {{- end }}
           {{- if .Values.node.ready }}
           livenessProbe:
-            initialDelaySeconds: 10
+            initialDelaySeconds: {{ .Values.node.livenessProbe.initialDelaySeconds }}
+            failureThreshold: {{ .Values.node.livenessProbe.failureThreshold }}
+            periodSeconds: {{ .Values.node.livenessProbe.periodSeconds }}
+            successThreshold: {{ .Values.node.livenessProbe.successThreshold }}
+            timeoutSeconds: {{ .Values.node.livenessProbe.timeoutSeconds }}
             httpGet:
-              path: /health
-              port: rpc
+              path: {{ .Values.node.livenessProbe.path }}
+              port: {{ .Values.node.livenessProbe.port }}
           {{- if not .Values.node.externalSigner }}
           readinessProbe:
             initialDelaySeconds: 10
