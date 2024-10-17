@@ -62,7 +62,7 @@ spec:
       {{ toYaml .Values.imagePullSecrets | indent 8 }}
       {{- end }}
       initContainers:
-        {{ .Values.eipController.check }}
+        {{- if .Values.eipController.check }}
         - name: init-eip
           image: busybox:1.28
           command: ['timeout', '-t' ,'180', 'sh','-c', "until grep -E '^aws-pod-eip-controller-public-ip?' /etc/podinfo/labels; do echo waiting for labels; sleep 2; done"]
@@ -327,7 +327,7 @@ spec:
               port: health
         {{- end }}
       volumes:
-        {{ .Values.eipController.check }}
+        {{- if .Values.eipController.check }}
         - name: podinfo
           downwardAPI:
             items:
