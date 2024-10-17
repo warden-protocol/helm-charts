@@ -62,6 +62,14 @@ spec:
       {{ toYaml .Values.imagePullSecrets | indent 8 }}
       {{- end }}
       initContainers:
+        {{- if .Values.eipController.check }}
+        - name: init-eip
+          image: busybox:1.28
+          command: ['timeout', '-t' ,'180', 'sh','-c', "until grep -E '^aws-pod-eip-controller-public-ip?' /etc/podinfo/labels; do echo waiting for labels; sleep 2; done"]
+          volumeMounts:
+            - name: podinfo
+              mountPath: /etc/podinfo
+        {{- end }}
         - name: init
           image: "{{ .Values.image }}:{{ .Values.imageTag | default .Chart.AppVersion }}"
           command: [ "/bin/bash" , "/scripts/init.sh" ]
@@ -189,10 +197,6 @@ spec:
             - name: WARDEND_P2P_EXTERNAL_ADDRESS
               value: $(EIP):26656
           {{- end }}
-          {{- if and .Values.eipController.enabled .Values.eipController.check }}
-            - name: EIP_CHECK
-              value: "{{ .Values.eipController.check }}"
-          {{- end }}
           ports:
             {{- if .Values.node.rpc.enabled }}
             - name: rpc
@@ -237,18 +241,9 @@ spec:
           {{- if not .Values.node.externalSigner }}
           readinessProbe:
             initialDelaySeconds: 10
-            exec:
-              command:
-                - /bin/sh
-                - -c
-                - |
-                  if [ -n "$EIP_CHECK" ]; then
-                  if [ -z "$EIP" ]; then
-                    echo "EIP is not set or empty"
-                    exit 1
-                  fi
-                  fi
-                  curl -f http://localhost:26657/health || exit 1
+            httpGet:
+              path: /health
+              port: rpc
           {{- end }}
           {{- end }}
           volumeMounts:
@@ -332,6 +327,14 @@ spec:
               port: health
         {{- end }}
       volumes:
+        {{- if .Values.eipController.check }}
+        - name: podinfo
+          downwardAPI:
+            items:
+            - path: "labels"
+              fieldRef:
+                fieldPath: metadata.labels
+        {{- end }}
         {{- if .Values.persistentVolumeClaimName }}
         - name: {{ .Values.persistentVolumeClaimName }}
           persistentVolumeClaim:
