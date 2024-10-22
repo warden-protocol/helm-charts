@@ -3,13 +3,13 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: {{ include "landing.fullname" . }}
+  name: {{ include "webhooks.fullname" . }}
   labels:
-    {{- include "landing.labels" . | nindent 4 }}
+    {{- include "webhooks.labels" . | nindent 4 }}
 spec:
   podSelector:
     matchLabels:
-      {{- include "landing.selectorLabels" . | nindent 6 }}
+      {{- include "webhooks.selectorLabels" . | nindent 6 }}
   ingress:
     - ports:
         - protocol: TCP
