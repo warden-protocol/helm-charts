@@ -79,3 +79,6 @@ secretManager:
   secrets: []
   pullSecrets: []
   cmd: "yarn start:landing"
+
+networkPolicy:
+  enabled: true

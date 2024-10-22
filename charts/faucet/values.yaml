@@ -71,3 +71,6 @@ secretManager:
     annotations: {}
   secrets: []
   cmd: "/usr/bin/faucet"
+
+networkPolicy:
+  enabled: true

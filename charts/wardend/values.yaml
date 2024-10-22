@@ -4,7 +4,7 @@
 # Declare variables to be passed into your templates.
 image: ghcr.io/warden-protocol/wardenprotocol/wardend
 imagePullPolicy: IfNotPresent
-imageTag: "v0.3.0"
+imageTag: "v0.4.2"
 
 imagePullSecrets: []
 
@@ -169,3 +169,6 @@ oracle:
   image: ghcr.io/skip-mev/slinky-sidecar
   imageTag: v1.0.3
   metricsEnabled: false
+
+networkPolicy:
+  enabled: true
