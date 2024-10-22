@@ -1,7 +1,4 @@
 ---
-# Default values for warden.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
 image: ghcr.io/warden-protocol/wardenprotocol/wardend
 imagePullPolicy: IfNotPresent
 imageTag: "v0.3.0"
@@ -35,9 +32,6 @@ snapshot:
 scratch:
   genesisUrl: ""
 
-moniker: mynode
-minGasPrice: 0award
-
 cosmovisor:
   enabled: false
   version: "v1.5.0"
@@ -55,6 +49,8 @@ echo:
   behindThreshold: 5
   endpoints: "http://localhost:26657"
   peers: ""
+  moniker: "mynode"
+  minGasPrice: "0award"
 
 topologySpreadConstraints:
   enabled: false
@@ -115,17 +111,6 @@ node:
     enabled: true
   resources:
     {}
-    # We usually recommend not to specify default resources and to leave this as a conscious
-    # choice for the user. This also increases chances charts run on environments with little
-    # resources, such as Minikube. If you do want to specify resources, uncomment the following
-    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-    # limits:
-    #   cpu: 100m
-    #   memory: 128Mi
-    # requests:
-    #   cpu: 100m
-    #   memory: 128Mi
-  externalService:
   persistent:
     size: 10Gi
     class: ""

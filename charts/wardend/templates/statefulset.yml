@@ -74,6 +74,10 @@ spec:
           image: "{{ .Values.image }}:{{ .Values.imageTag | default .Chart.AppVersion }}"
           command: [ "/bin/bash" , "/scripts/init.sh" ]
           imagePullPolicy: {{ .Values.imagePullPolicy }}
+          {{- with .Values.node.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           env:
             - name: SYNC_METHOD
               value: "{{.Values.syncMethod }}"
@@ -111,6 +115,10 @@ spec:
           image: "{{ .Values.image }}:{{ .Values.imageTag | default .Chart.AppVersion }}"
           command: [ "/bin/bash" , "/scripts/init-cosmovisor.sh" ]
           imagePullPolicy: {{ .Values.imagePullPolicy }}
+          {{- with .Values.node.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           env:
             - name: COSMOVISOR_VERSION
               value: "{{ .Values.cosmovisor.version }}"
@@ -131,6 +139,10 @@ spec:
         - name: init-keys
           image: "{{ .Values.image }}:{{ .Values.imageTag | default .Chart.AppVersion }}"
           command: ["/bin/sh", "-c"]
+          {{- with .Values.node.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           args: 
             - |
               #!/bin/bash
@@ -159,6 +171,10 @@ spec:
         - name: {{ include "node.name" . }}
           image: "{{ .Values.image }}:{{ .Values.imageTag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.imagePullPolicy }}
+          {{- with .Values.node.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           {{- if .Values.node.ready }}
           {{- if .Values.cosmovisor.enabled }}
           command: ["{{.Values.node.home}}/cosmovisor/bin/cosmovisor","run","start"]
@@ -285,6 +301,10 @@ spec:
         - name: slinky
           image: "{{ .Values.oracle.image}}:{{ .Values.oracle.imageTag}}"
           imagePullPolicy: {{ .Values.imagePullPolicy }}
+          {{- with .Values.oracle.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           ports:
             - name: oracle
               containerPort: 8080
