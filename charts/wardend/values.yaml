@@ -17,12 +17,6 @@ serviceAnnotations: {}
 serviceMonitor:
   extraLabels: {}
 
-podSecurityContext:
-  fsGroup: 1000
-  runAsUser: 1000
-  runAsGroup: 1000
-  runAsNonRoot: true
-
 # scratch / snapshot
 syncMethod: "scratch"
 
@@ -74,6 +68,11 @@ node:
   replicaCount: 1
   moniker: "mynode"
   minGasPrice: "0award"
+  securityContext:
+    fsGroup: 1000
+    runAsUser: 1000
+    runAsGroup: 1000
+    runAsNonRoot: true
   rpc:
     enabled: true
   grpc:
@@ -154,3 +153,8 @@ oracle:
   image: ghcr.io/skip-mev/slinky-sidecar
   imageTag: v1.0.3
   metricsEnabled: false
+  securityContext:
+    fsGroup: 65532
+    runAsUser: 65532
+    runAsGroup: 65532
+    runAsNonRoot: true
