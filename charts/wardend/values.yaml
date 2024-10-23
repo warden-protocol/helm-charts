@@ -49,8 +49,6 @@ echo:
   behindThreshold: 5
   endpoints: "http://localhost:26657"
   peers: ""
-  moniker: "mynode"
-  minGasPrice: "0award"
 
 topologySpreadConstraints:
   enabled: false
@@ -74,6 +72,8 @@ node:
   nodeKeysSecretName: ""
   genesisSecretName: ""
   replicaCount: 1
+  moniker: "mynode"
+  minGasPrice: "0award"
   rpc:
     enabled: true
   grpc:
