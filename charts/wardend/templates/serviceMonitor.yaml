@@ -26,6 +26,12 @@ spec:
       interval: 1m
       scrapeTimeout: 30s
     {{- end }}
+    {{- if $values.evm.metrics }}
+    - port: evm-metrics
+      path: /debug/metrics/prometheus
+      interval: 1m
+      scrapeTimeout: 30s
+    {{- end }}
 ---
 {{- end}}
 {{- end}}

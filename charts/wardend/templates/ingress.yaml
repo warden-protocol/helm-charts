@@ -47,7 +47,7 @@ spec:
               service:
                 name: {{ .Release.Name }}-{{ .Values.node.name }}-http
                 port:
-                  number: 8485
+                  number: 8545
             path: /
             pathType: {{ .Values.node.ingress.pathType }}
     - host: evm-ws.{{ .Values.node.ingress.host }}
@@ -57,7 +57,7 @@ spec:
               service:
                 name: {{ .Release.Name }}-{{ .Values.node.name }}-http
                 port:
-                  number: 8486
+                  number: 8546
             path: /
             pathType: {{ .Values.node.ingress.pathType }}
     {{- end}}
