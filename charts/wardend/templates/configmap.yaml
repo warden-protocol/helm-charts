@@ -835,7 +835,7 @@ data:
     api = "{{ .Values.evm.api }}"
 
     # GasCap sets a cap on gas that can be used in eth_call/estimateGas (0=infinite). Default: 25,000,000.
-    gas-cap = {{ .Values.evm.gasCap }}
+    gas-cap = {{ .Values.evm.gasCap | int }}
 
     # Allow insecure account unlocking when account-related RPCs are exposed by http
     allow-insecure-unlock = {{ .Values.evm.allowInsecureUnlock }}

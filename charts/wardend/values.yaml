@@ -176,7 +176,7 @@ evm:
   rpc: true
   metrics: true
   api: "eth,net,web3"
-  gasCap: 25000000
+  gasCap: "25000000"
   allowInsecureUnlock: true
   evmTimeout: "5s"
   txfeeCap: 1
