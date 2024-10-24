@@ -314,6 +314,7 @@ spec:
         - name: slinky
           image: "{{ .Values.oracle.image}}:{{ .Values.oracle.imageTag}}"
           imagePullPolicy: {{ .Values.imagePullPolicy }}
+          args: ["--log-file=/dev/null"]
           {{- with .Values.oracle.securityContext }}
           securityContext:
             {{- toYaml . | nindent 12 }}
