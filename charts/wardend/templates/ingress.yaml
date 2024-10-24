@@ -72,4 +72,12 @@ spec:
     - api.{{ .Values.node.ingress.host }}
     secretName: {{ .Release.Name }}-{{ .Values.node.name }}-api-tls
   {{- end}}
+  {{- if .Values.evm.rpc }}
+  - hosts:
+    - evm.{{ .Values.node.ingress.host }}
+    secretName: {{ .Release.Name }}-{{ .Values.node.name }}-evm-tls
+  - hosts:
+    - evm-ws.{{ .Values.node.ingress.host }}
+    secretName: {{ .Release.Name }}-{{ .Values.node.name }}-evm-ws-tls
+  {{- end }}
 {{- end}}
