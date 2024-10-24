@@ -5,10 +5,14 @@ description: A chart to deploy Wardend to Kubernetes
 
 type: application
 
-version: 2.6.0
+version: 2.7.0
 
-appVersion: "v0.5.0"
+appVersion: "v0.4.2"
 maintainers:
   - name: jlehtimaki
     email: joonas@wardenprotocol.org
     url: https://github.com/jlehtimaki
+  - name: zavertiaev
+    url: https://github.com/zavertiaev
+  - name: mikolajsobolewski
+    url: https://github.com/mikolajsobolewski

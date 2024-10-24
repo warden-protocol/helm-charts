@@ -73,3 +73,6 @@ secretManager:
     annotations: {}
   secrets: []
   cmd: "sh /opt/entrypoint.sh nginx-fe"
+
+networkPolicy:
+  enabled: true

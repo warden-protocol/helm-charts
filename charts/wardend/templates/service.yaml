@@ -7,7 +7,7 @@ metadata:
   labels:
     {{- include "node.selectorLabels" . | nindent 4 }}
   annotations:
-    {{- include "node.serviceAnnotations" . |nindent 4}}
+    {{- include "node.serviceAnnotations" . |nindent 4 }}
 spec:
   type: ClusterIP
   ports:
@@ -16,19 +16,19 @@ spec:
       port: 26657
       targetPort: 26657
       protocol: TCP
-    {{- end}}
+    {{- end }}
     {{- if .Values.node.p2p.enabled }}
     - name: p2p
       port: 26656
       targetPort: 26656
       protocol: TCP
-    {{- end}}
+    {{- end }}
     {{- if .Values.node.api.enabled }}
     - name: api
       port: 1317
       targetPort: 1317
       protocol: TCP
-    {{- end}}
+    {{- end }}
   selector:
     {{- include "node.selectorLabels" . | nindent 4 }}
 {{- end }}
@@ -94,7 +94,7 @@ metadata:
     {{- include "p2p.serviceAnnotations" $ |nindent 4}}
     {{- if "p2p.externalDNS" }}
     external-dns.alpha.kubernetes.io/hostname: {{ include "node.name.short" $ }}-{{ $i }}.{{ include "p2p.externalDNS.domain" $}}
-    {{- end}}
+    {{- end }}
 spec:
   allocateLoadBalancerNodePorts: false
   type: LoadBalancer

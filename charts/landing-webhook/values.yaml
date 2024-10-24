@@ -26,3 +26,6 @@ ingress:
   hosts: []
   tls: []
   secretName:
+
+networkPolicy:
+  enabled: true
