@@ -788,12 +788,13 @@ data:
     # PriceTTL is the maximum age of the latest price response before it is considered stale. 
     # The recommended max age is 10 seconds (10s). If this is greater than 1 minute (1m), the app
     # will not start.
-    price_ttl = {{ .Values.oracle.priceTTL }}
+    price_ttl = "{{ .Values.oracle.priceTTL }}"
 
     # Interval is the time between each price update request. The recommended interval
     # is the block time of the chain. Otherwise, 1.5 seconds (1500ms) is a good default. If this
     # is greater than 1 minute (1m), the app will not start.
-    interval = {{ .Values.oracle.interval }}
+    interval = "{{ .Values.oracle.interval }}"
+
     ###############################################################################
     ###                             EVM Configuration                           ###
     ###############################################################################
@@ -831,7 +832,7 @@ data:
     {{- end }}
     # API defines a list of JSON-RPC namespaces that should be enabled
     # Example: "eth,txpool,personal,net,debug,web3"
-    api = {{ .Values.evm.api }}
+    api = "{{ .Values.evm.api }}"
 
     # GasCap sets a cap on gas that can be used in eth_call/estimateGas (0=infinite). Default: 25,000,000.
     gas-cap = {{ .Values.evm.gasCap }}
@@ -840,7 +841,7 @@ data:
     allow-insecure-unlock = {{ .Values.evm.allowInsecureUnlock }}
 
     # EVMTimeout is the global timeout for eth_call. Default: 5s.
-    evm-timeout = {{ .Values.evm.evmTimeout }}
+    evm-timeout = "{{ .Values.evm.evmTimeout }}"
 
     # TxFeeCap is the global tx-fee cap for send transaction. Default: 1eth.
     txfee-cap = {{ .Values.evm.txfeeCap }}
@@ -858,10 +859,10 @@ data:
     block-range-cap = {{ .Values.evm.blockRangeCap }}
 
     # HTTPTimeout is the read/write timeout of http json-rpc server.
-    http-timeout = {{ .Values.evm.httpTimeout }}
+    http-timeout = "{{ .Values.evm.httpTimeout }}"
 
     # HTTPIdleTimeout is the idle timeout of http json-rpc server.
-    http-idle-timeout = {{ .Values.evm.httpIdleTimeout }}
+    http-idle-timeout = "{{ .Values.evm.httpIdleTimeout }}"
 
     # AllowUnprotectedTxs restricts unprotected (non EIP155 signed) transactions to be submitted via
     # the node's RPC when the global parameter is disabled.
@@ -896,5 +897,5 @@ data:
 
     # Key path defines the key.pem file path for the TLS configuration.
     key-path = ""
-{{- end }}
 
+{{- end }}
