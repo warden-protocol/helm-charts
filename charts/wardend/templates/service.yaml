@@ -29,6 +29,16 @@ spec:
       targetPort: 1317
       protocol: TCP
     {{- end }}
+    {{- if .Values.evm.rpc }}
+    - name: evm
+      port: 8545
+      targetPort: 8545
+      protocol: TCP
+    - name: evm-ws
+      port: 8546
+      targetPort: 8546
+      protocol: TCP
+    {{- end }}
   selector:
     {{- include "node.selectorLabels" . | nindent 4 }}
 {{- end }}
@@ -158,6 +168,12 @@ spec:
     - name: oracle-metrics
       port: 8002
       targetPort: 8002
+      protocol: TCP
+    {{- end }}
+    {{- if $values.evm.metrics }}
+    - name: evm-metrics
+      port: 6065
+      targetPort: 6065
       protocol: TCP
     {{- end }}
   selector:

@@ -167,8 +167,28 @@ secretManager:
 oracle:
   enabled: false
   image: ghcr.io/skip-mev/slinky-sidecar
-  imageTag: v1.0.3
+  imageTag: v1.0.12
   metricsEnabled: false
+  priceTTL: 10s
+  interval: 5s
+
+evm:
+  rpc: true
+  metrics: true
+  api: "eth,net,web3"
+  gasCap: 25000000
+  allowInsecureUnlock: true
+  evmTimeout: "5s"
+  txfeeCap: 1
+  filterCap: 200
+  feehistoryCap: 100
+  logsCap: 10000
+  blockRangeCap: 10000
+  httpTimeout: "30s"
+  httpIdleTimeout: "2m0s"
+  allowUnprotectedTxs: false
+  maxOpenConnections: 10
+  enableIndexer: false
 
 networkPolicy:
   enabled: true

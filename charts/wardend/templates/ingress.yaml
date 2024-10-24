@@ -39,6 +39,28 @@ spec:
             path: /
             pathType: {{ .Values.node.ingress.pathType }}
     {{- end}}
+    {{- if .Values.evm.rpc }}
+    - host: evm.{{ .Values.node.ingress.host }}
+      http:
+        paths:
+          - backend:
+              service:
+                name: {{ .Release.Name }}-{{ .Values.node.name }}-http
+                port:
+                  number: 8485
+            path: /
+            pathType: {{ .Values.node.ingress.pathType }}
+    - host: evm-ws.{{ .Values.node.ingress.host }}
+      http:
+        paths:
+          - backend:
+              service:
+                name: {{ .Release.Name }}-{{ .Values.node.name }}-http
+                port:
+                  number: 8486
+            path: /
+            pathType: {{ .Values.node.ingress.pathType }}
+    {{- end}}
   tls:
   {{- if .Values.node.rpc.enabled }}
   - hosts:
