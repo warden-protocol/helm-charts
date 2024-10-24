@@ -39,6 +39,28 @@ spec:
             path: /
             pathType: {{ .Values.node.ingress.pathType }}
     {{- end}}
+    {{- if .Values.evm.rpc }}
+    - host: evm.{{ .Values.node.ingress.host }}
+      http:
+        paths:
+          - backend:
+              service:
+                name: {{ .Release.Name }}-{{ .Values.node.name }}-http
+                port:
+                  number: 8545
+            path: /
+            pathType: {{ .Values.node.ingress.pathType }}
+    - host: evm-ws.{{ .Values.node.ingress.host }}
+      http:
+        paths:
+          - backend:
+              service:
+                name: {{ .Release.Name }}-{{ .Values.node.name }}-http
+                port:
+                  number: 8546
+            path: /
+            pathType: {{ .Values.node.ingress.pathType }}
+    {{- end}}
   tls:
   {{- if .Values.node.rpc.enabled }}
   - hosts:
@@ -50,4 +72,12 @@ spec:
     - api.{{ .Values.node.ingress.host }}
     secretName: {{ .Release.Name }}-{{ .Values.node.name }}-api-tls
   {{- end}}
+  {{- if .Values.evm.rpc }}
+  - hosts:
+    - evm.{{ .Values.node.ingress.host }}
+    secretName: {{ .Release.Name }}-{{ .Values.node.name }}-evm-tls
+  - hosts:
+    - evm-ws.{{ .Values.node.ingress.host }}
+    secretName: {{ .Release.Name }}-{{ .Values.node.name }}-evm-ws-tls
+  {{- end }}
 {{- end}}

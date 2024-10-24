@@ -77,3 +77,6 @@ secretManager:
   secrets: []
   pullSecrets: []
   cmd: "yarn webhooks"
+
+networkPolicy:
+  enabled: true

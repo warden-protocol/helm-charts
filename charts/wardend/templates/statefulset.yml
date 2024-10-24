@@ -244,6 +244,19 @@ spec:
               containerPort: 1234
               protocol: TCP
             {{- end }}
+            {{- if .Values.evm.rpc }}
+            - name: evm
+              containerPort: 8545
+              protocol: TCP
+            - name: evm-ws
+              containerPort: 8546
+              protocol: TCP
+            {{- end }}
+            {{- if .Values.evm.metrics }}
+            - name: evm-metrics
+              containerPort: 6065
+              protocol: TCP
+            {{- end }}
           {{- if .Values.node.ready }}
           livenessProbe:
             initialDelaySeconds: {{ .Values.node.livenessProbe.initialDelaySeconds }}

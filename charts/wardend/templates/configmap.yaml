@@ -17,7 +17,7 @@ data:
 
     # The version of the CometBFT binary that created or
     # last modified the config file. Do not modify this.
-    version = "0.38.2"
+    version = "0.38.12"
 
     #######################################################################
     ###                   Main Base Config Options                      ###
@@ -184,6 +184,11 @@ data:
     # See https://github.com/tendermint/tendermint/issues/3435
     timeout_broadcast_tx_commit = "10s"
 
+    # Maximum number of requests that can be sent in a batch
+    # If the value is set to '0' (zero-value), then no maximum batch size will be
+    # enforced for a JSON-RPC batch request.
+    max_request_batch_size = 10
+
     # Maximum size of request body, in bytes
     max_body_bytes = 1000000
 
@@ -302,6 +307,17 @@ data:
     # mempool may become invalid. If this does not apply to your application,
     # you can disable rechecking.
     recheck = true
+    
+    # recheck_timeout is the time the application has during the rechecking process
+    # to return CheckTx responses, once all requests have been sent. Responses that 
+    # arrive after the timeout expires are discarded. It only applies to 
+    # non-local ABCI clients and when recheck is enabled.
+    #
+    # The ideal value will strongly depend on the application. It could roughly be estimated as the
+    # average size of the mempool multiplied by the average time it takes the application to validate one
+    # transaction. We consider that the ABCI application runs in the same location as the CometBFT binary
+    # so that the recheck duration is not affected by network delays when making requests and receiving responses.
+    recheck_timeout = "1s"
 
     # Broadcast (default: true) defines whether the mempool should relay
     # transactions to other peers. Setting this to false will stop the mempool
@@ -768,4 +784,118 @@ data:
     # this enables instrumentation of the oracle client and the interaction between
     # the oracle and the app.
     metrics_enabled = {{ .Values.oracle.metricsEnabled }}
+
+    # PriceTTL is the maximum age of the latest price response before it is considered stale. 
+    # The recommended max age is 10 seconds (10s). If this is greater than 1 minute (1m), the app
+    # will not start.
+    price_ttl = "{{ .Values.oracle.priceTTL }}"
+
+    # Interval is the time between each price update request. The recommended interval
+    # is the block time of the chain. Otherwise, 1.5 seconds (1500ms) is a good default. If this
+    # is greater than 1 minute (1m), the app will not start.
+    interval = "{{ .Values.oracle.interval }}"
+
+    ###############################################################################
+    ###                             EVM Configuration                           ###
+    ###############################################################################
+
+    [evm]
+
+    # Tracer defines the 'vm.Tracer' type that the EVM will use when the node is run in
+    # debug mode. To enable tracing use the '--evm.tracer' flag when starting your node.
+    # Valid types are: json|struct|access_list|markdown
+    tracer = ""
+
+    # MaxTxGasWanted defines the gas wanted for each eth tx returned in ante handler in check tx mode.
+    max-tx-gas-wanted = 0
+
+    ###############################################################################
+    ###                           JSON RPC Configuration                        ###
+    ###############################################################################
+
+    [json-rpc]
+
+    # Enable defines if the JSONRPC server should be enabled.
+    enable = {{ .Values.evm.rpc }}
+
+    # Address defines the EVM RPC HTTP server address to bind to.
+    {{- if .Values.evm.rpc }}
+    address = "0.0.0.0:8545"
+
+    # Address defines the EVM WebSocket server address to bind to.
+    ws-address = "0.0.0.0:8546"
+    {{- else }}
+    address = "127.0.0.1:8545"
+
+    # Address defines the EVM WebSocket server address to bind to.
+    ws-address = "127.0.0.1:8546"
+    {{- end }}
+    # API defines a list of JSON-RPC namespaces that should be enabled
+    # Example: "eth,txpool,personal,net,debug,web3"
+    api = "{{ .Values.evm.api }}"
+
+    # GasCap sets a cap on gas that can be used in eth_call/estimateGas (0=infinite). Default: 25,000,000.
+    gas-cap = {{ .Values.evm.gasCap | int }}
+
+    # Allow insecure account unlocking when account-related RPCs are exposed by http
+    allow-insecure-unlock = {{ .Values.evm.allowInsecureUnlock }}
+
+    # EVMTimeout is the global timeout for eth_call. Default: 5s.
+    evm-timeout = "{{ .Values.evm.evmTimeout }}"
+
+    # TxFeeCap is the global tx-fee cap for send transaction. Default: 1eth.
+    txfee-cap = {{ .Values.evm.txfeeCap }}
+
+    # FilterCap sets the global cap for total number of filters that can be created
+    filter-cap = {{ .Values.evm.filterCap }}
+
+    # FeeHistoryCap sets the global cap for total number of blocks that can be fetched
+    feehistory-cap = {{ .Values.evm.feehistoryCap }}
+
+    # LogsCap defines the max number of results can be returned from single 'eth_getLogs' query.
+    logs-cap = {{ .Values.evm.logsCap }}
+
+    # BlockRangeCap defines the max block range allowed for 'eth_getLogs' query.
+    block-range-cap = {{ .Values.evm.blockRangeCap }}
+
+    # HTTPTimeout is the read/write timeout of http json-rpc server.
+    http-timeout = "{{ .Values.evm.httpTimeout }}"
+
+    # HTTPIdleTimeout is the idle timeout of http json-rpc server.
+    http-idle-timeout = "{{ .Values.evm.httpIdleTimeout }}"
+
+    # AllowUnprotectedTxs restricts unprotected (non EIP155 signed) transactions to be submitted via
+    # the node's RPC when the global parameter is disabled.
+    allow-unprotected-txs = {{ .Values.evm.allowUnprotectedTxs }}
+
+    # MaxOpenConnections sets the maximum number of simultaneous connections
+    # for the server listener.
+    max-open-connections = {{ .Values.evm.maxOpenConnections }}
+
+    # EnableIndexer enables the custom transaction indexer for the EVM (ethereum transactions).
+    enable-indexer = {{ .Values.evm.enableIndexer }}
+
+    # MetricsAddress defines the EVM Metrics server address to bind to. Pass --metrics in CLI to enable
+    # Prometheus metrics path: /debug/metrics/prometheus
+    {{- if .Values.evm.metrics }}
+    metrics-address = "0.0.0.0:6065"
+    {{- else }}
+    metrics-address = "127.0.0.1:6065"
+    {{- end }}
+
+    # Upgrade height for fix of revert gas refund logic when transaction reverted.
+    fix-revert-gas-refund-height = 0
+
+    ###############################################################################
+    ###                             TLS Configuration                           ###
+    ###############################################################################
+
+    [tls]
+
+    # Certificate path defines the cert.pem file path for the TLS configuration.
+    certificate-path = ""
+
+    # Key path defines the key.pem file path for the TLS configuration.
+    key-path = ""
+
 {{- end }}
