@@ -28,7 +28,7 @@ data:
     proxy_app = "tcp://127.0.0.1:26658"
 
     # A custom human readable name for this node
-    moniker = "{{ .Values.moniker }}"
+    moniker = "{{ .Values.node.moniker }}"
 
     # Database backend: goleveldb | cleveldb | boltdb | rocksdb | badgerdb
     # * goleveldb (github.com/syndtr/goleveldb - most popular implementation)
@@ -527,7 +527,7 @@ data:
     # The minimum gas prices a validator is willing to accept for processing a
     # transaction. A transaction's fees must meet the minimum of any denomination
     # specified in this config (e.g. 0.25token1,0.0001token2).
-    minimum-gas-prices = "{{ .Values.minGasPrice }}"
+    minimum-gas-prices = "{{ .Values.node.minGasPrice }}"
 
     # The maximum gas a query coming over rest/grpc may consume.
     # If this is set to zero, the query can consume an unbounded amount of gas.
