@@ -39,6 +39,16 @@ spec:
         - protocol: TCP
           port: 8002
         {{- end }}
+        {{- if .Values.evm.rpc }}
+        - protocol: TCP
+          port: 8545
+        - protocol: TCP
+          port: 8546
+        {{- end }}
+        {{- if .Values.evm.metrics }}
+        - protocol: TCP
+          port: 6065
+        {{- end }}
         {{- end }}
   policyTypes:
     - Ingress
