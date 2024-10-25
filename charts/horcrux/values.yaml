@@ -52,3 +52,6 @@ secretManager:
     name: ""
     annotations: {}
   secrets: []
+
+networkPolicy:
+  enabled: true

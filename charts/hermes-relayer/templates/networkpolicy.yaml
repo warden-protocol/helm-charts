@@ -1,0 +1,19 @@
+{{- if .Values.networkPolicy.enabled }}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "hermes-relayer.fullname" . }}
+  labels:
+    {{- include "hermes-relayer.labels" . | nindent 4 }}
+spec:
+  podSelector:
+    matchLabels:
+      {{- include "hermes-relayer.selectorLabels" . | nindent 6 }}
+  ingress:
+    - ports:
+        - protocol: TCP
+          port: {{ .Values.service.telemetryPort }}
+  policyTypes:
+    - Ingress
+{{- end }}
