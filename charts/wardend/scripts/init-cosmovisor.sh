@@ -12,9 +12,6 @@ if [ ! -d "$WARDEND_HOME/cosmovisor" ] || [ ! -d "$WARDEND_HOME/cosmovisor/genes
   mkdir -p $WARDEND_HOME/cosmovisor/bin
 
   # Check if curl is installed, this can be removed after release > 0.3.0
-  if ! command -v curl &> /dev/null; then
-    apt update && apt install -y curl
-  fi
   echo "Downloading Cosmovisor"
   # Download the file
   curl -Lo /tmp/cosmovisor.tar.gz "$COSMOVISOR_URL"
