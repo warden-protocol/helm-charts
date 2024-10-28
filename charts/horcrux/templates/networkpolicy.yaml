@@ -1,0 +1,26 @@
+{{- if .Values.networkPolicy.enabled }}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "name" . }}
+  labels:
+    {{- include "selectorLabels" . | nindent 4 }}
+spec:
+  podSelector:
+    matchLabels:
+      {{- include "selectorLabels" . | nindent 6 }}
+  ingress:
+    - from:
+      - podSelector: {}
+      ports:
+        - protocol: TCP
+          port: 2222
+    {{- if .Values.metrics.enabled }}
+    - ports:
+        - protocol: TCP
+          port: 6001
+    {{- end}}
+  policyTypes:
+    - Ingress
+{{- end }}
