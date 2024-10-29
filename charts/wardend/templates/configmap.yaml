@@ -244,10 +244,10 @@ data:
     addr_book_strict = {{ .Values.node.p2p.addrBookStrict }}
 
     # Maximum number of inbound peers
-    max_num_inbound_peers = 40
+    max_num_inbound_peers = {{ .Values.node.p2p.maxInboundPeers }}
 
     # Maximum number of outbound peers to connect to, excluding persistent peers
-    max_num_outbound_peers = 10
+    max_num_outbound_peers = {{ .Values.node.p2p.maxOutboundPeers }}
 
     # List of node IDs, to which a connection will be (re)established ignoring any existing limits
     unconditional_peer_ids = ""

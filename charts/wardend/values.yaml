@@ -89,6 +89,8 @@ node:
       domain: ""
     addrBookStrict: false
     pex: false
+    maxInboundPeers: 40
+    maxOutboundPeers: 10
     seedMode: false
     seeds: ""
     persistentPeers: ""
@@ -108,8 +110,7 @@ node:
     pruningInterval: "0"
   metrics:
     enabled: true
-  resources:
-    {}
+  resources: {}
   persistent:
     size: 10Gi
     class: ""
@@ -159,7 +160,6 @@ oracle:
     runAsUser: 65532
     runAsGroup: 65532
     runAsNonRoot: true
-
 
 evm:
   rpc: true
