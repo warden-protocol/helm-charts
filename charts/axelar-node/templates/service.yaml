@@ -1,0 +1,73 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "axelar-node.name" . }}-http
+  labels:
+    {{- include "axelar-node.labels" . | nindent 4 }}
+  annotations:
+    {{- with .Values.serviceAnnotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  type: ClusterIP
+  ports:
+    {{- if .Values.node.rpc.enabled }}
+    - name: rpc
+      port: 26657
+      targetPort: 26657
+      protocol: TCP
+    {{- end }}
+    {{- if .Values.node.p2p.enabled }}
+    - name: p2p
+      port: 26656
+      targetPort: 26656
+      protocol: TCP
+    {{- end }}
+    {{- if .Values.node.api.enabled }}
+    - name: api
+      port: 1317
+      targetPort: 1317
+      protocol: TCP
+    {{- end }}
+  selector:
+    {{- include "axelar-node.selectorLabels" . | nindent 4 }}
+{{- if .Values.node.grpc.enabled }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "axelar-node.name" . }}-grpc
+  labels:
+    {{- include "axelar-node.selectorLabels" . | nindent 4 }}
+  annotations:
+    konghq.com/protocol: grpc
+spec:
+  type: ClusterIP
+  ports:
+    - name: grpc
+      port: 9090
+      targetPort: 9090
+      protocol: TCP
+  selector:
+    {{- include "axelar-node.selectorLabels" . | nindent 4 }}
+{{- end }}
+{{- if .Values.node.metrics.enabled }}
+{{- range $i, $e := until (int .Values.node.replicaCount)}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "axelar-node.name" $ }}-{{ $i }}-metrics
+  labels:
+    statefulset.kubernetes.io/pod-name: {{ include "axelar-node.name" $ }}-{{ $i }}
+spec:
+  ports:
+    - name: telemetry
+      port: 26660
+      targetPort: 26660
+      protocol: TCP
+  selector:
+    statefulset.kubernetes.io/pod-name: {{ include "axelar-node.name" $ }}-{{ $i }}
+{{- end }}
+{{- end }}

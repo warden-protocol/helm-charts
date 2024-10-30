@@ -1,0 +1,88 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "axelar-node.name" . }}
+  labels:
+    {{- include "axelar-node.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.node.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "axelar-node.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "axelar-node.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{ toYaml .Values.imagePullSecrets | indent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ include "axelar-node.name" . }}
+          image: "{{ .Values.image }}:{{ .Values.imageTag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          {{- with .Values.node.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          ports:
+            {{- if .Values.node.rpc.enabled }}
+            - name: rpc
+              containerPort: 26657
+              protocol: TCP
+            {{- end }}
+            {{- if .Values.node.p2p.enabled }}
+            - name: p2p
+              containerPort: 26656
+              protocol: TCP
+            {{- end }}
+            {{- if .Values.node.api.enabled }}
+            - name: api
+              containerPort: 1317
+              protocol: TCP
+            {{- end }}
+            {{- if .Values.node.grpc.enabled }}
+            - name: grpc
+              containerPort: 9090
+              protocol: TCP
+            {{- end }}
+            {{- if .Values.node.metrics.enabled }}
+            - name: telemetry
+              containerPort: 26660
+              protocol: TCP
+            {{- end }}
+          env:
+            - name: AXELARD_HOME
+              value: {{ .Values.node.home }}
+          volumeMounts:
+            {{- if not .Values.persistentVolumeClaimName }}
+            - name: {{ include "axelar-node.name" . }}-data
+            {{- else }}
+            - name: {{ .Values.persistentVolumeClaimName }}
+            {{- end }}
+              mountPath: {{ .Values.node.home }}
+          resources:
+            {{- toYaml .Values.node.resources | nindent 12 }}
+      {{- if .Values.persistentVolumeClaimName }}
+      volumes:
+        - name: {{ .Values.persistentVolumeClaimName }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistentVolumeClaimName }}
+      {{- end }}
+  {{- if not .Values.persistentVolumeClaimName }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ include "axelar-node.name" . }}-data
+      spec:
+        accessModes: 
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: {{ .Values.node.persistent.size }}
+  {{- end }}

@@ -1,0 +1,13 @@
+---
+apiVersion: v2
+name: alexar-node
+description: A chart to deploy alexar-node to Kubernetes
+
+type: application
+
+version: 0.1.0
+
+appVersion: "v1.0.1"
+maintainers:
+  - name: zavertiaev
+    url: https://github.com/zavertiaev

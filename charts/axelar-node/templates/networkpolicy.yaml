@@ -1,0 +1,76 @@
+{{- if .Values.networkPolicy.enabled }}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "axelar-node.name" . }}-ns-only
+  labels:
+    {{- include "axelar-node.labels" . | nindent 4 }}
+spec:
+  policyTypes:
+    - Ingress
+  podSelector: {}
+  ingress:
+    - from:
+        - podSelector: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "axelar-node.name" . }}-ingress
+  labels:
+    {{- include "axelar-node.labels" . | nindent 4 }}
+spec:
+  policyTypes:
+    - Ingress
+  podSelector:
+    matchLabels:
+      {{- include "axelar-node.selectorLabels" . | nindent 6 }}
+  ingress:
+    - ports:
+        {{- if .Values.node.rpc.enabled }}
+        - protocol: TCP
+          port: 26657
+        {{- end }}
+        {{- if .Values.node.grpc.enabled}}
+        - protocol: TCP
+          port: 9090
+        {{- end }}
+      {{- if .Values.networkPolicy.ingress.namespaceSelector }}
+      from:
+        - namespaceSelector:
+          {{- toYaml .Values.networkPolicy.ingress.namespaceSelector | nindent 12 }}
+          {{- if .Values.networkPolicy.ingress.podSelector }}
+          podSelector:
+          {{- toYaml .Values.networkPolicy.ingress.podSelector | nindent 12 }}
+          {{- end }}
+      {{- end }}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "axelar-node.name" . }}-ingress-metrics
+  labels:
+    {{- include "axelar-node.labels" . | nindent 4 }}
+spec:
+  policyTypes:
+    - Ingress
+  podSelector:
+    matchLabels:
+      {{- include "axelar-node.selectorLabels" . | nindent 6 }}
+  ingress:
+    - ports:
+        {{- if .Values.node.metrics.enabled }}
+        - protocol: TCP
+          port: 26660
+        {{- end }}
+      {{- if .Values.networkPolicy.metrics.namespaceSelector }}
+      from:
+        - namespaceSelector:
+          {{- toYaml .Values.networkPolicy.metrics.namespaceSelector | nindent 12 }}
+          {{- if .Values.networkPolicy.metrics.podSelector }}
+          podSelector:
+          {{- toYaml .Values.networkPolicy.metrics.podSelector | nindent 12 }}
+          {{- end }}
+      {{- end }}
+{{- end }}
