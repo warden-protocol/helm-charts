@@ -179,7 +179,12 @@ spec:
           {{- if .Values.cosmovisor.enabled }}
           command: ["{{.Values.node.home}}/cosmovisor/bin/cosmovisor","run","start"]
           {{- else }}
-          command: ["/usr/bin/wardend","start"]
+          command: 
+            - /usr/bin/wardend
+            - start
+          {{- if .Values.evm.metrics }}
+            - --metrics
+          {{- end }}
           {{- end }}
           {{- else }}
           command: ["sleep","36000"]

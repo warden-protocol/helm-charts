@@ -333,7 +333,7 @@ data:
     wal_dir = ""
 
     # Maximum number of transactions in the mempool
-    size = 5000
+    size = {{ .Values.node.mempool.size }}
 
     # Limit the total size of all txs in the mempool.
     # This only accounts for raw transactions (e.g. given 1MB transactions and
@@ -760,7 +760,7 @@ data:
     #
     # Note, this configuration only applies to SDK built-in app-side mempool
     # implementations.
-    max-txs = 5000
+    max-txs = {{ .Values.node.mempool.maxTxs }}
     ###############################################################################
     ###                                  Oracle                                 ###
     ###############################################################################

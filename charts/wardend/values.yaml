@@ -69,6 +69,9 @@ node:
   replicaCount: 1
   moniker: "mynode"
   minGasPrice: "0award"
+  mempool:
+    size: 5000
+    maxTxs: 5000
   securityContext:
     runAsUser: 1000
     runAsGroup: 1000
