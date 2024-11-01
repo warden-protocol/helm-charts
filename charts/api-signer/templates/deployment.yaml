@@ -42,6 +42,8 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
+            - name: storage
+              mountPath: /storage
           {{- if .Values.secretManager.enabled }}
             - name: config
               mountPath: /storage/filedb/CONFIG.json
@@ -53,12 +55,14 @@ spec:
               mountPath: /storage/filedb/CREDENTIALS.json
               subPath: CREDENTIALS.json
           {{- else }}
-          volumeMounts:
             - name: filedb
               mountPath: /storage/filedb
               readOnly: true
           {{- end }}
       volumes:
+        - name: storage
+          emptyDir:
+            sizeLimit: 10Mi
       {{- if .Values.secretManager.enabled }}
         - name: config
           configMap:
