@@ -1,7 +1,7 @@
 ---
 apiVersion: v2
-name: alexar-node
-description: A chart to deploy alexar-node to Kubernetes
+name: axelar-node
+description: A chart to deploy axelar-node to Kubernetes
 
 type: application
 
