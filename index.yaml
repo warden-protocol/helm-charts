@@ -71,6 +71,20 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/aws-pod-eip-controller-0.1.0/aws-pod-eip-controller-0.1.0.tgz
     version: 0.1.0
+  axelar-node:
+  - apiVersion: v2
+    appVersion: v1.0.1
+    created: "2024-11-05T07:10:33.918795617Z"
+    description: A chart to deploy axelar-node to Kubernetes
+    digest: 22bff4d56f1384b18ea89b001187f560ac395c1d63b80ed44c6ebb33f1ed82ca
+    maintainers:
+    - name: zavertiaev
+      url: https://github.com/zavertiaev
+    name: axelar-node
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/axelar-node-0.1.0/axelar-node-0.1.0.tgz
+    version: 0.1.0
   blockchain-listener:
   - apiVersion: v2
     appVersion: latest
@@ -2661,4 +2675,4 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/webhooks-0.1.0/webhooks-0.1.0.tgz
     version: 0.1.0
-generated: "2024-11-01T12:44:02.880227515Z"
+generated: "2024-11-05T07:10:33.919114873Z"
