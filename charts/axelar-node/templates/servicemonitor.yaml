@@ -1,0 +1,26 @@
+{{- if .Values.node.metrics.enabled }}
+{{- $values := .Values }}
+{{- range $i, $e := until (int .Values.node.replicaCount)}}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "axelar-node.name" $ }}-{{ $i }}
+  labels:
+    statefulset.kubernetes.io/pod-name: {{ include "axelar-node.name" $ }}-{{ $i }}
+    {{- include "axelar-node.selectorLabels" $ | nindent 4 }}
+    {{- with $values.serviceMonitor.extraLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  jobLabel: {{ include "axelar-node.name" $ }}-{{ $i }}
+  selector:
+    matchLabels:
+      statefulset.kubernetes.io/pod-name: {{ include "axelar-node.name" $ }}-{{ $i }}
+  endpoints:
+    - port: telemetry
+      path: /metrics
+      interval: 1m
+      scrapeTimeout: 30s
+{{- end}}
+{{- end}}

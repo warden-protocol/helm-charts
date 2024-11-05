@@ -1,0 +1,45 @@
+---
+image: ghcr.io/jlehtimaki/axelar-core/axelar
+imagePullPolicy: IfNotPresent
+imageTag: "v1.0.1"
+imagePullSecrets: []
+
+podSecurityContext:
+  fsGroup: 1000
+
+node:
+  name: node
+  replicaCount: 1
+  home: /data/.axelar
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    runAsNonRoot: true
+  rpc:
+    enabled: true
+  grpc:
+    enabled: true
+  p2p:
+    enabled: false
+  api:
+    enabled: false
+  metrics:
+    enabled: true
+  resources: {}
+  persistent:
+    size: 100Gi
+
+serviceAnnotations: {}
+serviceMonitor:
+  extraLabels: {}
+
+persistentVolumeClaimName: ""
+
+networkPolicy:
+  enabled: true
+  ingress:
+    podSelector: {}
+    namespaceSelector: {}
+  metrics:
+    podSelector: {}
+    namespaceSelector: {}
