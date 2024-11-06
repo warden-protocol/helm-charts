@@ -11,9 +11,15 @@ spec:
     matchLabels:
       eventbus-name: {{ include "landing-webhook.fullname" . }}
   ingress:
-    - ports:
+    - from:
+        - podSelector: {}
+      ports:
         - protocol: TCP
           port: 4222
+        - protocol: TCP
+          port: 6222
+        - protocol: TCP
+          port: 8222
   policyTypes:
     - Ingress
 ---
