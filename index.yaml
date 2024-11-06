@@ -724,6 +724,18 @@ entries:
   landing-webhook:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-11-06T07:21:54.412379731Z"
+    description: A Helm chart for Kubernetes
+    digest: ae8690daaf64d7e3f62b5deefd5c75b7f3ec89c6a85f6ec77ea4154c36dd2cde
+    maintainers:
+    - name: zavertiaev
+    name: landing-webhook
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/landing-webhook-0.2.1/landing-webhook-0.2.1.tgz
+    version: 0.2.1
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-10-24T07:44:08.56922773Z"
     description: A Helm chart for Kubernetes
     digest: e2a1dbc6ebc0f85df2bc224c3c894ebec4df5aa1f5c46e2af19fdc4d0cffbb86
@@ -2675,4 +2687,4 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/webhooks-0.1.0/webhooks-0.1.0.tgz
     version: 0.1.0
-generated: "2024-11-05T07:10:33.919114873Z"
+generated: "2024-11-06T07:21:54.412686464Z"
