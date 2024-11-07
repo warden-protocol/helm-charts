@@ -36,6 +36,9 @@ service:
   telemetryPort: 3001
 networkPolicy:
   enabled: true
+  metrics:
+    podSelector: {}
+    namespaceSelector: {}
 serviceMonitor:
   enabled: false
   additionalLabels: {}

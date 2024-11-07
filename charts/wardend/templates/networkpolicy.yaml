@@ -28,28 +28,76 @@ spec:
         - protocol: TCP
           port: 9090
         {{- end }}
-        {{- if .Values.node.externalSigner }}
-        - protocol: TCP
-          port: 1234
-        {{- end }}
-        {{- if .Values.node.metrics.enabled }}
-        - protocol: TCP
-          port: 26660
-        {{- if .Values.oracle.metricsEnabled }}
-        - protocol: TCP
-          port: 8002
-        {{- end }}
         {{- if .Values.evm.rpc }}
         - protocol: TCP
           port: 8545
         - protocol: TCP
           port: 8546
         {{- end }}
+  policyTypes:
+    - Ingress
+{{- if .Values.node.externalSigner }}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.node.name }}-signer
+  labels:
+    {{- include "node.labels" . | nindent 4 }}
+spec:
+  podSelector:
+    matchLabels:
+      {{- include "node.selectorLabels" . | nindent 6 }}
+  ingress:
+    - ports:
+        - protocol: TCP
+          port: 1234
+      {{- if .Values.networkPolicy.signer.namespaceSelector }}
+      from:
+        - namespaceSelector:
+          {{- toYaml .Values.networkPolicy.signer.namespaceSelector | nindent 12 }}
+          {{- if .Values.networkPolicy.signer.podSelector }}
+          podSelector:
+          {{- toYaml .Values.networkPolicy.signer.podSelector | nindent 12 }}
+          {{- end }}
+      {{- end }}
+  policyTypes:
+    - Ingress
+{{- end }}
+{{- if .Values.node.metrics.enabled }}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.node.name }}-metrics
+  labels:
+    {{- include "node.labels" . | nindent 4 }}
+spec:
+  podSelector:
+    matchLabels:
+      {{- include "node.selectorLabels" . | nindent 6 }}
+  ingress:
+    - ports:
+        - protocol: TCP
+          port: 26660
+        {{- if .Values.oracle.metricsEnabled }}
+        - protocol: TCP
+          port: 8002
+        {{- end }}
         {{- if .Values.evm.metrics }}
         - protocol: TCP
           port: 6065
         {{- end }}
-        {{- end }}
+      {{- if .Values.networkPolicy.metrics.namespaceSelector }}
+      from:
+        - namespaceSelector:
+          {{- toYaml .Values.networkPolicy.metrics.namespaceSelector | nindent 12 }}
+          {{- if .Values.networkPolicy.metrics.podSelector }}
+          podSelector:
+          {{- toYaml .Values.networkPolicy.metrics.podSelector | nindent 12 }}
+          {{- end }}
+      {{- end }}
   policyTypes:
     - Ingress
+{{- end }}
 {{- end }}

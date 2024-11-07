@@ -14,6 +14,15 @@ spec:
     - ports:
         - protocol: TCP
           port: {{ .Values.service.telemetryPort }}
+      {{- if .Values.networkPolicy.metrics.namespaceSelector }}
+      from:
+        - namespaceSelector:
+          {{- toYaml .Values.networkPolicy.metrics.namespaceSelector | nindent 12 }}
+          {{- if .Values.networkPolicy.metrics.podSelector }}
+          podSelector:
+          {{- toYaml .Values.networkPolicy.metrics.podSelector | nindent 12 }}
+          {{- end }}
+      {{- end }}
   policyTypes:
     - Ingress
 {{- end }}

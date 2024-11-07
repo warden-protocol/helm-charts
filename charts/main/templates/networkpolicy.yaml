@@ -16,6 +16,15 @@ spec:
         - protocol: {{ .protocol | default "TCP" }}
           port: {{ .port }}
       {{- end }}
+      {{- if .Values.networkPolicy.ingress.namespaceSelector }}
+      from:
+        - namespaceSelector:
+          {{- toYaml .Values.networkPolicy.ingress.namespaceSelector | nindent 12 }}
+          {{- if .Values.networkPolicy.ingress.podSelector }}
+          podSelector:
+          {{- toYaml .Values.networkPolicy.ingress.podSelector | nindent 12 }}
+          {{- end }}
+      {{- end }}
   policyTypes:
     - Ingress
 {{- end }}
