@@ -189,6 +189,22 @@ entries:
   discord-faucet:
   - apiVersion: v2
     appVersion: 1.2.0
+    created: "2024-11-07T11:36:11.0913749Z"
+    description: A Helm chart for Discord Faucet
+    digest: 365d6b7efbd4a237c898967a578ec0c848eb2284e3b4c1f915e1aab5bb17946c
+    maintainers:
+    - email: joonas@wardenprotocol.org
+      name: jlehtimaki
+      url: https://github.com/jlehtimaki
+    - name: zavertiaev
+      url: https://github.com/zavertiaev
+    name: discord-faucet
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/discord-faucet-0.4.1/discord-faucet-0.4.1.tgz
+    version: 0.4.1
+  - apiVersion: v2
+    appVersion: 1.2.0
     created: "2024-10-28T08:47:41.618680956Z"
     description: A Helm chart for Discord Faucet
     digest: 95adb19779a53d32187217f488a7651310499e73f1a204580d525fcde52eebe2
@@ -413,6 +429,20 @@ entries:
   hermes-relayer:
   - apiVersion: v2
     appVersion: 1.8.2
+    created: "2024-11-07T11:36:11.21963941Z"
+    description: A Helm chart for Kubernetes
+    digest: fcfab94f3354a40efd3801b8f9afcb0a9923dbb7584c2773b9c960ad7c18e8cf
+    maintainers:
+    - name: zavertiaev
+    - name: jlehtimaki
+    - name: mikolajsobolewski
+    name: hermes-relayer
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/hermes-relayer-0.3.1/hermes-relayer-0.3.1.tgz
+    version: 0.3.1
+  - apiVersion: v2
+    appVersion: 1.8.2
     created: "2024-10-28T08:47:41.759969959Z"
     description: A Helm chart for Kubernetes
     digest: 126adc2bcf68ffe00c530321302359775f81c46011842ce17fdb1a091fe60c66
@@ -474,6 +504,20 @@ entries:
     - https://github.com/warden-protocol/helm-charts/releases/download/hermes-relayer-0.1.0/hermes-relayer-0.1.0.tgz
     version: 0.1.0
   horcrux:
+  - apiVersion: v2
+    appVersion: v3.3.1
+    created: "2024-11-07T11:36:11.363537076Z"
+    description: A chart to deploy Horcrux to Kubernetes
+    digest: 63f1d0541ff853deb319602a1d65463af87681de03c560a514ff13209b725d8a
+    maintainers:
+    - email: joonas@wardenprotocol.org
+      name: jlehtimaki
+      url: https://github.com/jlehtimaki
+    name: horcrux
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/horcrux-0.5.1/horcrux-0.5.1.tgz
+    version: 0.5.1
   - apiVersion: v2
     appVersion: v3.3.1
     created: "2024-10-28T08:47:41.865073508Z"
@@ -771,6 +815,20 @@ entries:
     - https://github.com/warden-protocol/helm-charts/releases/download/landing-webhook-0.1.0/landing-webhook-0.1.0.tgz
     version: 0.1.0
   main:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2024-11-07T11:36:11.484120525Z"
+    description: A Helm chart for Kubernetes
+    digest: 20b6565ce6b17ca40e8dca570df6b02e4a0554b21b353fa65d952d75687f2b51
+    maintainers:
+    - name: zavertiaev
+    - name: jlehtimaki
+    - name: mikolajsobolewski
+    name: main
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/main-0.5.1/main-0.5.1.tgz
+    version: 0.5.1
   - apiVersion: v2
     appVersion: latest
     created: "2024-10-24T07:44:08.698240949Z"
@@ -1236,6 +1294,20 @@ entries:
   warden-exporter:
   - apiVersion: v2
     appVersion: 1.6.1
+    created: "2024-11-07T11:36:11.588512017Z"
+    description: A Helm chart for Warden Exporter
+    digest: 69143dde158df76f378734e80a84a5af267cc63fa42539f0adb925ad593d1aed
+    maintainers:
+    - email: joonas@wardenprotocol.org
+      name: jlehtimaki
+      url: https://github.com/jlehtimaki
+    name: warden-exporter
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/warden-exporter-0.5.1/warden-exporter-0.5.1.tgz
+    version: 0.5.1
+  - apiVersion: v2
+    appVersion: 1.6.1
     created: "2024-10-28T08:47:41.961980227Z"
     description: A Helm chart for Warden Exporter
     digest: 32b5f90433e87004b6395dc01f4f75cf769a1c3ce15d3e4b1abb1d556ff92f55
@@ -1321,6 +1393,24 @@ entries:
     - https://github.com/warden-protocol/helm-charts/releases/download/warden-exporter-0.1.0/warden-exporter-0.1.0.tgz
     version: 0.1.0
   wardend:
+  - apiVersion: v2
+    appVersion: v0.5.2
+    created: "2024-11-07T11:36:11.693059727Z"
+    description: A chart to deploy Wardend to Kubernetes
+    digest: 2dae3c6a381930acf4f31b12ce9dd4814ca931ca2acc100371d613ee39aa787a
+    maintainers:
+    - email: joonas@wardenprotocol.org
+      name: jlehtimaki
+      url: https://github.com/jlehtimaki
+    - name: zavertiaev
+      url: https://github.com/zavertiaev
+    - name: mikolajsobolewski
+      url: https://github.com/mikolajsobolewski
+    name: wardend
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/wardend-2.11.1/wardend-2.11.1.tgz
+    version: 2.11.1
   - apiVersion: v2
     appVersion: v0.5.2
     created: "2024-10-30T13:52:50.76812106Z"
@@ -2687,4 +2777,4 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/webhooks-0.1.0/webhooks-0.1.0.tgz
     version: 0.1.0
-generated: "2024-11-06T07:21:54.412686464Z"
+generated: "2024-11-07T11:36:11.693462669Z"
