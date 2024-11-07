@@ -22,6 +22,9 @@ secretManager:
 
 networkPolicy:
   enabled: true
+  ingress:
+    podSelector: {}
+    namespaceSelector: {}
 
 podSecurityContext: {}
   # fsGroup: 2000

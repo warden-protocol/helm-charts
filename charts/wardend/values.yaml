@@ -184,3 +184,9 @@ evm:
 
 networkPolicy:
   enabled: true
+  signer:
+    podSelector: {}
+    namespaceSelector: {}
+  metrics:
+    podSelector: {}
+    namespaceSelector: {}

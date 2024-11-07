@@ -11,15 +11,24 @@ spec:
     matchLabels:
       {{- include "selectorLabels" . | nindent 6 }}
   ingress:
-    - from:
-      - podSelector: {}
-      ports:
+    - ports:
         - protocol: TCP
           port: 2222
+      from:
+        - podSelector: {}
     {{- if .Values.metrics.enabled }}
     - ports:
         - protocol: TCP
           port: 6001
+      {{- if .Values.networkPolicy.metrics.namespaceSelector }}
+      from:
+        - namespaceSelector:
+          {{- toYaml .Values.networkPolicy.metrics.namespaceSelector | nindent 12 }}
+          {{- if .Values.networkPolicy.metrics.podSelector }}
+          podSelector:
+          {{- toYaml .Values.networkPolicy.metrics.podSelector | nindent 12 }}
+          {{- end }}
+      {{- end }}
     {{- end}}
   policyTypes:
     - Ingress
