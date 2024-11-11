@@ -38,15 +38,22 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-      {{- if .Values.secretManager.enabled }}
+          {{- if and .Values.secretManager.enabled .Values.secretManager.cmd }}
           command: [ "/bin/sh", "-c" ]
           args: [ "eval $(cat /etc/env/* | sed 's/^/export /') && {{ .Values.secretManager.cmd }}" ]
+          {{- end }}
+          {{- if or .Values.volumeMounts .Values.secretManager.cmd }}
           volumeMounts:
+          {{- with .Values.volumeMounts }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- if and .Values.secretManager.enabled .Values.secretManager.cmd }}
             - name: secrets
               mountPath: "/etc/env"
               readOnly: true
-      {{- end }}
-      {{- if .Values.service.ports }}
+          {{- end }}
+          {{- end }}
+          {{- if .Values.service.ports }}
           ports:
             {{- range .Values.service.ports }}
             - name: {{ .name }}
@@ -57,15 +64,15 @@ spec:
               protocol: TCP
               {{- end }}
             {{- end }}
-      {{- end }}
-      {{- if .Values.livenessProbe }}
+          {{- end }}
+          {{- if .Values.livenessProbe }}
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
-      {{- end }}
-      {{- if .Values.readinessProbe }}
+          {{- end }}
+          {{- if .Values.readinessProbe }}
           readinessProbe:
             {{- toYaml .Values.readinessProbe | nindent 12 }}
-      {{- end }}
+          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- with .Values.env }}
@@ -76,13 +83,19 @@ spec:
           envFrom:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- with .Values.volumeMounts }}
-          volumeMounts:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-      {{- with .Values.volumes }}
+      {{- if or .Values.volumes .Values.secretManager.enabled }}
       volumes:
+      {{- with .Values.volumes }}
         {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- if .Values.secretManager.enabled }}
+        - name: secrets
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: {{ include "main.fullname" . }}
+      {{- end }}
       {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
