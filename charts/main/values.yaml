@@ -19,6 +19,13 @@ podLabels: {}
 
 secretManager:
   enabled: false
+  serviceAccount:
+    create: false
+    name: ""
+    annotations: {}
+  secrets: []
+  pullSecrets: []
+  cmd: ""
 
 networkPolicy:
   enabled: true
@@ -99,6 +106,12 @@ volumeMounts: []
 # - name: foo
 #   mountPath: "/etc/foo"
 #   readOnly: true
+
+livenessProbe: {}
+readinessProbe: {}
+
+env: []
+envFrom: []
 
 nodeSelector: {}
 
