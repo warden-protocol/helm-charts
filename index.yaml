@@ -661,6 +661,20 @@ entries:
   landing:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-11-14T07:43:12.653226714Z"
+    description: A Helm chart for Kubernetes
+    digest: 88b226bd7cb2a49a4189d75ea39c23728030100a961b1b57c75cd206a0f29fe1
+    maintainers:
+    - name: zavertiaev
+    - name: jlehtimaki
+    - name: mikolajsobolewski
+    name: landing
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/landing-0.5.1/landing-0.5.1.tgz
+    version: 0.5.1
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-10-24T07:44:08.420916352Z"
     description: A Helm chart for Kubernetes
     digest: 7380cefd0d1587dbbf502c16c8189360f2aa920bce46800739f0a594d5fcd317
@@ -2805,4 +2819,4 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/webhooks-0.1.0/webhooks-0.1.0.tgz
     version: 0.1.0
-generated: "2024-11-11T14:38:57.580833448Z"
+generated: "2024-11-14T07:43:12.653659583Z"
