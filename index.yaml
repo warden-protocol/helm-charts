@@ -88,6 +88,20 @@ entries:
   blockchain-listener:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-11-14T07:44:12.730935513Z"
+    description: A Helm chart for Kubernetes
+    digest: e412da52c722f0ebf3078313df95a130eace9286a0d24398453a15dee6c8a30e
+    maintainers:
+    - name: zavertiaev
+    - name: jlehtimaki
+    - name: mikolajsobolewski
+    name: blockchain-listener
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/blockchain-listener-0.3.2/blockchain-listener-0.3.2.tgz
+    version: 0.3.2
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-09-02T15:35:19.829927981Z"
     description: A Helm chart for Kubernetes
     digest: f96132ef70cc2321f528de81948d43f14d8976b42202c82368e72d7809e36185
@@ -2819,4 +2833,4 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/webhooks-0.1.0/webhooks-0.1.0.tgz
     version: 0.1.0
-generated: "2024-11-14T07:43:12.653659583Z"
+generated: "2024-11-14T07:44:12.73133478Z"
