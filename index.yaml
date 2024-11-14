@@ -61,6 +61,15 @@ entries:
     version: 0.1.0
   aws-pod-eip-controller:
   - apiVersion: v2
+    created: "2024-11-14T07:52:53.887643846Z"
+    description: kubernetes aws-pod-eip-controller
+    digest: b81c9c88d589fe0eceb153532125baf8b941b5dab1f6d2ffa6d9ddb7dc2c5408
+    home: https://github.com/aws-samples/aws-pod-eip-controller
+    name: aws-pod-eip-controller
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/aws-pod-eip-controller-0.1.1/aws-pod-eip-controller-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
     created: "2024-06-20T13:35:52.003822923Z"
     description: kubernetes aws-pod-eip-controller
     digest: 86b809a0b065be22753d24c96009973de978074b0a8e35fbba0064c20e48af06
@@ -2847,4 +2856,4 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/webhooks-0.1.0/webhooks-0.1.0.tgz
     version: 0.1.0
-generated: "2024-11-14T07:48:31.8889305Z"
+generated: "2024-11-14T07:52:53.888404089Z"
