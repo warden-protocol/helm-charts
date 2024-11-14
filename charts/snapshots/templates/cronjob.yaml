@@ -13,6 +13,11 @@ spec:
     spec:
       backoffLimit: {{ .Values.cronjob.backoffLimit }}
       template:
+        {{- with .Values.cronjob.podAnnotations }}
+        metadata:
+          annotations:
+            {{- toYaml . | nindent 12 }}
+        {{- end }}
         spec:
           serviceAccountName: {{ .Values.serviceAccount.name }}
           containers:
@@ -40,6 +45,11 @@ spec:
               spec:
                 ttlSecondsAfterFinished: {{ .Values.cronjob.ttlSecondsAfterFinished }}
                 template:
+                  {{- with .Values.cronjob.podAnnotations }}
+                  metadata:
+                    annotations:
+                      {{- toYaml . | nindent 22 }}
+                  {{- end }}
                   spec:
                     serviceAccountName: {{ .Values.serviceAccount.name }}
                     {{- with .Values.cronjob.imagePullSecrets }}

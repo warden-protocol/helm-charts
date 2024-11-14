@@ -10,6 +10,7 @@ cronjob:
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
   backoffLimit: 0
+  podAnnotations: {}
   image:
     repository: ghcr.io/warden-protocol/infra/aws-cli-kubectl
     pullPolicy: IfNotPresent
