@@ -34,7 +34,7 @@ spec:
       {{- if .Values.topologySpreadConstraints.enabled }}
       topologySpreadConstraints:
         - maxSkew: {{ .Values.topologySpreadConstraints.maxSkew }}
-          topologyKey: "topology.kubernetes.io/zone"
+          topologyKey: "kubernetes.io/hostname"
           whenUnsatisfiable: DoNotSchedule
           labelSelector:
             matchLabels:
