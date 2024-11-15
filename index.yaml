@@ -543,6 +543,20 @@ entries:
   horcrux:
   - apiVersion: v2
     appVersion: v3.3.1
+    created: "2024-11-15T11:16:47.796321681Z"
+    description: A chart to deploy Horcrux to Kubernetes
+    digest: 007e3d66a50ec5816ee2a8cd26ecd3b4f4b88bfcc5e61689005da684fe2ddc14
+    maintainers:
+    - email: joonas@wardenprotocol.org
+      name: jlehtimaki
+      url: https://github.com/jlehtimaki
+    name: horcrux
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/horcrux-0.5.2/horcrux-0.5.2.tgz
+    version: 0.5.2
+  - apiVersion: v2
+    appVersion: v3.3.1
     created: "2024-11-07T11:36:11.363537076Z"
     description: A chart to deploy Horcrux to Kubernetes
     digest: 63f1d0541ff853deb319602a1d65463af87681de03c560a514ff13209b725d8a
@@ -2882,4 +2896,4 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/webhooks-0.1.0/webhooks-0.1.0.tgz
     version: 0.1.0
-generated: "2024-11-14T12:26:05.72047427Z"
+generated: "2024-11-15T11:16:47.796667508Z"
