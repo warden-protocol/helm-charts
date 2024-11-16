@@ -26,6 +26,8 @@ cronjob:
     # requests:
     #   cpu: 100m
     #   memory: 128Mi
+  tolerations: []
+  affinity: {}
 
 configMap:
   argocdApps:
