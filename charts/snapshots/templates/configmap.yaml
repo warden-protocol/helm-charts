@@ -97,16 +97,16 @@ data:
     S3_BUCKET="{{ .Values.configMap.s3Bucket | default (printf "s3://warden-snapshots/%s/" .Release.Namespace) }}"
 
     # create snapshot and upload to S3
-    echo "Creating snapshot..."
     cd /pvc
-
     PATHS=({{- range .Values.configMap.paths }} {{ . }}{{- end }})
     TOTAL_SIZE=0
     for DIR in "${PATHS[@]}"; do
       DIR_SIZE=$(du -sb "$DIR" | awk '{print $1}')
       TOTAL_SIZE=$((TOTAL_SIZE + DIR_SIZE))
     done
+    echo "Snapshot size: $TOTAL_SIZE bytes. Starting snapshot upload..."
     tar -I lz4 -cf -{{- range .Values.configMap.paths }} {{ . }}{{- end }} | aws s3 cp - "${S3_BUCKET}${FILENAME}" --expected-size "$TOTAL_SIZE" --no-progress
+    echo "Snapshot upload completed."
 
     # get the number of replicas in the StatefulSet
     replicas=$(kubectl get sts {{ .Values.cronjob.stsName }} -o jsonpath='{.spec.replicas}')

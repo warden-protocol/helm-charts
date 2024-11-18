@@ -20,6 +20,14 @@ spec:
         {{- end }}
         spec:
           serviceAccountName: {{ .Values.serviceAccount.name }}
+          {{- with .Values.cronjob.tolerations }}
+          tolerations:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.cronjob.affinity }}
+          affinity:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           containers:
           - name: snapshots-container
             image: {{ .Values.cronjob.image.repository }}:{{ .Values.cronjob.image.tag }}
@@ -52,6 +60,14 @@ spec:
                   {{- end }}
                   spec:
                     serviceAccountName: {{ .Values.serviceAccount.name }}
+                    {{- with .Values.cronjob.tolerations }}
+                    tolerations:
+                      {{- toYaml . | nindent 22 }}
+                    {{- end }}
+                    {{- with .Values.cronjob.affinity }}
+                    affinity:
+                      {{- toYaml . | nindent 22 }}
+                    {{- end }}
                     {{- with .Values.cronjob.imagePullSecrets }}
                     imagePullSecrets:
                       {{- toYaml . | nindent 22 }}
