@@ -48,7 +48,7 @@ spec:
       topologySpreadConstraints:
       - maxSkew: {{ .Values.topologySpreadConstraints.maxSkew }}
         topologyKey: {{ .Values.topologySpreadConstraints.topologyKey }}
-        whenUnsatisfiable: DoNotSchedule
+        whenUnsatisfiable: {{ .Values.topologySpreadConstraints.whenUnsatisfiable }} 
         labelSelector:
           matchLabels:
             {{- include "node.selectorLabels" . | nindent 12 }}
