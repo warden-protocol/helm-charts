@@ -49,6 +49,7 @@ topologySpreadConstraints:
   enabled: false
   maxSkew: 1
   whenUnsatisfiable: DoNotSchedule
+  topologyKey: "kubernetes.io/hostname"
 
 eipController:
   enabled: false
