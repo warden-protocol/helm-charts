@@ -4,6 +4,8 @@
 
 replicaCount: 1
 
+serviceAccountName: ""
+
 image:
   repository: ""
   pullPolicy: IfNotPresent
