@@ -1,0 +1,92 @@
+suite: test wardend statefulset
+templates:
+  - statefulset.yaml
+tests:
+  - it: "should not create StatefulSet if node is disabled"
+    set:
+      node:
+        enabled: false
+    asserts:
+      - hasDocuments:
+          count: 0
+  - it: should have correct StatefulSet name
+    set:
+      node.enabled: true
+      node.name: "node"
+    asserts:
+      - hasDocuments:
+          count: 1
+      - equal:
+          path: metadata.name
+          value: RELEASE-NAME-node
+  - it: should include volumeClaimTemplates if no persistentVolumeClaimName is set
+    set:
+      node.enabled: true
+      persistentVolumeClaimName: ""
+      node.persistent.size: "100Gi"
+      node.persistent.class: "standard"
+    asserts:
+      - hasDocuments:
+          count: 1
+      - exists:
+          path: spec.volumeClaimTemplates[0].spec.resources.requests.storage
+      - equal:
+          path: spec.volumeClaimTemplates[0].spec.resources.requests.storage
+          value: "100Gi"
+      - equal:
+          path: spec.volumeClaimTemplates[0].spec.storageClassName
+          value: "standard"
+  - it: should include tolerations if specified
+    set:
+      node.enabled: true
+      tolerations:
+        - key: "key1"
+          operator: "Equal"
+          value: "value1"
+          effect: "NoSchedule"
+    asserts:
+      - exists:
+          path: spec.template.spec.tolerations[0]
+      - equal:
+          path: spec.template.spec.tolerations[0].key
+          value: "key1"
+  - it: should have correct replicas count
+    set:
+      node.enabled: true
+      node.replicaCount: 5
+    asserts:
+      - equal:
+          path: spec.replicas
+          value: 5
+  - it: should include livenessProbe if node is ready
+    set:
+      node.enabled: true
+      node.ready: true
+      node.livenessProbe:
+        initialDelaySeconds: 5
+        failureThreshold: 3
+        periodSeconds: 10
+        path: /health
+        port: 26657
+    asserts:
+      - exists:
+          path: spec.template.spec.containers[0].livenessProbe
+      - equal:
+          path: spec.template.spec.containers[0].livenessProbe.initialDelaySeconds
+          value: 5
+      - equal:
+          path: spec.template.spec.containers[0].livenessProbe.httpGet.path
+          value: /health
+      - equal:
+          path: spec.template.spec.containers[0].livenessProbe.httpGet.port
+          value: 26657
+  - it: should include initContainer for EIP if eipController is enabled
+    set:
+      node.enabled: true
+      eipController.check: true
+    asserts:
+      - exists:
+          path: spec.template.spec.initContainers[0]
+      - equal:
+          path: spec.template.spec.initContainers[0].name
+          value: init-eip

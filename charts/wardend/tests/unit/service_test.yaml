@@ -1,0 +1,13 @@
+suite: test wardend service
+templates:
+  - service.yaml
+tests:
+  - it: "should create Service if node is enabled"
+    set:
+      node:
+        enabled: true
+    asserts:
+      - hasDocuments:
+          count: 3
+      - isKind:
+          of: Service

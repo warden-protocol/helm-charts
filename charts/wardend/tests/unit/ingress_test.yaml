@@ -1,0 +1,35 @@
+suite: Ingress Template Tests
+templates:
+  - ingress.yaml  # Укажите путь к вашему шаблону, если он в другом месте
+
+tests:
+  - it: should create ingress when node.ingress.enabled is true
+    set:
+      node:
+        ingress:
+          enabled: true
+          host: example.com
+          class: "nginx"
+          pathType: Prefix
+          annotations:
+            "nginx.ingress.kubernetes.io/rewrite-target": "/"
+          rpc:
+            enabled: true
+          api:
+            enabled: true
+          evm:
+            rpc: true
+    asserts:
+      - isKind:
+          of: Ingress
+      - equal:
+          path: metadata.name
+          value: RELEASE-NAME-node
+
+  - it: "should not render ingress when node.ingress.enabled is false"
+    set:
+      ingress:
+        enabled: false
+    asserts:
+      - hasDocuments:
+          count: 0
