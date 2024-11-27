@@ -4,6 +4,14 @@
 
 A Helm chart for Kubernetes
 
+## Maintainers
+
+| Name | Email | Url |
+| ---- | ------ | --- |
+| jlehtimaki | <joonas@wardenprotocol.org> | <https://github.com/jlehtimaki> |
+| zavertiaev |  | <https://github.com/zavertiaev> |
+| mikolajsobolewski |  | <https://github.com/mikolajsobolewski> |
+
 ## Values
 
 | Key | Type | Default | Description |
