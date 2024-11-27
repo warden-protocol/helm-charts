@@ -6,6 +6,14 @@ kubernetes aws-pod-eip-controller
 
 **Homepage:** <https://github.com/aws-samples/aws-pod-eip-controller>
 
+## Maintainers
+
+| Name | Email | Url |
+| ---- | ------ | --- |
+| jlehtimaki | <joonas@wardenprotocol.org> | <https://github.com/jlehtimaki> |
+| zavertiaev |  | <https://github.com/zavertiaev> |
+| mikolajsobolewski |  | <https://github.com/mikolajsobolewski> |
+
 ## Values
 
 | Key | Type | Default | Description |

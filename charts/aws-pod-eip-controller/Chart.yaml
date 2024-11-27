@@ -4,3 +4,11 @@ home: https://github.com/aws-samples/aws-pod-eip-controller
 name: aws-pod-eip-controller
 description: kubernetes aws-pod-eip-controller
 version: 0.1.2
+maintainers:
+  - name: jlehtimaki
+    email: joonas@wardenprotocol.org
+    url: https://github.com/jlehtimaki
+  - name: zavertiaev
+    url: https://github.com/zavertiaev
+  - name: mikolajsobolewski
+    url: https://github.com/mikolajsobolewski
