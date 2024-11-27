@@ -63,7 +63,7 @@ A chart to deploy Wardend to Kubernetes
 | networkPolicy.signer.podSelector | object | `{}` |  |
 | node.api.enabled | bool | `true` |  |
 | node.api.swagger | bool | `false` |  |
-| node.enabled | bool | `false` |  |
+| node.enabled | bool | `true` |  |
 | node.externalSigner | bool | `false` |  |
 | node.genesisSecretName | string | `""` |  |
 | node.grpc.enabled | bool | `false` |  |

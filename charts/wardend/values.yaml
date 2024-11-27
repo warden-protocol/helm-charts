@@ -58,7 +58,7 @@ eipController:
 env: []
 
 node:
-  enabled: false
+  enabled: true
   ready: true
   name: node
   home: /data/.warden
