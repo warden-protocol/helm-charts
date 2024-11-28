@@ -1,7 +1,6 @@
 suite: Ingress Template Tests
 templates:
-  - ingress.yaml  # Укажите путь к вашему шаблону, если он в другом месте
-
+  - ingress.yaml
 tests:
   - it: should create ingress when node.ingress.enabled is true
     set:
