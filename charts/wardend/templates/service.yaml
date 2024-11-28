@@ -41,7 +41,7 @@ spec:
     {{- end }}
   selector:
     {{- include "node.selectorLabels" . | nindent 4 }}
-{{- end }}
+
 ---
 {{- if .Values.node.grpc.enabled }}
 apiVersion: v1
@@ -62,8 +62,8 @@ spec:
   selector:
     {{- include "node.selectorLabels" . | nindent 4 }}
 {{- end }}
+
 ---
-{{- if .Values.node.enabled }}
 {{- $values := .Values }}
 {{- range $i, $e := until (int .Values.node.replicaCount)}}
 apiVersion: v1
@@ -89,9 +89,8 @@ spec:
     statefulset.kubernetes.io/pod-name: {{ include "node.name" $ }}-{{ $i }}
 ---
 {{- end }}
-{{- end }}
+
 ---
-{{- if .Values.node.enabled }}
 {{- if .Values.node.p2p.external }}
 {{- range $i, $e := until (int .Values.node.replicaCount)}}
 apiVersion: v1
@@ -121,8 +120,7 @@ spec:
 ---
 {{- end }}
 {{- end }}
-{{- end }}
-{{- if .Values.node.enabled }}
+
 {{- if .Values.node.externalSigner }}
 {{- $values := .Values }}
 {{- range $i, $e := until (int .Values.node.replicaCount)}}
@@ -147,8 +145,7 @@ spec:
 ---
 {{- end }}
 {{- end }}
-{{- end }}
-{{- if .Values.node.enabled }}
+
 {{- if .Values.node.metrics.enabled }}
 {{- $values := .Values }}
 {{- range $i, $e := until (int .Values.node.replicaCount)}}
@@ -181,4 +178,6 @@ spec:
 ---
 {{- end }}
 {{- end }}
+
 {{- end }}
+
