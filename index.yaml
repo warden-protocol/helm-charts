@@ -2,6 +2,20 @@ apiVersion: v1
 entries:
   api-signer:
   - apiVersion: v2
+    created: "2024-11-28T12:48:19.417851807Z"
+    description: A Helm chart for deploying Fordefi's API Signer
+    digest: a90b632ab77b9a7c1351e46108f2bbdefab0fb78702baf4574aec82fab0cdeda
+    maintainers:
+    - name: zavertiaev
+      url: https://github.com/zavertiaev
+    - name: mikolajsobolewski
+      url: https://github.com/mikolajsobolewski
+    name: api-signer
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/api-signer-0.3.1/api-signer-0.3.1.tgz
+    version: 0.3.1
+  - apiVersion: v2
     created: "2024-11-01T12:44:02.879914752Z"
     description: A Helm chart for deploying Fordefi's API Signer
     digest: d601ef5c1f7434a0b31eb4bdf05ec112ea532fa7c26294097e3c017cbd3b7e57
@@ -61,6 +75,23 @@ entries:
     version: 0.1.0
   aws-pod-eip-controller:
   - apiVersion: v2
+    created: "2024-11-28T12:48:19.591092423Z"
+    description: kubernetes aws-pod-eip-controller
+    digest: 09b43534e973e7a8bf0b4b354f7d08e9f0e8ccbaef86afbe07489802547bbafa
+    home: https://github.com/aws-samples/aws-pod-eip-controller
+    maintainers:
+    - email: joonas@wardenprotocol.org
+      name: jlehtimaki
+      url: https://github.com/jlehtimaki
+    - name: zavertiaev
+      url: https://github.com/zavertiaev
+    - name: mikolajsobolewski
+      url: https://github.com/mikolajsobolewski
+    name: aws-pod-eip-controller
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/aws-pod-eip-controller-0.1.2/aws-pod-eip-controller-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
     created: "2024-11-14T07:52:53.887643846Z"
     description: kubernetes aws-pod-eip-controller
     digest: b81c9c88d589fe0eceb153532125baf8b941b5dab1f6d2ffa6d9ddb7dc2c5408
@@ -83,6 +114,19 @@ entries:
   axelar-node:
   - apiVersion: v2
     appVersion: v1.0.1
+    created: "2024-11-28T12:48:19.731649934Z"
+    description: A chart to deploy axelar-node to Kubernetes
+    digest: 44648254810b5ff6101a35bb33f37112f230a76b9bcd5cd672a33f0670f14aa6
+    maintainers:
+    - name: zavertiaev
+      url: https://github.com/zavertiaev
+    name: axelar-node
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/axelar-node-0.1.1/axelar-node-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: v1.0.1
     created: "2024-11-05T07:10:33.918795617Z"
     description: A chart to deploy axelar-node to Kubernetes
     digest: 22bff4d56f1384b18ea89b001187f560ac395c1d63b80ed44c6ebb33f1ed82ca
@@ -95,6 +139,20 @@ entries:
     - https://github.com/warden-protocol/helm-charts/releases/download/axelar-node-0.1.0/axelar-node-0.1.0.tgz
     version: 0.1.0
   blockchain-listener:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2024-11-28T12:48:19.915940358Z"
+    description: A Helm chart for Kubernetes
+    digest: c3b037640f47bfea8c6819464e0f1aa07f84c74b55dfe58e6d2eaf3a26a190c2
+    maintainers:
+    - name: zavertiaev
+    - name: jlehtimaki
+    - name: mikolajsobolewski
+    name: blockchain-listener
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/blockchain-listener-0.3.3/blockchain-listener-0.3.3.tgz
+    version: 0.3.3
   - apiVersion: v2
     appVersion: latest
     created: "2024-11-14T07:44:12.730935513Z"
@@ -212,6 +270,22 @@ entries:
   discord-faucet:
   - apiVersion: v2
     appVersion: 1.2.0
+    created: "2024-11-28T12:48:20.051035744Z"
+    description: A Helm chart for Discord Faucet
+    digest: 6031f44209783cf1188e422f3535836f6d2c1a7d45be39018bb292d9ce6ed094
+    maintainers:
+    - email: joonas@wardenprotocol.org
+      name: jlehtimaki
+      url: https://github.com/jlehtimaki
+    - name: zavertiaev
+      url: https://github.com/zavertiaev
+    name: discord-faucet
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/discord-faucet-0.4.2/discord-faucet-0.4.2.tgz
+    version: 0.4.2
+  - apiVersion: v2
+    appVersion: 1.2.0
     created: "2024-11-07T11:36:11.0913749Z"
     description: A Helm chart for Discord Faucet
     digest: 365d6b7efbd4a237c898967a578ec0c848eb2284e3b4c1f915e1aab5bb17946c
@@ -301,6 +375,20 @@ entries:
     - https://github.com/warden-protocol/helm-charts/releases/download/discord-faucet-0.1.0/discord-faucet-0.1.0.tgz
     version: 0.1.0
   faucet:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2024-11-28T12:48:20.184356455Z"
+    description: Faucet chart for Kubernetes deployment
+    digest: c8db87984a563decc02d6e0b20ed4090d6cd9c6d2dcc3eee188c071375c1c4df
+    maintainers:
+    - name: zavertiaev
+    - name: jlehtimaki
+    - name: mikolajsobolewski
+    name: faucet
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/faucet-0.4.1/faucet-0.4.1.tgz
+    version: 0.4.1
   - apiVersion: v2
     appVersion: latest
     created: "2024-11-11T14:38:57.580407362Z"
@@ -466,6 +554,20 @@ entries:
   hermes-relayer:
   - apiVersion: v2
     appVersion: 1.8.2
+    created: "2024-11-28T12:48:20.311267586Z"
+    description: A Helm chart for Kubernetes
+    digest: 2f1756a55f5e393a3f2dd3e36701bd49c4eed1a538ee0a7be3a20f3a267d7171
+    maintainers:
+    - name: zavertiaev
+    - name: jlehtimaki
+    - name: mikolajsobolewski
+    name: hermes-relayer
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/hermes-relayer-0.3.2/hermes-relayer-0.3.2.tgz
+    version: 0.3.2
+  - apiVersion: v2
+    appVersion: 1.8.2
     created: "2024-11-07T11:36:11.21963941Z"
     description: A Helm chart for Kubernetes
     digest: fcfab94f3354a40efd3801b8f9afcb0a9923dbb7584c2773b9c960ad7c18e8cf
@@ -541,6 +643,20 @@ entries:
     - https://github.com/warden-protocol/helm-charts/releases/download/hermes-relayer-0.1.0/hermes-relayer-0.1.0.tgz
     version: 0.1.0
   horcrux:
+  - apiVersion: v2
+    appVersion: v3.3.1
+    created: "2024-11-28T12:48:20.436731934Z"
+    description: A chart to deploy Horcrux to Kubernetes
+    digest: 2fc9c7c85036ac1460428945d58c64e52e646c9c22ce360b5e6851e36e20811e
+    maintainers:
+    - email: joonas@wardenprotocol.org
+      name: jlehtimaki
+      url: https://github.com/jlehtimaki
+    name: horcrux
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/horcrux-0.5.3/horcrux-0.5.3.tgz
+    version: 0.5.3
   - apiVersion: v2
     appVersion: v3.3.1
     created: "2024-11-15T11:16:47.796321681Z"
@@ -698,6 +814,20 @@ entries:
   landing:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-11-28T12:48:20.565148675Z"
+    description: A Helm chart for Kubernetes
+    digest: 98b2a337d0d344d3ceef8a4510f6697da53e8944209ebcfa8a22d3e78c935c64
+    maintainers:
+    - name: zavertiaev
+    - name: jlehtimaki
+    - name: mikolajsobolewski
+    name: landing
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/landing-0.5.2/landing-0.5.2.tgz
+    version: 0.5.2
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-11-14T07:43:12.653226714Z"
     description: A Helm chart for Kubernetes
     digest: 88b226bd7cb2a49a4189d75ea39c23728030100a961b1b57c75cd206a0f29fe1
@@ -833,6 +963,18 @@ entries:
   landing-webhook:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-11-28T12:48:20.691615475Z"
+    description: A Helm chart for Kubernetes
+    digest: c2fa1ab3508771356dcadeb89b1df1d4dd4112398a9296932979c943fdba5b63
+    maintainers:
+    - name: zavertiaev
+    name: landing-webhook
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/landing-webhook-0.2.2/landing-webhook-0.2.2.tgz
+    version: 0.2.2
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-11-06T07:21:54.412379731Z"
     description: A Helm chart for Kubernetes
     digest: ae8690daaf64d7e3f62b5deefd5c75b7f3ec89c6a85f6ec77ea4154c36dd2cde
@@ -880,6 +1022,20 @@ entries:
     - https://github.com/warden-protocol/helm-charts/releases/download/landing-webhook-0.1.0/landing-webhook-0.1.0.tgz
     version: 0.1.0
   main:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2024-11-28T12:48:20.83380146Z"
+    description: A Helm chart for Kubernetes
+    digest: e5aa04ef7092da0ec8c27f465a3e36f8fc43f6bf222208b072297da71914a04b
+    maintainers:
+    - name: zavertiaev
+    - name: jlehtimaki
+    - name: mikolajsobolewski
+    name: main
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/main-0.7.1/main-0.7.1.tgz
+    version: 0.7.1
   - apiVersion: v2
     appVersion: latest
     created: "2024-11-26T13:18:53.026047887Z"
@@ -1029,6 +1185,20 @@ entries:
   message-handler:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-11-28T12:48:20.942677066Z"
+    description: A Helm chart for Kubernetes
+    digest: 1074c5baa26d325ac430565f4977fa326b6ec918c9559e16447cf3df40d62dfe
+    maintainers:
+    - name: zavertiaev
+    - name: jlehtimaki
+    - name: mikolajsobolewski
+    name: message-handler
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/message-handler-0.4.3/message-handler-0.4.3.tgz
+    version: 0.4.3
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-11-14T07:55:48.080876375Z"
     description: A Helm chart for Kubernetes
     digest: 145c28a6178a01da18017f8e8a3b767dd3eecf05a2e63c7b05ebe14a93c0b623
@@ -1154,6 +1324,24 @@ entries:
   phoenixbot:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-11-28T12:48:21.071036224Z"
+    description: A Helm chart for Kubernetes
+    digest: c7680bd8fc3e8ce11df1d2ea1251065be73dade56c2402142664980956c2ff1d
+    maintainers:
+    - email: joonas@wardenprotocol.org
+      name: jlehtimaki
+      url: https://github.com/jlehtimaki
+    - name: zavertiaev
+      url: https://github.com/zavertiaev
+    - name: mikolajsobolewski
+      url: https://github.com/mikolajsobolewski
+    name: phoenixbot
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/phoenixbot-0.1.1/phoenixbot-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-05-31T06:58:03.062444746Z"
     description: A Helm chart for Kubernetes
     digest: 237ea9eaf4550856e7bbce0d747c7f9df70c4c99db31cafc49146fb3c3e4b59d
@@ -1163,6 +1351,19 @@ entries:
     - https://github.com/warden-protocol/helm-charts/releases/download/phoenixbot-0.1.0/phoenixbot-0.1.0.tgz
     version: 0.1.0
   prometheus-rules:
+  - apiVersion: v2
+    created: "2024-11-28T12:48:21.21666033Z"
+    description: A Helm chart for defining PrometheusRule alerts
+    digest: 1477d80adb9cf901855107c23cd3850bb2bf20d8d64946737688a477e30d8bd1
+    maintainers:
+    - email: joonas@wardenprotocol.org
+      name: jlehtimaki
+      url: https://github.com/jlehtimaki
+    name: prometheus-rules
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/prometheus-rules-1.0.1/prometheus-rules-1.0.1.tgz
+    version: 1.0.1
   - apiVersion: v2
     created: "2024-06-10T11:16:44.811550685Z"
     description: A Helm chart for defining PrometheusRule alerts
@@ -1177,6 +1378,18 @@ entries:
     - https://github.com/warden-protocol/helm-charts/releases/download/prometheus-rules-1.0.0/prometheus-rules-1.0.0.tgz
     version: 1.0.0
   snapshots:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2024-11-28T12:48:21.385976523Z"
+    description: A Helm chart for Kubernetes
+    digest: 8a4f21532e04d548621c4b0a1ffeb243502f7f726e358214249789618b074f88
+    maintainers:
+    - name: zavertiaev
+    name: snapshots
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/snapshots-0.3.2/snapshots-0.3.2.tgz
+    version: 0.3.2
   - apiVersion: v2
     appVersion: latest
     created: "2024-11-18T07:17:44.29730057Z"
@@ -1328,6 +1541,20 @@ entries:
   spaceward:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-11-28T12:48:21.517013062Z"
+    description: A Helm chart for Kubernetes
+    digest: 7aaf741cdbbd9d3cb9a8a7f99165746424095182dbdf4dfc1c16dcac1e79bdff
+    maintainers:
+    - name: zavertiaev
+    - name: jlehtimaki
+    - name: mikolajsobolewski
+    name: spaceward
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/spaceward-0.3.1/spaceward-0.3.1.tgz
+    version: 0.3.1
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-10-24T07:44:08.822791626Z"
     description: A Helm chart for Kubernetes
     digest: cb82c9bcb850fbf73b60d748f0b7cbdbbd64f8a1574a6508f023854e714f7cd1
@@ -1423,6 +1650,20 @@ entries:
     - https://github.com/warden-protocol/helm-charts/releases/download/spaceward-0.1.0/spaceward-0.1.0.tgz
     version: 0.1.0
   warden-exporter:
+  - apiVersion: v2
+    appVersion: 1.6.1
+    created: "2024-11-28T12:48:21.635099212Z"
+    description: A Helm chart for Warden Exporter
+    digest: 4ded818d845587a18dc1a98f48e7835e5159f0bf19e9998cb6e5c35886623a84
+    maintainers:
+    - email: joonas@wardenprotocol.org
+      name: jlehtimaki
+      url: https://github.com/jlehtimaki
+    name: warden-exporter
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/warden-exporter-0.5.2/warden-exporter-0.5.2.tgz
+    version: 0.5.2
   - apiVersion: v2
     appVersion: 1.6.1
     created: "2024-11-07T11:36:11.588512017Z"
@@ -1524,6 +1765,24 @@ entries:
     - https://github.com/warden-protocol/helm-charts/releases/download/warden-exporter-0.1.0/warden-exporter-0.1.0.tgz
     version: 0.1.0
   wardend:
+  - apiVersion: v2
+    appVersion: v0.5.2
+    created: "2024-11-28T12:48:21.765132523Z"
+    description: A chart to deploy Wardend to Kubernetes
+    digest: 753504e8a35bae5d527e32515159e2ca7cd33a154e651c2b7a98a16b1fdd149b
+    maintainers:
+    - email: joonas@wardenprotocol.org
+      name: jlehtimaki
+      url: https://github.com/jlehtimaki
+    - name: zavertiaev
+      url: https://github.com/zavertiaev
+    - name: mikolajsobolewski
+      url: https://github.com/mikolajsobolewski
+    name: wardend
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/wardend-2.12.1/wardend-2.12.1.tgz
+    version: 2.12.1
   - apiVersion: v2
     appVersion: v0.5.2
     created: "2024-11-18T14:51:53.872017336Z"
@@ -2707,6 +2966,20 @@ entries:
   wardenkms:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-11-28T12:48:21.898591299Z"
+    description: A Helm chart for Kubernetes
+    digest: 6cf48945497d4cad50d9dda617ef136070c350ae470018213c997bb9cdd72000
+    maintainers:
+    - name: zavertiaev
+    - name: jlehtimaki
+    - name: mikolajsobolewski
+    name: wardenkms
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/wardenkms-0.2.3/wardenkms-0.2.3.tgz
+    version: 0.2.3
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-06-27T10:46:04.738077181Z"
     description: A Helm chart for Kubernetes
     digest: 3f7ab2d8460da85ca66b25a8902f5b6bb0433587079856d6ba00e30dae8ba6af
@@ -2788,6 +3061,20 @@ entries:
     - https://github.com/warden-protocol/helm-charts/releases/download/wardenkms-0.1.0/wardenkms-0.1.0.tgz
     version: 0.1.0
   webhooks:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2024-11-28T12:48:22.026794449Z"
+    description: A Helm chart for Kubernetes
+    digest: dc06a54ea2dc86e7772ec67ec31b32280bf6318db326d17eb96edb3f21742167
+    maintainers:
+    - name: zavertiaev
+    - name: jlehtimaki
+    - name: mikolajsobolewski
+    name: webhooks
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/webhooks-0.4.2/webhooks-0.4.2.tgz
+    version: 0.4.2
   - apiVersion: v2
     appVersion: latest
     created: "2024-11-14T07:48:31.888569131Z"
@@ -2940,4 +3227,4 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/webhooks-0.1.0/webhooks-0.1.0.tgz
     version: 0.1.0
-generated: "2024-11-26T13:18:53.026494178Z"
+generated: "2024-11-28T12:48:22.027553074Z"
