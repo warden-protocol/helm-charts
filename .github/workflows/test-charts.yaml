@@ -20,7 +20,7 @@ jobs:
       - name: Set up Helm
         uses: azure/setup-helm@v4
         with:
-          version: "v3.16.3"
+          version: v3.16.3
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -59,3 +59,29 @@ jobs:
             echo "Running helm unittest for $chart"
             helm unittest -f "$chart/tests/unit/*_test.yaml" "$chart"
           done
+
+      - name: Create kind cluster
+        uses: helm/kind-action@v1.10.0
+        if: steps.list-changed.outputs.changed == 'true'
+
+      - name: Run chart-testing (install)
+        run: >
+          ct install
+          --config ct.yaml
+          --target-branch ${{ github.event.repository.default_branch }}
+          --excluded-charts api-signer
+          --excluded-charts aws-pod-eip-controller
+          --excluded-charts blockchain-listener
+          --excluded-charts discord-faucet
+          --excluded-charts faucet
+          --excluded-charts hermes-relayer
+          --excluded-charts horcrux
+          --excluded-charts landing
+          --excluded-charts landing-webhook
+          --excluded-charts main
+          --excluded-charts message-handler
+          --excluded-charts phoenixbot
+          --excluded-charts snapshots
+          --excluded-charts wardend
+          --excluded-charts wardenkms
+          --excluded-charts webhooks
