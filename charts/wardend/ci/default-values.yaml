@@ -17,4 +17,4 @@ node:
 mnemonic: "vault light develop purse attract impose fringe drill miracle mule hand version donate culture lumber cross fashion note material dawn drum welcome glue stage"
 syncMethod: "snapshot"
 snapshot:
-  url: https://github.com/mikolajsobolewski/snapshots/raw/main/localnet.tar.gz
+  url: https://github.com/warden-protocol/snapshots/raw/main/localnet.tar.gz
