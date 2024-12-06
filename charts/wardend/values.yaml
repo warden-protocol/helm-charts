@@ -18,11 +18,13 @@ serviceAnnotations: {}
 serviceMonitor:
   extraLabels: {}
 
-# scratch / snapshot
+# -- syncmethod scratch or snapshot
 syncMethod: "scratch"
-
+# -- snapshot url if syncMethod is snapshot
 snapshot:
   url: https://github.com/warden-protocol/snapshots/raw/main/devnet.tar.gz
+# -- validator's mnemonic in secret (used in test purposes)
+mnemonic: ""
 
 scratch:
   genesisUrl: ""

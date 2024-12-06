@@ -1,0 +1,20 @@
+---
+imageTag: 'v0.5.4'
+node:
+  moniker: localnet
+  chainId: devnet_12345-1
+  name: node-0
+  metrics:
+    enabled: false
+  mempool:
+    maxTxs: -1
+  grpc:
+    enabled: true
+  ingress:
+    enabled: false
+  oracle:
+    enabled: false
+mnemonic: "vault light develop purse attract impose fringe drill miracle mule hand version donate culture lumber cross fashion note material dawn drum welcome glue stage"
+syncMethod: "snapshot"
+snapshot:
+  url: https://github.com/warden-protocol/snapshots/raw/main/localnet.tar.gz
