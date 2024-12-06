@@ -114,6 +114,19 @@ entries:
   axelar-node:
   - apiVersion: v2
     appVersion: v1.0.1
+    created: "2024-12-06T15:02:07.042503733Z"
+    description: A chart to deploy axelar-node to Kubernetes
+    digest: 42602cf4d8b54b9579167cd1385dd0c31b8990735ca72d01ead89a1a00cd2dfd
+    maintainers:
+    - name: zavertiaev
+      url: https://github.com/zavertiaev
+    name: axelar-node
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/axelar-node-0.1.2/axelar-node-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: v1.0.1
     created: "2024-11-28T12:48:19.731649934Z"
     description: A chart to deploy axelar-node to Kubernetes
     digest: 44648254810b5ff6101a35bb33f37112f230a76b9bcd5cd672a33f0670f14aa6
@@ -1767,6 +1780,24 @@ entries:
   wardend:
   - apiVersion: v2
     appVersion: v0.5.2
+    created: "2024-12-06T15:02:07.186361174Z"
+    description: A chart to deploy Wardend to Kubernetes
+    digest: c26191a39fdf2fbf0612c555e2061cdfcac1e88040569b06bbc4724e08423f8f
+    maintainers:
+    - email: joonas@wardenprotocol.org
+      name: jlehtimaki
+      url: https://github.com/jlehtimaki
+    - name: zavertiaev
+      url: https://github.com/zavertiaev
+    - name: mikolajsobolewski
+      url: https://github.com/mikolajsobolewski
+    name: wardend
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/wardend-2.12.2/wardend-2.12.2.tgz
+    version: 2.12.2
+  - apiVersion: v2
+    appVersion: v0.5.2
     created: "2024-11-28T12:48:21.765132523Z"
     description: A chart to deploy Wardend to Kubernetes
     digest: 753504e8a35bae5d527e32515159e2ca7cd33a154e651c2b7a98a16b1fdd149b
@@ -3227,4 +3258,4 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/webhooks-0.1.0/webhooks-0.1.0.tgz
     version: 0.1.0
-generated: "2024-11-28T12:48:22.027553074Z"
+generated: "2024-12-06T15:02:07.186912783Z"
