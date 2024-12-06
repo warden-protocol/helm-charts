@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "node.name" $ }}-test-connection"
+  labels:
+    {{- include "node.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: curl
+      image: curlimages/curl
+      command: ['curl']
+      args:
+        - --location
+        - --request
+        - GET
+        - '{{ include "node.name" $ }}-0-rpc:26657/status'
+  restartPolicy: Never

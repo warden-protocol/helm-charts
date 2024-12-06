@@ -1,6 +1,6 @@
 # wardend
 
-![Version: 2.12.1](https://img.shields.io/badge/Version-2.12.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.5.2](https://img.shields.io/badge/AppVersion-v0.5.2-informational?style=flat-square)
+![Version: 2.12.2](https://img.shields.io/badge/Version-2.12.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.5.2](https://img.shields.io/badge/AppVersion-v0.5.2-informational?style=flat-square)
 
 A chart to deploy Wardend to Kubernetes
 
@@ -56,6 +56,7 @@ A chart to deploy Wardend to Kubernetes
 | imagePullSecrets | list | `[]` |  |
 | imageTag | string | `"v0.4.2"` |  |
 | keyringBackend | string | `"test"` |  |
+| mnemonic | string | `""` | validator's mnemonic in secret (used in test purposes) |
 | networkPolicy.enabled | bool | `true` |  |
 | networkPolicy.metrics.namespaceSelector | object | `{}` |  |
 | networkPolicy.metrics.podSelector | object | `{}` |  |
@@ -149,8 +150,8 @@ A chart to deploy Wardend to Kubernetes
 | secretManager.serviceAccount.name | string | `""` |  |
 | serviceAnnotations | object | `{}` |  |
 | serviceMonitor.extraLabels | object | `{}` |  |
-| snapshot.url | string | `"https://github.com/warden-protocol/snapshots/raw/main/devnet.tar.gz"` |  |
-| syncMethod | string | `"scratch"` |  |
+| snapshot | object | `{"url":"https://github.com/warden-protocol/snapshots/raw/main/devnet.tar.gz"}` | snapshot url if syncMethod is snapshot |
+| syncMethod | string | `"scratch"` | syncmethod scratch or snapshot |
 | tolerations | list | `[]` |  |
 | topologySpreadConstraints.enabled | bool | `false` |  |
 | topologySpreadConstraints.maxSkew | int | `1` |  |
