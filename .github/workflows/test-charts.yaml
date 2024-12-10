@@ -79,4 +79,5 @@ jobs:
           --excluded-charts message-handler
           --excluded-charts phoenixbot
           --excluded-charts snapshots
+          --excluded-charts wardenkms
           --excluded-charts webhooks
