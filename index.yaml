@@ -390,6 +390,20 @@ entries:
   faucet:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-12-10T16:34:53.123556725Z"
+    description: Faucet chart for Kubernetes deployment
+    digest: 26b8728b411969bc4edb88930d8adbcc425bc6fbcbea369b048a040a71316839
+    maintainers:
+    - name: zavertiaev
+    - name: jlehtimaki
+    - name: mikolajsobolewski
+    name: faucet
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/faucet-0.4.2/faucet-0.4.2.tgz
+    version: 0.4.2
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-11-28T12:48:20.184356455Z"
     description: Faucet chart for Kubernetes deployment
     digest: c8db87984a563decc02d6e0b20ed4090d6cd9c6d2dcc3eee188c071375c1c4df
@@ -565,6 +579,20 @@ entries:
     - https://github.com/warden-protocol/helm-charts/releases/download/faucet-0.1.0/faucet-0.1.0.tgz
     version: 0.1.0
   hermes-relayer:
+  - apiVersion: v2
+    appVersion: 1.8.2
+    created: "2024-12-10T16:34:53.296781509Z"
+    description: A Helm chart for Kubernetes
+    digest: e090ba1203eff4fe4c8ae3864c12a9729e7c367acbf27cbfd7a2b0afa3cf5ffd
+    maintainers:
+    - name: zavertiaev
+    - name: jlehtimaki
+    - name: mikolajsobolewski
+    name: hermes-relayer
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/hermes-relayer-0.3.3/hermes-relayer-0.3.3.tgz
+    version: 0.3.3
   - apiVersion: v2
     appVersion: 1.8.2
     created: "2024-11-28T12:48:20.311267586Z"
@@ -827,6 +855,20 @@ entries:
   landing:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-12-10T16:34:53.483762351Z"
+    description: A Helm chart for Kubernetes
+    digest: 1bee8f323774ebc673e0fa1b21845deb000d1a5ec7444acf915674d5741ab7ac
+    maintainers:
+    - name: zavertiaev
+    - name: jlehtimaki
+    - name: mikolajsobolewski
+    name: landing
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/landing-0.5.3/landing-0.5.3.tgz
+    version: 0.5.3
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-11-28T12:48:20.565148675Z"
     description: A Helm chart for Kubernetes
     digest: 98b2a337d0d344d3ceef8a4510f6697da53e8944209ebcfa8a22d3e78c935c64
@@ -1035,6 +1077,20 @@ entries:
     - https://github.com/warden-protocol/helm-charts/releases/download/landing-webhook-0.1.0/landing-webhook-0.1.0.tgz
     version: 0.1.0
   main:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2024-12-10T16:34:53.648752037Z"
+    description: A Helm chart for Kubernetes
+    digest: 35617551533c119df21d46409300375dde47b15693b726af00d14bf5fb65ec70
+    maintainers:
+    - name: zavertiaev
+    - name: jlehtimaki
+    - name: mikolajsobolewski
+    name: main
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/main-0.7.3/main-0.7.3.tgz
+    version: 0.7.3
   - apiVersion: v2
     appVersion: latest
     created: "2024-11-28T12:48:20.83380146Z"
@@ -1778,6 +1834,24 @@ entries:
     - https://github.com/warden-protocol/helm-charts/releases/download/warden-exporter-0.1.0/warden-exporter-0.1.0.tgz
     version: 0.1.0
   wardend:
+  - apiVersion: v2
+    appVersion: v0.5.2
+    created: "2024-12-10T16:34:53.815823625Z"
+    description: A chart to deploy Wardend to Kubernetes
+    digest: 8f432636feb5326bbdfef17241e4975c206099249a8dbe338fa5faae05532977
+    maintainers:
+    - email: joonas@wardenprotocol.org
+      name: jlehtimaki
+      url: https://github.com/jlehtimaki
+    - name: zavertiaev
+      url: https://github.com/zavertiaev
+    - name: mikolajsobolewski
+      url: https://github.com/mikolajsobolewski
+    name: wardend
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/wardend-2.12.3/wardend-2.12.3.tgz
+    version: 2.12.3
   - apiVersion: v2
     appVersion: v0.5.2
     created: "2024-12-06T15:02:07.186361174Z"
@@ -2997,6 +3071,20 @@ entries:
   wardenkms:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-12-10T16:34:54.002973228Z"
+    description: A Helm chart for Kubernetes
+    digest: 9d66a5f7a6ed6b759fa0cdeb434b08f7b77d3597d9e3a875967ef654d084529a
+    maintainers:
+    - name: zavertiaev
+    - name: jlehtimaki
+    - name: mikolajsobolewski
+    name: wardenkms
+    type: application
+    urls:
+    - https://github.com/warden-protocol/helm-charts/releases/download/wardenkms-0.2.5/wardenkms-0.2.5.tgz
+    version: 0.2.5
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-11-28T12:48:21.898591299Z"
     description: A Helm chart for Kubernetes
     digest: 6cf48945497d4cad50d9dda617ef136070c350ae470018213c997bb9cdd72000
@@ -3258,4 +3346,4 @@ entries:
     urls:
     - https://github.com/warden-protocol/helm-charts/releases/download/webhooks-0.1.0/webhooks-0.1.0.tgz
     version: 0.1.0
-generated: "2024-12-06T15:02:07.186912783Z"
+generated: "2024-12-10T16:34:54.003702928Z"
