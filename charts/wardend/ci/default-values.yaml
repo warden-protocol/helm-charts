@@ -1,5 +1,5 @@
 ---
-imageTag: 'v0.5.4'
+imageTag: latest
 node:
   moniker: localnet
   chainId: devnet_12345-1

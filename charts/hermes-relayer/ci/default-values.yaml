@@ -1,0 +1,4 @@
+image:
+  tag: "1.10.4"
+secretManager:
+  enabled: false

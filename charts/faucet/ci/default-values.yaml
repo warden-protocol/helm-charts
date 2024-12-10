@@ -1,0 +1,8 @@
+imageTag: d7f79f9
+#service:
+#  annotations: {}
+#  type: ClusterIP
+#  enabled: true
+#  ports:
+#    - name: http
+#      port: 8000
