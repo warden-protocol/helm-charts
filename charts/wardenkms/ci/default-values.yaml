@@ -1,0 +1,7 @@
+---
+imageTag: latest
+env:
+  - name: KEYRING_MNEMONIC
+    value: "vault light develop purse attract impose fringe drill miracle mule hand version donate culture lumber cross fashion note material dawn drum welcome glue stage"
+  - name: KEYRING_PASSWORD
+    value: "11111111"
