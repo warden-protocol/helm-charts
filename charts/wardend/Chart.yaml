@@ -5,9 +5,9 @@ description: A chart to deploy Wardend to Kubernetes
 
 type: application
 
-version: 2.12.3
+version: 2.13.0
 
-appVersion: "v0.5.2"
+appVersion: "v0.5.4"
 maintainers:
   - name: jlehtimaki
     email: joonas@wardenprotocol.org

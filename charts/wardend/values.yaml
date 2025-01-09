@@ -73,6 +73,10 @@ node:
   moniker: "mynode"
   minGasPrice: "0award"
   mempool:
+    type: "nop"
+    recheck: true
+    recheckTimeout: "1s"
+    broadcast: true
     size: 5000
     maxTxs: 5000
   securityContext:

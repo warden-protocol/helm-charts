@@ -299,14 +299,14 @@ data:
     #  - "nop"   : nop-mempool (short for no operation; the ABCI app is responsible
     #  for storing, disseminating and proposing txs). "create_empty_blocks=false" is
     #  not supported.
-    type = "flood"
+    type = {{ .Values.node.mempool.type }}
 
     # Recheck (default: true) defines whether CometBFT should recheck the
     # validity for all remaining transaction in the mempool after a block.
     # Since a block affects the application state, some transactions in the
     # mempool may become invalid. If this does not apply to your application,
     # you can disable rechecking.
-    recheck = true
+    recheck = {{ .Values.node.mempool.recheck }}
     
     # recheck_timeout is the time the application has during the rechecking process
     # to return CheckTx responses, once all requests have been sent. Responses that 
@@ -317,14 +317,14 @@ data:
     # average size of the mempool multiplied by the average time it takes the application to validate one
     # transaction. We consider that the ABCI application runs in the same location as the CometBFT binary
     # so that the recheck duration is not affected by network delays when making requests and receiving responses.
-    recheck_timeout = "1s"
+    recheck_timeout = "{{ .Values.node.mempool.recheckTimeout }}"
 
     # Broadcast (default: true) defines whether the mempool should relay
     # transactions to other peers. Setting this to false will stop the mempool
     # from relaying transactions to other peers until they are included in a
     # block. In other words, if Broadcast is disabled, only the peer you send
     # the tx to will see it until it is included in a block.
-    broadcast = true
+    broadcast = {{ .Values.node.mempool.broadcast }}
 
     # WalPath (default: "") configures the location of the Write Ahead Log
     # (WAL) for the mempool. The WAL is disabled by default. To enable, set
