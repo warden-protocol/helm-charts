@@ -204,8 +204,6 @@ spec:
               value: "{{ .Values.cosmovisor.restartAfterUpgrade }}"
             - name: DAEMON_ALLOW_DOWNLOAD_BINARIES
               value: "{{ .Values.cosmovisor.allowDownloadBinaries }}"
-            - name: DAEMON_LOG_BUFFER_SIZE
-              value: "{{ .Values.cosmovisor.logBufferSize }}"
             - name: UNSAFE_SKIP_BACKUP
               value: "{{ .Values.cosmovisor.unsafeSkipBackup }}"
           {{- end }}

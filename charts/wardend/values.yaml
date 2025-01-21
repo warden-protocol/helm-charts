@@ -31,10 +31,9 @@ scratch:
 
 cosmovisor:
   enabled: false
-  version: "v1.5.0"
+  version: "v1.7.0"
   restartAfterUpgrade: true
-  allowDowloadBinaries: true
-  logBufferSize: "512"
+  allowDownloadBinaries: true
   unsafeSkipBackup: true
 
 echo:

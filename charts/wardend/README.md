@@ -1,6 +1,6 @@
 # wardend
 
-![Version: 2.12.3](https://img.shields.io/badge/Version-2.12.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.5.2](https://img.shields.io/badge/AppVersion-v0.5.2-informational?style=flat-square)
+![Version: 2.13.2](https://img.shields.io/badge/Version-2.13.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.5.4](https://img.shields.io/badge/AppVersion-v0.5.4-informational?style=flat-square)
 
 A chart to deploy Wardend to Kubernetes
 
@@ -17,12 +17,11 @@ A chart to deploy Wardend to Kubernetes
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
-| cosmovisor.allowDowloadBinaries | bool | `true` |  |
+| cosmovisor.allowDownloadBinaries | bool | `true` |  |
 | cosmovisor.enabled | bool | `false` |  |
-| cosmovisor.logBufferSize | string | `"512"` |  |
 | cosmovisor.restartAfterUpgrade | bool | `true` |  |
 | cosmovisor.unsafeSkipBackup | bool | `true` |  |
-| cosmovisor.version | string | `"v1.5.0"` |  |
+| cosmovisor.version | string | `"v1.7.0"` |  |
 | debug | string | `"false"` |  |
 | echo.behindThreshold | int | `5` |  |
 | echo.enabled | bool | `false` |  |
@@ -83,8 +82,12 @@ A chart to deploy Wardend to Kubernetes
 | node.livenessProbe.successThreshold | int | `1` |  |
 | node.livenessProbe.timeoutSeconds | int | `3` |  |
 | node.logLevel | string | `"info"` |  |
+| node.mempool.broadcast | bool | `true` |  |
 | node.mempool.maxTxs | int | `5000` |  |
+| node.mempool.recheck | bool | `true` |  |
+| node.mempool.recheckTimeout | string | `"1s"` |  |
 | node.mempool.size | int | `5000` |  |
+| node.mempool.type | string | `"nop"` |  |
 | node.metrics.enabled | bool | `true` |  |
 | node.minGasPrice | string | `"0award"` |  |
 | node.mnemonicSecretName | string | `""` |  |
