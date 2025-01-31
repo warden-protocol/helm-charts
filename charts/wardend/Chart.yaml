@@ -5,7 +5,7 @@ description: A chart to deploy Wardend to Kubernetes
 
 type: application
 
-version: 2.13.2
+version: 2.14.0
 
 appVersion: "v0.5.4"
 maintainers:

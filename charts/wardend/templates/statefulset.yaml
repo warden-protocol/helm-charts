@@ -51,7 +51,11 @@ spec:
         whenUnsatisfiable: {{ .Values.topologySpreadConstraints.whenUnsatisfiable }} 
         labelSelector:
           matchLabels:
+          {{- if .Values.topologySpreadConstraints.matchLabels }}
+            {{- toYaml .Values.topologySpreadConstraints.matchLabels | nindent 12 }}
+          {{- else }}
             {{- include "node.selectorLabels" . | nindent 12 }}
+          {{- end }}
       {{- end }}
       {{- with .Values.podSecurityContext }}
       securityContext:
