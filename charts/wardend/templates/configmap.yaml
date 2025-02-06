@@ -907,6 +907,6 @@ data:
     enabled = {{ .Values.pricepred.enabled }}
 
     # URL used for price prediction handler
-    url = {{ .Values.pricepred.url }}
+    url = "{{ .Values.pricepred.url }}"
 
 {{- end }}
