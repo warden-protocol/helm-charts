@@ -898,4 +898,15 @@ data:
     # Key path defines the key.pem file path for the TLS configuration.
     key-path = ""
 
+    ###############################################################################
+    ###                      Price prediction configuration                     ###
+    ###############################################################################
+    [pricepred]
+
+    # Is price prediction enabled
+    enabled = {{ .Values.pricepred.enabled }}
+
+    # URL used for price prediction handler
+    url = {{ .Values.pricepred.url }}
+
 {{- end }}
