@@ -171,6 +171,10 @@ oracle:
     runAsGroup: 65532
     runAsNonRoot: true
 
+pricepred:
+  enabled: false
+  url: ""
+
 evm:
   rpc: true
   metrics: true
