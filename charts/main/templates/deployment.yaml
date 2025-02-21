@@ -11,6 +11,13 @@ spec:
   selector:
     matchLabels:
       {{- include "main.selectorLabels" . | nindent 6 }}
+  strategy:
+    type: {{ .Values.strategy.type }}
+    {{- if eq .Values.strategy.type "RollingUpdate" }}
+    rollingUpdate:
+      maxUnavailable: {{ .Values.strategy.maxUnavailable }}
+      maxSurge: {{ .Values.strategy.maxSurge }}
+    {{- end }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}

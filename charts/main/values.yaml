@@ -118,6 +118,11 @@ livenessProbe: {}
 readinessProbe: {}
 startupProbe: {}
 
+strategy:
+  type: RollingUpdate
+  maxUnavailable: 25%
+  maxSurge: 25%
+
 env: []
 envFrom: []
 
