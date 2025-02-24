@@ -123,6 +123,14 @@ strategy:
   maxUnavailable: 25%
   maxSurge: 25%
 
+pvc:
+  create: false
+  name: ""
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: gp2
+  storageSize: 1Gi
+
 env: []
 envFrom: []
 
