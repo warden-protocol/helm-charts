@@ -124,11 +124,11 @@ strategy:
   maxSurge: 25%
 
 pvc:
-  create: false
+  enabled: false
   name: ""
   accessModes:
     - ReadWriteOnce
-  storageClassName: gp2
+  storageClassName: gp3
   storageSize: 1Gi
 
 env: []
