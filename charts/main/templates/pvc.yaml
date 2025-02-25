@@ -1,18 +1,18 @@
-{{- if .Values.pvc.enabled }}
+{{- if .Values.persistentVolumeClaim.enabled }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ if .Values.pvc.name }}{{ .Values.pvc.name }}{{ else }}{{ include "main.fullname" . }}{{ end }}
+  name: {{ if .Values.persistentVolumeClaim.name }}{{ .Values.persistentVolumeClaim.name }}{{ else }}{{ include "main.fullname" . }}{{ end }}
   labels:
     {{- include "main.labels" . | nindent 4 }}
 spec:
   accessModes:
-    {{- range .Values.pvc.accessModes }}
+    {{- range .Values.persistentVolumeClaim.accessModes }}
     - {{ . }}
     {{- end }}
-  storageClassName: {{ .Values.pvc.storageClassName }}
+  storageClassName: {{ .Values.persistentVolumeClaim.storageClassName }}
   resources:
     requests:
-      storage: {{ .Values.pvc.storageSize }}
+      storage: {{ .Values.persistentVolumeClaim.storageSize }}
 {{- end }}

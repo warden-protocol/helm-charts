@@ -123,7 +123,7 @@ strategy:
   maxUnavailable: 25%
   maxSurge: 25%
 
-pvc:
+persistentVolumeClaim:
   enabled: false
   name: ""
   accessModes:
