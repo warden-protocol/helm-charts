@@ -123,6 +123,14 @@ strategy:
   maxUnavailable: 25%
   maxSurge: 25%
 
+persistentVolumeClaim:
+  enabled: false
+  name: ""
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: gp3
+  storageSize: 1Gi
+
 env: []
 envFrom: []
 
