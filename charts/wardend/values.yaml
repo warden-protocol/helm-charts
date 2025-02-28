@@ -144,6 +144,8 @@ node:
     successThreshold: 1
     timeoutSeconds: 3
 
+persistentVolumeClaimName: ""
+
 nodeSelector: {}
 
 tolerations: []
