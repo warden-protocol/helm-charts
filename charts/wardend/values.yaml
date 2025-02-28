@@ -122,6 +122,7 @@ node:
     enabled: true
   resources: {}
   persistent:
+    prefix: "data"
     size: 10Gi
     class: ""
   ingress:
