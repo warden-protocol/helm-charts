@@ -43,7 +43,8 @@ spec:
                 exit 1
               fi
               replicas=$(kubectl get sts {{ .Values.cronjob.stsName }} -o jsonpath='{.spec.replicas}')
-              pvcname={{ .Values.cronjob.stsName }}-data-{{ .Values.cronjob.stsName }}-$replicas
+              prefix=$(kubectl get sts {{ .Values.cronjob.stsName }} -o jsonpath='{.spec.volumeClaimTemplates[*].metadata.name}')
+              pvcname=$prefix-{{ .Values.cronjob.stsName }}-$replicas
               cat <<EOF | kubectl apply -f -
               apiVersion: batch/v1
               kind: Job
