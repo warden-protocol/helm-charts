@@ -210,6 +210,8 @@ spec:
               value: "{{ .Values.cosmovisor.allowDownloadBinaries }}"
             - name: UNSAFE_SKIP_BACKUP
               value: "{{ .Values.cosmovisor.unsafeSkipBackup }}"
+            - name: PATH
+              value: "{{ .Values.node.home }}/cosmovisor/current/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
           {{- end }}
           {{- if .Values.eipController.enabled }}
             - name: EIP
