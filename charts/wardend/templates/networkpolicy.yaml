@@ -80,11 +80,11 @@ spec:
     - ports:
         - protocol: TCP
           port: 26660
-        {{- if .Values.oracle.metricsEnabled }}
+        {{- if .Values.oracle.metrics.enabled }}
         - protocol: TCP
           port: 8002
         {{- end }}
-        {{- if .Values.evm.metrics }}
+        {{- if .Values.evm.metrics.enabled }}
         - protocol: TCP
           port: 6065
         {{- end }}

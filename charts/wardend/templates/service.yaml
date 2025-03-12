@@ -161,13 +161,13 @@ spec:
       port: 26660
       targetPort: 26660
       protocol: TCP
-    {{- if $values.oracle.metricsEnabled }}
+    {{- if $values.oracle.metrics.enabled }}
     - name: oracle-metrics
       port: 8002
       targetPort: 8002
       protocol: TCP
     {{- end }}
-    {{- if $values.evm.metrics }}
+    {{- if $values.evm.metrics.enabled }}
     - name: evm-metrics
       port: 6065
       targetPort: 6065
