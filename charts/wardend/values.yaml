@@ -17,8 +17,15 @@ podDisruptionBudget:
 serviceAnnotations: {}
 serviceMonitor:
   extraLabels: {}
-  interval: 1m
-  scrapeTimeout: 30s
+  telemetry:
+    interval: 1m
+    scrapeTimeout: 30s
+  oracle:
+    interval: 1m
+    scrapeTimeout: 30s
+  evm:
+    interval: 1m
+    scrapeTimeout: 30s
 
 # -- syncmethod scratch or snapshot
 syncMethod: "scratch"

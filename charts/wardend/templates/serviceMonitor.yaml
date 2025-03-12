@@ -18,19 +18,19 @@ spec:
   endpoints:
     - port: telemetry
       path: /metrics
-      interval: {{ $values.serviceMonitor.interval }}
-      scrapeTimeout: {{ $values.serviceMonitor.scrapeTimeout }}
+      interval: {{ $values.serviceMonitor.telemetry.interval }}
+      scrapeTimeout: {{ $values.serviceMonitor.telemetry.scrapeTimeout }}
     {{- if $values.oracle.metricsEnabled }}
     - port: oracle-metrics
       path: /metrics
-      interval: {{ $values.serviceMonitor.interval }}
-      scrapeTimeout: {{ $values.serviceMonitor.scrapeTimeout }}
+      interval: {{ $values.serviceMonitor.oracle.interval }}
+      scrapeTimeout: {{ $values.serviceMonitor.oracle.scrapeTimeout }}
     {{- end }}
     {{- if $values.evm.metrics }}
     - port: evm-metrics
       path: /debug/metrics/prometheus
-      interval: {{ $values.serviceMonitor.interval }}
-      scrapeTimeout: {{ $values.serviceMonitor.scrapeTimeout }}
+      interval: {{ $values.serviceMonitor.evm.interval }}
+      scrapeTimeout: {{ $values.serviceMonitor.evm.scrapeTimeout }}
     {{- end }}
 ---
 {{- end}}
