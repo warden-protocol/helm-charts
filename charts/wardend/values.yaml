@@ -120,6 +120,10 @@ node:
     pruningInterval: "0"
   metrics:
     enabled: true
+    serviceMonitor:
+      enabled: true
+      interval: 1m
+      scrapeTimeout: 30s
   resources: {}
   persistent:
     prefix: "data"
@@ -164,7 +168,12 @@ oracle:
   enabled: false
   image: ghcr.io/skip-mev/slinky-sidecar
   imageTag: v1.0.12
-  metricsEnabled: false
+  metrics:
+    enabled: false
+    serviceMonitor:
+      enabled: true
+      interval: 1m
+      scrapeTimeout: 30s
   priceTTL: 10s
   interval: 5s
   securityContext:
@@ -178,7 +187,12 @@ pricepred:
 
 evm:
   rpc: true
-  metrics: true
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+      interval: 1m
+      scrapeTimeout: 30s
   api: "eth,net,web3"
   gasCap: "25000000"
   allowInsecureUnlock: true

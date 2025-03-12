@@ -16,21 +16,23 @@ spec:
     matchLabels:
         statefulset.kubernetes.io/pod-name: {{ include "node.name" $ }}-{{ $i }}
   endpoints:
+    {{- if $values.node.metrics.serviceMonitor.enabled }}
     - port: telemetry
       path: /metrics
-      interval: 1m
-      scrapeTimeout: 30s
-    {{- if $values.oracle.metricsEnabled }}
+      interval: {{ $values.node.metrics.serviceMonitor.interval }}
+      scrapeTimeout: {{ $values.node.metrics.serviceMonitor.scrapeTimeout }}
+    {{- end }}
+    {{- if and $values.oracle.metrics.enabled $values.oracle.metrics.serviceMonitor.enabled }}
     - port: oracle-metrics
       path: /metrics
-      interval: 1m
-      scrapeTimeout: 30s
+      interval: {{ $values.oracle.metrics.serviceMonitor.interval }}
+      scrapeTimeout: {{ $values.oracle.metrics.serviceMonitor.scrapeTimeout }}
     {{- end }}
-    {{- if $values.evm.metrics }}
+    {{- if and $values.evm.metrics.enabled $values.evm.metrics.serviceMonitor.enabled }}
     - port: evm-metrics
       path: /debug/metrics/prometheus
-      interval: 1m
-      scrapeTimeout: 30s
+      interval: {{ $values.evm.metrics.serviceMonitor.interval }}
+      scrapeTimeout: {{ $values.evm.metrics.serviceMonitor.scrapeTimeout }}
     {{- end }}
 ---
 {{- end}}

@@ -783,7 +783,7 @@ data:
     # MetricsEnabled determines whether oracle metrics are enabled. Specifically
     # this enables instrumentation of the oracle client and the interaction between
     # the oracle and the app.
-    metrics_enabled = {{ .Values.oracle.metricsEnabled }}
+    metrics_enabled = {{ .Values.oracle.metrics.enabled }}
 
     # PriceTTL is the maximum age of the latest price response before it is considered stale. 
     # The recommended max age is 10 seconds (10s). If this is greater than 1 minute (1m), the app
@@ -877,7 +877,7 @@ data:
 
     # MetricsAddress defines the EVM Metrics server address to bind to. Pass --metrics in CLI to enable
     # Prometheus metrics path: /debug/metrics/prometheus
-    {{- if .Values.evm.metrics }}
+    {{- if .Values.evm.metrics.enabled }}
     metrics-address = "0.0.0.0:6065"
     {{- else }}
     metrics-address = "127.0.0.1:6065"

@@ -190,7 +190,7 @@ spec:
             - /usr/bin/wardend
             - start
           {{- end }}
-          {{- if .Values.evm.metrics }}
+          {{- if .Values.evm.metrics.enabled }}
             - --metrics
           {{- end }}
           {{- else }}
@@ -262,7 +262,7 @@ spec:
               containerPort: 8546
               protocol: TCP
             {{- end }}
-            {{- if .Values.evm.metrics }}
+            {{- if .Values.evm.metrics.enabled }}
             - name: evm-metrics
               containerPort: 6065
               protocol: TCP
@@ -333,7 +333,7 @@ spec:
             - name: oracle
               containerPort: 8080
               protocol: TCP
-            {{- if .Values.oracle.metricsEnabled }}
+            {{- if .Values.oracle.metrics.enabled }}
             - name: oracle-metrics
               containerPort: 8002
               protocol: TCP

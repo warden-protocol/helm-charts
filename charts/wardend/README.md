@@ -1,6 +1,6 @@
 # wardend
 
-![Version: 2.13.2](https://img.shields.io/badge/Version-2.13.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.5.4](https://img.shields.io/badge/AppVersion-v0.5.4-informational?style=flat-square)
+![Version: 2.18.0](https://img.shields.io/badge/Version-2.18.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.6.2](https://img.shields.io/badge/AppVersion-v0.6.2-informational?style=flat-square)
 
 A chart to deploy Wardend to Kubernetes
 
@@ -47,7 +47,10 @@ A chart to deploy Wardend to Kubernetes
 | evm.httpTimeout | string | `"30s"` |  |
 | evm.logsCap | int | `10000` |  |
 | evm.maxOpenConnections | int | `10` |  |
-| evm.metrics | bool | `true` |  |
+| evm.metrics.enabled | bool | `true` |  |
+| evm.metrics.serviceMonitor.enabled | bool | `true` |  |
+| evm.metrics.serviceMonitor.interval | string | `"1m"` |  |
+| evm.metrics.serviceMonitor.scrapeTimeout | string | `"30s"` |  |
 | evm.rpc | bool | `true` |  |
 | evm.txfeeCap | int | `1` |  |
 | image | string | `"ghcr.io/warden-protocol/wardenprotocol/wardend"` |  |
@@ -89,6 +92,9 @@ A chart to deploy Wardend to Kubernetes
 | node.mempool.size | int | `5000` |  |
 | node.mempool.type | string | `"nop"` |  |
 | node.metrics.enabled | bool | `true` |  |
+| node.metrics.serviceMonitor.enabled | bool | `true` |  |
+| node.metrics.serviceMonitor.interval | string | `"1m"` |  |
+| node.metrics.serviceMonitor.scrapeTimeout | string | `"30s"` |  |
 | node.minGasPrice | string | `"0award"` |  |
 | node.mnemonicSecretName | string | `""` |  |
 | node.moniker | string | `"mynode"` |  |
@@ -111,6 +117,7 @@ A chart to deploy Wardend to Kubernetes
 | node.p2p.serviceLoadBalancerClass | string | `"service.k8s.aws/nlb"` |  |
 | node.p2p.trafficPolicy | string | `"Cluster"` |  |
 | node.persistent.class | string | `""` |  |
+| node.persistent.prefix | string | `"data"` |  |
 | node.persistent.size | string | `"10Gi"` |  |
 | node.pruning.mode | string | `"default"` |  |
 | node.pruning.pruningInterval | string | `"0"` |  |
@@ -134,7 +141,10 @@ A chart to deploy Wardend to Kubernetes
 | oracle.image | string | `"ghcr.io/skip-mev/slinky-sidecar"` |  |
 | oracle.imageTag | string | `"v1.0.12"` |  |
 | oracle.interval | string | `"5s"` |  |
-| oracle.metricsEnabled | bool | `false` |  |
+| oracle.metrics.enabled | bool | `false` |  |
+| oracle.metrics.serviceMonitor.enabled | bool | `true` |  |
+| oracle.metrics.serviceMonitor.interval | string | `"1m"` |  |
+| oracle.metrics.serviceMonitor.scrapeTimeout | string | `"30s"` |  |
 | oracle.priceTTL | string | `"10s"` |  |
 | oracle.securityContext.runAsGroup | int | `65532` |  |
 | oracle.securityContext.runAsNonRoot | bool | `true` |  |
@@ -145,6 +155,8 @@ A chart to deploy Wardend to Kubernetes
 | podDisruptionBudget.maxUnavailable | string | `""` |  |
 | podDisruptionBudget.minAvailable | string | `""` |  |
 | podSecurityContext.fsGroup | int | `1000` |  |
+| pricepred.enabled | bool | `false` |  |
+| pricepred.url | string | `""` |  |
 | scratch.genesisUrl | string | `""` |  |
 | secretManager.enabled | bool | `false` |  |
 | secretManager.secrets | list | `[]` |  |
@@ -157,6 +169,7 @@ A chart to deploy Wardend to Kubernetes
 | syncMethod | string | `"scratch"` | syncmethod scratch or snapshot |
 | tolerations | list | `[]` |  |
 | topologySpreadConstraints.enabled | bool | `false` |  |
+| topologySpreadConstraints.matchLabels | object | `{}` |  |
 | topologySpreadConstraints.maxSkew | int | `1` |  |
 | topologySpreadConstraints.topologyKey | string | `"kubernetes.io/hostname"` |  |
 | topologySpreadConstraints.whenUnsatisfiable | string | `"DoNotSchedule"` |  |
