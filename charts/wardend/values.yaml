@@ -187,7 +187,7 @@ pricepred:
 
 evm:
   rpc: true
-  metrics: 
+  metrics:
     enabled: true
     serviceMonitor:
       enabled: true
