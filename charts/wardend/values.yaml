@@ -45,6 +45,21 @@ echo:
   behindThreshold: 5
   endpoints: "http://localhost:26657"
   peers: ""
+  livenessProbe:
+    path: /health
+    port: health
+    initialDelaySeconds: 10
+    failureThreshold: 3
+    periodSeconds: 3
+    successThreshold: 1
+    timeoutSeconds: 3
+  startupProbe:
+    failureThreshold: 300
+    periodSeconds: 2
+    initialDelaySeconds: 1
+    path: /health
+    port: health
+
 
 topologySpreadConstraints:
   enabled: false
