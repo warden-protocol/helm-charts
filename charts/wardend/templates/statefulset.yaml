@@ -357,18 +357,21 @@ spec:
               value: "{{ .Values.echo.peers }}"
             {{- end }}
           startupProbe:
-            failureThreshold: 300
-            periodSeconds: 2
-            initialDelaySeconds: 1
+            failureThreshold: {{ .Values.echo.startupProbe.failureThreshold }}
+            periodSeconds: {{ .Values.echo.startupProbe.periodSeconds }}
+            initialDelaySeconds: {{ .Values.echo.startupProbe.initialDelaySeconds }}
             httpGet:
-              path: /health
-              port: health
+              path: {{ .Values.echo.startupProbe.path }}
+              port: {{ .Values.echo.startupProbe.port }}
           livenessProbe:
-            failureThreshold: 1
-            initialDelaySeconds: 10
+            failureThreshold: {{ .Values.echo.livenessProbe.failureThreshold }}
+            initialDelaySeconds: {{ .Values.echo.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.echo.livenessProbe.periodSeconds }}
+            successThreshold: {{ .Values.echo.livenessProbe.successThreshold }}
+            timeoutSeconds: {{ .Values.echo.livenessProbe.timeoutSeconds }}
             httpGet:
-              path: /health
-              port: health
+              path: {{ .Values.echo.livenessProbe.path }}
+              port: {{ .Values.echo.livenessProbe.port }}
         {{- end }}
       volumes:
         {{- if .Values.eipController.check }}
