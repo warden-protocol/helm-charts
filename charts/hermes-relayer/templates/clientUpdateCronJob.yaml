@@ -5,7 +5,7 @@ metadata:
   name: {{ include "hermes-relayer.fullname" . }}
   namespace: {{ include "hermes-relayer.namespace" . }} 
   labels:
-    {{- include "hermes-relayer.labels" . | nindent 4}}
+    {{- include "hermes-relayer.labels" . | nindent 4 }}
 spec:
   jobTemplate:
     metadata:
@@ -52,7 +52,7 @@ spec:
                   path: config.toml
           initContainers:
             - name: init-chain-1
-              image: "{{.Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion}}"
+              image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
               args: [
                 'keys',
                 'add',
@@ -63,21 +63,21 @@ spec:
               ]
               volumeMounts:
                 - name: keys
-                  mountPath: "/home/hermes/.hermes/keys"
+                  mountPath: "/.hermes/keys"
                 - name: configfile
-                  mountPath: "/home/hermes/.hermes/"
-                {{- if .Values.secretManager.enabled }}
+                  mountPath: "/.hermes/"
+              {{- if .Values.secretManager.enabled }}
                 - name: secrets
                   mountPath: "/etc/mnemonic/mnemonic"
                   subPath: chain1
                   readOnly: true
-                {{- else }}
+              {{- else }}
                 - name: chain1mnenomic
                   readOnly: true
                   mountPath: "/etc/mnemonic"
-                {{- end }}
+              {{- end }}
             - name: init-chain-2
-              image: "{{.Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion}}"
+              image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
               args: [
                 'keys',
                 'add',
@@ -88,23 +88,23 @@ spec:
               ]
               volumeMounts:
                 - name: keys
-                  mountPath: "/home/hermes/.hermes/keys"
+                  mountPath: "/.hermes/keys"
                 - name: configfile
-                  mountPath: "/home/hermes/.hermes/"
-                {{- if .Values.secretManager.enabled }}
+                  mountPath: "/.hermes/"
+              {{- if .Values.secretManager.enabled }}
                 - name: secrets
                   mountPath: "/etc/mnemonic/mnemonic"
                   subPath: chain2
                   readOnly: true
-                {{- else }}
+              {{- else }}
                 - name: chain2mnenomic
                   readOnly: true
                   mountPath: "/etc/mnemonic"
-                {{- end }}
+              {{- end }}
           containers:
             - name: update-client-chain-1
-              image: "{{.Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion}}"
-              imagePullPolicy: {{.Values.image.pullPolicy}}
+              image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
               args: [
                 "update",
                 "client",
@@ -121,12 +121,12 @@ spec:
                 {{- toYaml .Values.resources | nindent 16 }}
               volumeMounts:
               - name: keys
-                mountPath: /home/hermes/.hermes/keys
+                mountPath: /.hermes/keys
               - name: configfile
-                mountPath: "/home/hermes/.hermes/"
+                mountPath: "/.hermes/"
             - name: update-client-chain-2
-              image: "{{.Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion}}"
-              imagePullPolicy: {{.Values.image.pullPolicy}}
+              image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
               args: [
                 "update",
                 "client",
@@ -143,9 +143,9 @@ spec:
                 {{- toYaml .Values.resources | nindent 16 }}
               volumeMounts:
               - name: keys
-                mountPath: /home/hermes/.hermes/keys
+                mountPath: /.hermes/keys
               - name: configfile
-                mountPath: "/home/hermes/.hermes/"
+                mountPath: "/.hermes/"
           {{- with .Values.nodeSelector }}
           nodeSelector:
             {{- toYaml . | nindent 12 }}

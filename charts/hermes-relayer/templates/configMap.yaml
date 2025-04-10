@@ -5,4 +5,4 @@ metadata:
   name: {{ .Release.Name }}-configmap
 data:
   config.toml: |
-{{.Values.relayer.config |indent 4}}
+{{ .Values.relayer.config |indent 4 }}
