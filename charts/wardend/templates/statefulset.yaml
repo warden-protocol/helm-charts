@@ -93,10 +93,6 @@ spec:
             - name: GENESIS_URL
               value: "{{ .Values.scratch.genesisUrl }}"
             {{- end}}
-          {{- with .Values.envFrom }}
-          envFrom:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
           volumeMounts:
             - name: scripts
               mountPath: /scripts
@@ -199,6 +195,10 @@ spec:
           {{- end }}
           {{- else }}
           command: ["sleep","36000"]
+          {{- end }}
+          {{- with .Values.envFrom }}
+          envFrom:
+            {{- toYaml . | nindent 12 }}
           {{- end }}
           env:
           {{- with .Values.env }}
