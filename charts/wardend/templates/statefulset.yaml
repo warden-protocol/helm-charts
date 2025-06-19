@@ -179,22 +179,21 @@ spec:
           securityContext:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+          command:
+            - /bin/sh
+            - -c
+            - |
           {{- if .Values.node.ready }}
+          {{- if and .Values.secretManager.enabled .Values.secretManager.envSecrets }}
+              eval "$(cat /etc/env/* | sed 's/^/export /')"
+          {{- end }}
           {{- if .Values.cosmovisor.enabled }}
-          command: 
-            - {{ .Values.node.home }}/cosmovisor/bin/cosmovisor
-            - run
-            - start
+              exec {{ .Values.node.home }}/cosmovisor/bin/cosmovisor run start --metrics
           {{- else }}
-          command: 
-            - /usr/bin/wardend
-            - start
-          {{- end }}
-          {{- if .Values.evm.metrics.enabled }}
-            - --metrics
+              exec /usr/bin/wardend start --metrics
           {{- end }}
           {{- else }}
-          command: ["sleep","36000"]
+              sleep 36000
           {{- end }}
           {{- with .Values.envFrom }}
           envFrom:
@@ -317,6 +316,11 @@ spec:
             {{- end }}
             {{- end }}
             {{- end }}
+            {{- if and .Values.secretManager.enabled .Values.secretManager.envSecrets }}
+            - name: secrets-env
+              mountPath: /etc/env
+              readOnly: true
+            {{- end }}
             {{- if .Values.node.genesisSecretName }}
             - name: genesis
               mountPath: {{ .Values.node.home }}/config/genesis.json
@@ -409,6 +413,14 @@ spec:
             readOnly: true
             volumeAttributes:
               secretProviderClass: {{ .Release.Name }}-{{ .Values.node.name }}
+        {{- if .Values.secretManager.envSecrets }}
+        - name: secrets-env
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: {{ .Release.Name }}-{{ .Values.node.name }}-env
+        {{- end }}
         {{- else }}
         {{- if .Values.node.nodeKeysSecretName }}
         - name: {{ include "node.name" . }}-keys

@@ -179,6 +179,7 @@ secretManager:
     name: ""
     annotations: {}
   secrets: []
+  envSecrets: []
 
 oracle:
   enabled: false
