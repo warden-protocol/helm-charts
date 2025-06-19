@@ -73,6 +73,7 @@ eipController:
   check: false
 
 env: []
+envFrom: []
 
 node:
   enabled: true
