@@ -909,4 +909,54 @@ data:
     # URL used for price prediction handler
     url = "{{ .Values.pricepred.url }}"
 
+    ###############################################################################
+    ###                      HTTP configuration                                 ###
+    ###############################################################################
+    [http]
+
+    # Is HTTP plugin enabled
+    enabled = "true"
+
+    # URLs used for HTTP plugin
+    urls = ["https://api.coingecko.com"]
+
+    # Timeout in seconds for the HTTP client
+    timeout_sec = 5
+
+    ###############################################################################
+    ###                      Quantkit configuration                               ###
+    ###############################################################################
+    [quantkit]
+
+    # Is QuantKit plugin enabled
+    enabled = false
+
+    # API Key used when making Quantkit API requests
+    api-key = ""
+
+    # API URL used when making Quantkit API requests
+    api-url = ""
+
+    ###############################################################################
+    ###                      Venice configuration                               ###
+    ###############################################################################
+    [venice]
+
+    # Is Venice plugin enabled
+    enabled = "false"
+
+    # API Key used when making Venice API requests
+    api-key = ""
+
+    ###############################################################################
+    ###                       VeniceImg  configuration                          ###
+    ###############################################################################
+    [veniceimg]
+
+    # Is VeniceImg plugin enabled
+    enabled = "false"
+
+    # API Key used when making VeniceImg API requests
+    api-key = ""
+
 {{- end }}
