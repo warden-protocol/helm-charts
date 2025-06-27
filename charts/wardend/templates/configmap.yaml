@@ -809,6 +809,10 @@ data:
     # MaxTxGasWanted defines the gas wanted for each eth tx returned in ante handler in check tx mode.
     max-tx-gas-wanted = 0
 
+    cache-preimage = false
+
+    evm-chain-id = {{ .Values.evm.chainId }}
+
     ###############################################################################
     ###                           JSON RPC Configuration                        ###
     ###############################################################################

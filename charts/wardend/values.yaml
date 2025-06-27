@@ -203,6 +203,7 @@ pricepred:
   url: ""
 
 evm:
+  chainId: 12345
   rpc: true
   metrics:
     enabled: true
