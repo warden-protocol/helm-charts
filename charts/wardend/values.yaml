@@ -198,9 +198,20 @@ oracle:
     runAsGroup: 65532
     runAsNonRoot: true
 
-pricepred:
-  enabled: false
-  url: ""
+plugins:
+  pricepred:
+    enabled: false
+    url: ""
+  quantkit:
+    enabled: false
+    key: ""
+    url: ""
+  venice:
+    enabled: false
+    key: ""
+  veniceimg:
+    enabled: false
+    key: ""
 
 evm:
   chainId: 12345
