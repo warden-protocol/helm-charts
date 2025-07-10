@@ -908,10 +908,10 @@ data:
     [pricepred]
 
     # Is price prediction enabled
-    enabled = {{ .Values.pricepred.enabled }}
+    enabled = {{ .Values.plugins.pricepred.enabled }}
 
     # URL used for price prediction handler
-    url = "{{ .Values.pricepred.url }}"
+    url = "{{ .Values.plugins.pricepred.url }}"
 
     ###############################################################################
     ###                      HTTP configuration                                 ###
@@ -933,13 +933,13 @@ data:
     [quantkit]
 
     # Is QuantKit plugin enabled
-    enabled = false
+    enabled = {{ .Values.plugins.quantkit.enabled }}
 
     # API Key used when making Quantkit API requests
-    api-key = ""
+    api-key = "{{ .Values.plugins.quantkit.key }}"
 
     # API URL used when making Quantkit API requests
-    api-url = ""
+    api-url = "{{ .Values.plugins.quantkit.url }}"
 
     ###############################################################################
     ###                      Venice configuration                               ###
@@ -947,10 +947,10 @@ data:
     [venice]
 
     # Is Venice plugin enabled
-    enabled = "false"
+    enabled = {{ .Values.plugins.venice.enabled }}
 
     # API Key used when making Venice API requests
-    api-key = ""
+    api-key = "{{ .Values.plugins.venice.key }}"
 
     ###############################################################################
     ###                       VeniceImg  configuration                          ###
@@ -958,9 +958,9 @@ data:
     [veniceimg]
 
     # Is VeniceImg plugin enabled
-    enabled = "false"
+    enabled = {{ .Values.plugins.veniceimg.enabled }}
 
     # API Key used when making VeniceImg API requests
-    api-key = ""
+    api-key = "{{ .Values.plugins.veniceimg.key }}"
 
 {{- end }}
