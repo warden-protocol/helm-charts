@@ -3,7 +3,7 @@ apiVersion: v2
 name: warden-exporter
 description: A Helm chart for Warden Exporter
 type: application
-version: 0.5.3
+version: 0.5.4
 appVersion: 1.13.0
 maintainers:
   - name: jlehtimaki
