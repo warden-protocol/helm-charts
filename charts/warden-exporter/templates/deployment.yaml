@@ -45,7 +45,9 @@ spec:
               readOnly: true
           {{- end }}
           env:
-            {{- include "warden-exporter.renderEnv" .Values.env | nindent 12 }}
+          {{- with .Values.env }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           {{- with .Values.envFrom }}
           envFrom:
             {{- toYaml . | nindent 12 }}
